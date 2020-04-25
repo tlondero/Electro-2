@@ -12,7 +12,7 @@
 		(A.+) node[ground](g1){}
 		(A.down) -- ++ (-0.5,0) node[ocirc, label=north:$V^{-}$](){}    
 		(A.up) -- ++ (0.5,0) node[ocirc, label=north:$V^{+}$](){}
-		(A.-) -- ++ (0,-1) node[ocirc](aux1){}
+		(A.-) -- ++ (0,-2) node[ocirc](aux1){}
 		(A.out) -- ++ (0,1) node[ocirc](aux2){}
 		;
 	
@@ -24,7 +24,7 @@
 		
 	%Fuentes
 	\draw
-		(aux3.south) to[battery2, l_=$V^{+}$] ++ (0,-2) node[](aux4){} to[battery2, l_=$V^{-}$] ++ (0,-2) node[](aux5){}
+		(aux3.south) to[battery2, l_=$V^{+}$] ++ (0,-2.5) node[](aux4){} to[battery2, l_=$V^{-}$] ++ (0,-2.5) node[](aux5){}
 		(aux4.center) -- ++ (1,0) node[ground](){}
 		;
 		
@@ -37,22 +37,34 @@
 		
 	%Transistor de paso
 	\draw[color = olive]
-		(aux2.east) -| ++ (4,-1) node[npn, anchor = C, label=right:$Q_5$](Q5){}
-		(Q5.B) node[npn, anchor = E, label=right:$Q_4$](Q4){}
-		(Q4.C) |- (aux2.east)
+		(aux2.east) -| ++ (5,0) node[npn, anchor = C, label=right:$Q_4$](Q4){}
 		(Q4.C) -| (Q4.B)
+		(Q4.E) node[npn, anchor = B, label=right:$Q_5$](Q5){}
+		(Q5.C) |- (Q4.C)
+		(Q5.B) -- (Q4.E)		
 		(Q5.E) -- ++ (0,-1) node[ocirc](aux7){}
 		(Q4.E) to[R, l=$R_4$] ++(0,-1.5) |- (aux7.west)		
+		(Q4.B) -- ++ (-1,0) node[ocirc](aux8){}
+		(aux7.west) ++ (-0.75,0) -- ++ (-0.75,0) node[ocirc](aux10){}		
 		;
 		
 	%Circuito de detección (Realimentador)
 	\draw[color = purple]
-		(aux1.east) to[R, l=$R_8$] ++ (3,0) -| (aux7.south)
+		(aux1.east) to[R, l=$R_8$] ++ (1.75,0) node[ocirc](aux9){}
+		;
+
+	%Circuito de protección
+	\draw[color = pink]
+		(aux8.south) node[npn, anchor = C, label=right:$Q_1$](Q1){}
+		(aux9.north) to[R, l=$R_1$] ++(0,3) |- (Q1.B)
+		(aux9.south) to[R, l=$R_2$] ++(0,-2) node[ground](){}
+		(Q1.E) to[R, l=$R_3$] ++ (0,-3) |- (aux9.east)
+		(Q1.E) -| (aux10.north)
 		;
 		
 	%Carga
 	\draw[color = brown]
-		(aux7.east) -- ++ (1,0) to[R, l=$R_L$] ++ (0,-2) node[ground](){}
+		(aux7.south) to[R, l=$R_L$] ++ (0,-2) node[ground](){}
 		;
 		
 \end{circuitikz}
