@@ -1,0 +1,61 @@
+\input{Header-Stda.tex}
+
+\begin{document}
+
+%Circuito
+\begin{page}
+\begin{circuitikz}[european voltages]
+
+	%Amplificador error
+	\node[color = blue] [op amp, rotate=90, yscale=-1](A){};
+	\draw[color = blue]
+		(A.+) node[ground](g1){}
+		(A.down) -- ++ (-0.5,0) node[ocirc, label=north:$V^{-}$](){}    
+		(A.up) -- ++ (0.5,0) node[ocirc, label=north:$V^{+}$](){}
+		(A.-) -- ++ (0,-1) node[ocirc](aux1){}
+		(A.out) -- ++ (0,1) node[ocirc](aux2){}
+		;
+	
+	%Pre-regulador
+	\draw[color = orange]
+		(aux2.west) -- ++(-2,0) node[pnp, anchor = C, rotate=90, label=$Q_3$](Q3){}
+		(Q3.E) to[R, l_=$R_7$] ++ (-3,0) -- ++ (0,-1.5) node[ocirc](aux3){} to[D] ++(1.5,0) to[D] ++ (1.5,0) -| (Q3.B) to[R, l=$R_6$] ++ (0,-3) node[ground](){}
+		;
+		
+	%Fuentes
+	\draw
+		(aux3.south) to[battery2, l_=$V^{+}$] ++ (0,-2) node[](aux4){} to[battery2, l_=$V^{-}$] ++ (0,-2) node[](aux5){}
+		(aux4.center) -- ++ (1,0) node[ground](){}
+		;
+		
+	%Elemento de referencia
+	\draw[color = red]
+		(aux5) node[ocirc](){}
+		(aux5) to[R, l=$R_{10}$] ++ (4,0) node[](aux6){} to[R, l=$R_{9}$] ++ (2,0) -| (aux1.south)
+		(aux6.center) to[zzDo] ++ (0,-1.5) node[ground](){}
+		;
+		
+	%Transistor de paso
+	\draw[color = olive]
+		(aux2.east) -| ++ (4,-1) node[npn, anchor = C, label=right:$Q_5$](Q5){}
+		(Q5.B) node[npn, anchor = E, label=right:$Q_4$](Q4){}
+		(Q4.C) |- (aux2.east)
+		(Q4.C) -| (Q4.B)
+		(Q5.E) -- ++ (0,-1) node[ocirc](aux7){}
+		(Q4.E) to[R, l=$R_4$] ++(0,-1.5) |- (aux7.west)		
+		;
+		
+	%Circuito de detección (Realimentador)
+	\draw[color = purple]
+		(aux1.east) to[R, l=$R_8$] ++ (3,0) -| (aux7.south)
+		;
+		
+	%Carga
+	\draw[color = brown]
+		(aux7.east) -- ++ (1,0) to[R, l=$R_L$] ++ (0,-2) node[ground](){}
+		;
+		
+\end{circuitikz}
+\end{page}
+
+\end{document}

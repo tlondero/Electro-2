@@ -2,6 +2,14 @@
 
 \begin{document}
 
-\subsection{Introducción}
+En la siguiente sección, se busca elaborar una fuente regulada de tensión que cumpla con una salida que varíe entre $0 \ V$ y $9 \ V$, con una corriente de salida máxima de $2.5 \ A$. Dado que la tensión mínima debe ser nula, se implementó un regulador serie que utiliza un lazo de realimentación negativa que muestrea tensión y suma corriente, siendo así el circuito resultante el presentado a continuación.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth, page=1]{ImagenesEjercicio2/Regulador.pdf}
+	\caption{Circuito regulador de tensión.}
+	\label{fig:circuito1}
+\end{figure}
+
+En la Figura (\ref{fig:circuito1}) se puede observar en distintos colores las diferentes etapas del sistema, siendo \textcolor{blue}{en azul el amplificador error}, \textcolor{orange}{en naranja el pre-regulador}, \textcolor{olive}{en verde el transistor de paso}, \textcolor{red}{en rojo el elemento de referencia} y \textcolor{purple}{en violeta el circuito de detección}.
 
 \end{document}
