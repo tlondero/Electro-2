@@ -1,0 +1,17 @@
+\input{Header-Stda.tex}
+
+\begin{document}
+
+%Circuito
+\begin{page}
+\begin{circuitikz}[european voltages]
+
+	\node [ground](){};
+	\draw
+		(0,0) to[I, l=$W_{opamp}$] ++ (0,1.5) node[circ, label=$110 \ ^o C$](){} to[R, l=$R_{\theta j-a}$] ++ (4,0) to[battery2, l=$40 \ ^o C$] ++(0,-1.5)  node[ground](){}
+	;
+		
+\end{circuitikz}
+\end{page}
+
+\end{document}
