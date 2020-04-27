@@ -35,14 +35,21 @@ El cual puede ser separado en 5 bloques fundamentales.
 La teoría de la realimentación negativa plantea que dado un sistema a lazo cerrado ideal con un número impar de inversiones de fase, la respuesta en frecuencia de este puede aproximarse como la inversa de la respuesta en frecuencia del lazo de realimentación si la ganancia a lazo abierto es mucho mayor a la unidad, es decir
 
 \begin{equation}
-H_{closed loop} = \frac{\Alfa}{1+ f \cdot \Alfa} = \frac{1}{f} \frac{|\Tau|}{1 + |\Tau|}
+H_{closed loop} = \frac{A }{1+ f \cdot A} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
 \end{equation}
 
-donde $\Alfa$ es la respuesta a lazo abierto, $f$ la respuesta del lazo realimentador y $\Tau$ es la ganancia de lazo. Se puede observar que si la ganancia de lazo es mucho mayor a la unidad en módulo, entonces se tiene que 
+donde $A$ es la respuesta a lazo abierto, $f$ la respuesta del lazo realimentador y $T$ es la ganancia de lazo. Se puede observar que si la ganancia de lazo es mucho mayor a la unidad en módulo, entonces se tiene que 
 
 \begin{equation}
 H_{closed loop} \approx \frac{1}{f}
 \end{equation}
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.5\textwidth, page=4]{ImagenesEjercicio2/Regulador.pdf}
+	\caption{Lazo de realimentación negativa.}
+	\label{fig:circuitolineal}
+\end{figure}
 
 En el circuito realizado puede observarse un lazo de realimentación negativa el cual posee una inversión de fase producida por el amplificador operacional detallado en la Figura (\ref{fig:circuito_lazo}). También es de 
 
