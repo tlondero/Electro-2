@@ -67,19 +67,21 @@
 %FOLDBACK
 \begin{page}
 \begin{circuitikz}[european voltages]
-	\node [circ](aux1){};
+	\node [circ, label=$V_A$](aux1){};
 	\draw
-		to[R, l=$R_A$] ++ (2,0) node[circ](aux3){} -- ++(0,-1.225) node[npn, anchor=E, yscale=-1, label=right:$T_P$](tp){}
+		to[R, l=$R_A$] ++ (2,0) node[circ, label=$V_O$](aux3){} -- ++(0,-1.225) node[npn, anchor=E, yscale=-1, label=right:$T_P$](tp){}
 		(aux1) -- ++ (-1,0) node[npn, anchor=E, rotate=90, label=$T_1$](t1){}
-		(aux1) to[R, l_=$R_B$] ++ (0,-2) node[circ](aux2){} to[R, l_=$R_C$] ++ (0,-1.5
+		(aux1) to[R, l_=$R_B$] ++ (0,-2) node[circ, label=left:$V_B$](aux2){} to[R, l_=$R_C$] ++ (0,-1.5
 ) node[ground](){}
 		(tp.B) -- (aux2)
 		(t1.B) -- ++ (0,-4) -| (tp.C)
+		(aux2) ++ (1,1) node[](malla){}
 		;
 	\draw[dashed]
 		(t1.C) -- ++ (-1,0)
 		(aux3.center) -- ++ (1,0)
 		;
+	\draw[->,shift={(malla)}] (210:.7cm) arc (210:-30:.7cm) node at(0,0){};
 \end{circuitikz}
 \end{page}
 
