@@ -68,7 +68,13 @@ La protección de Foldback es una variación de la lineal, la cual cuenta con 2 
 \end{figure}
 Si se desea resolver para $I_{o-Max}$ bastará con recorrer la malla:
 \begin{align}
--I_{o-Max} \cdot R_a + V_{be} + V_a-V_b
+-I_{o-Max} \cdot R_a + V_{be} - (V_b-V_a)=0
+\end{align}
+\begin{align}
+V_b=V_a \cdot \frac{R_c}{R_c+R_b}
+\end{align}
+\begin{align}
+-I_{o-Max} \cdot R_a + V_{be} + V_a \cdot (1-\frac{R_c}{R_c+R_b})=0
 \end{align}
 \subsection{Análisis de Componentes}
 \subsubsection{Amplificador Operacional}
