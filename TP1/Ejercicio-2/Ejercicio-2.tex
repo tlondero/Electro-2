@@ -35,13 +35,13 @@ El cual puede ser separado en 5 bloques fundamentales.
 La teoría de la realimentación negativa plantea que dado un sistema a lazo cerrado ideal con un número impar de inversiones de fase, la respuesta en frecuencia de este puede aproximarse como la inversa de la respuesta en frecuencia del lazo de realimentación si la ganancia a lazo abierto es mucho mayor a la unidad, es decir
 
 \begin{equation}
-H_{closed loop} = \frac{A }{1+ f \cdot A} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
+H = \frac{A }{1+ f \cdot A} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
 \end{equation}
 
 donde $A$ es la respuesta a lazo abierto, $f$ la respuesta del lazo realimentador y $T$ es la ganancia de lazo. Se puede observar que si la ganancia de lazo es mucho mayor a la unidad en módulo, entonces se tiene que 
 
 \begin{equation}
-H_{closed loop} \approx \frac{1}{f}
+H \approx \frac{1}{f}
 \end{equation}
 
 \begin{figure}[H]
@@ -51,7 +51,33 @@ H_{closed loop} \approx \frac{1}{f}
 	\label{fig:circuitolineal}
 \end{figure}
 
-En el circuito realizado puede observarse un lazo de realimentación negativa el cual posee una inversión de fase producida por el amplificador operacional detallado en la Figura (\ref{fig:circuito_lazo}). También es de 
+En el circuito realizado puede observarse un lazo de realimentación negativa el cual posee una inversión de fase producida por el amplificador operacional detallado en la Figura (\ref{fig:circuito_lazo}). También son de observar varias cosas: 
+
+\begin{itemize}
+\item Por tierra virtual el opamp trabajará para mantener la tensión nula en su terminal negativo.
+\item El diodo zener consumirá la corriente necesaria para mantener la caída de tensión sobre este fija.
+\item El lazo de realimentación tratará de fijar una tensión a la salida de la fuente regulada.
+\end{itemize}
+
+Teniendo estas cosas en cuenta, es de notar que la fuente realiza un muestreo de tensión a la salida de la fuente mediante la resistencia $R_1$, la cual inyectará una corriente proporcional a la tensión muestreada a la salida, realizándose una suma de corrientes en el nodo del terminal negativo del amplificador operacional, siendo la referencia la corriente fija proporcionada por la resistencia $R_2$.
+
+En resumidas cuentas, el parámetro estabilizado del sistema será
+
+\begin{equation}
+PE = \frac{V_o}{I_g} = \frac{V_o \cdot R_2}{V_z} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
+\end{equation}
+
+Luego, se puede demostrar que la ganancia $f$ se puede aproximar como la razón entre el parámetro que se suma en el lazo y el parámetro que se muestrea cuando la tensión en el nodo del terminal negativo del opamp es cero, obteniendo
+
+\begin{equation}
+f \approx -\frac{1}{R_1}
+\end{equation}
+
+Si se considera que la ganancia de lazo en módulo es mucho mayor que la unidad dado que se utiliza un opamp como amplificador, se obtiene finalmente que
+
+\begin{equation}
+V_o = V_z \cdot -\frac{R_2}{R_1}
+\end{equation}
 
 \subsubsection{Bloques del Regulador}
 \subsubsection{Elemento de Referencia}
@@ -68,7 +94,7 @@ El transistor de paso se encarga de llevar a cabo las correcciones detectadas po
 teniendo a $Q_2$ y $Q_3$ siendo transistores de potencia.
 La función de $R_5$ será obtener una corriente de colector de $Q_1$ razonable.
 \subsection{Protección por Corto-circuito}
-Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no sufra un daño irreversible. 
+Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no explote. (escribi eso en no mono tomi por favor c:) 
 Para la protección de cortocircuito se evaluaron 2 alternativas:
 \subsubsection{Protección lineal}
 La implementación de una protección lineal resulta ser la mas sencilla debido a la facilidad de cálculo y que utiliza pocos componentes, como se ve a continuación:
@@ -87,7 +113,6 @@ Si bien la protección lineal es de sencilla implementación cuenta con la sigui
 	\caption{Característica de la Protección lineal.}
 	\label{fig:circuitolinealcarac}
 \end{figure}
-Donde $I_{max}$ corresponde a la máxima corriente que uno define para el circuito e $I_{damage}$ es la corriente bajo la cual el circuito sufrirá un daño irreversible.
 Se puede notar que en el  peor caso ($V_o = 0$) sería máxima tanto la corriente de salída como la caida de potencail sobre el transistor de paso, haciendo que por consecuente sea máxima la disipación de potencia sobre este, lo cual es un problema.
 \subsubsection{Protección foldback}
 La protección de Foldback es una variación de la lineal, la cual cuenta con 2 resistencias adicionales conectadas de la siguiente manera:
@@ -99,42 +124,8 @@ La protección de Foldback es una variación de la lineal, la cual cuenta con 2 
 \end{figure}
 Si se desea resolver para $I_{o-Max}$ bastará con recorrer la malla:
 \begin{align}
--I_{o-Max} \cdot R_a + V_{be} - (V_b-V_a)=0
+-I_{o-Max} \cdot R_a + V_{be} + V_a-V_b
 \end{align}
-\begin{align}
-V_b=V_a \cdot \frac{R_c}{R_c+R_b}
-\end{align}
-\begin{align}
--I_{o-Max} \cdot R_a + V_{be} + V_a \cdot (1-\frac{R_c}{R_c+R_b})=0
-\end{align}
-\begin{align}
--I_{o-Max} \cdot R_a + V_{be} + (I_{o-Max} \cdot R_a +V_o) \cdot \frac{R_b}{R_c+R_b}=0
-\end{align}
-lo cual despejando para $I_{o-Max}$ queda:
-\begin{align}
-I_{o-Max}=  \frac{V_o \cdot R_b + V_{be}\cdot (R_b+R_c)}{R_a \cdot R_c}
-\label{eq:Imaxfoldback}
-\end{align}
-De aquí se puede ver que la corriente caerá en función de la tensión de salida hasta establecerse en una corriente fija para la carga nula denominada $I_{sc}$ la tiene un valor de.
-\begin{align}
-I_{sc} = V_{be} \cdot \frac{R_b+R_c}{R_a \cdot R_c}
-\end{align}
-Luego graficando la curva se obtiene:
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/foldbackLineal.png}
-	\caption{Característica de la Protección foldback.}
-	\label{fig:circuitofoldbackcarac}
-\end{figure}
-Se puede apreciar también la razón de su nombre dado que la curva de la corriente se ``dobla'' sobre si misma.
-Si bien armar esta fuente resulta en una mayor cantidad de componentes, el hecho de que reduzca la corriente de paso al tener una carga nula, y que por ello reduzca la potencia consumida es un factor no menor. por esta razón esta fue la protección elegida a utilizar.
-Solo a modo ilustrativo se grafica ambas curvas de las protecciones.
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/foldback.png}
-	\caption{Característica de la Protección foldback y lineal.}
-	\label{fig:circuitofoldbacklinealcarac}
-\end{figure}
 \subsection{Análisis de Componentes}
 \subsubsection{Amplificador Operacional}
 En la elección del amplificador operacional, se tuvieron en cuenta diversos componentes, como se ve a continuación en el siguiente cuadro comparativo:

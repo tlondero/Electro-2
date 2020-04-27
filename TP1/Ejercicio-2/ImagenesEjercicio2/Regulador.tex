@@ -159,9 +159,16 @@
 	%Carga
 	\draw
 		(aux6.south) to[R, l=$R_L$] ++ (0,-2) node[ground](){}
-		;		
+		;
+		
+	\begin{scope}[on background layer, very thick,decoration = {markings}, mark = at position 0.05 with {\arrow{>}}] 
+    	\draw[line width = 3pt, green!40, postaction = {decorate}, ->]
+			(A.out) -| (Q1.B) -| (Q1.E) -| (aux6.center) -| (A.-) 	
+    	; 
+    \end{scope}
 \end{circuitikz}
 \end{page}
+
 %darlington
 \begin{page}
 \begin{circuitikz}[european voltages]
