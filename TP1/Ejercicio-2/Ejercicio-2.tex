@@ -60,7 +60,7 @@ En el circuito realizado puede observarse un lazo de realimentación negativa el
 \subsubsection{Transistor de Paso}
 
 \subsection{Protección por Corto-circuito}
-Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no explote. (escribi eso en no mono tomi por favor c:) 
+Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no sufra un daño irreversible. 
 Para la protección de cortocircuito se evaluaron 2 alternativas:
 \subsubsection{Protección lineal}
 La implementación de una protección lineal resulta ser la mas sencilla debido a la facilidad de cálculo y que utiliza pocos componentes, como se ve a continuación:
@@ -79,6 +79,7 @@ Si bien la protección lineal es de sencilla implementación cuenta con la sigui
 	\caption{Característica de la Protección lineal.}
 	\label{fig:circuitolinealcarac}
 \end{figure}
+Donde $I_{max}$ corresponde a la máxima corriente que uno define para el circuito e $I_{damage}$ es la corriente bajo la cual el circuito sufrirá un daño irreversible.
 Se puede notar que en el  peor caso ($V_o = 0$) sería máxima tanto la corriente de salída como la caida de potencail sobre el transistor de paso, haciendo que por consecuente sea máxima la disipación de potencia sobre este, lo cual es un problema.
 \subsubsection{Protección foldback}
 La protección de Foldback es una variación de la lineal, la cual cuenta con 2 resistencias adicionales conectadas de la siguiente manera:
@@ -90,8 +91,42 @@ La protección de Foldback es una variación de la lineal, la cual cuenta con 2 
 \end{figure}
 Si se desea resolver para $I_{o-Max}$ bastará con recorrer la malla:
 \begin{align}
--I_{o-Max} \cdot R_a + V_{be} + V_a-V_b
+-I_{o-Max} \cdot R_a + V_{be} - (V_b-V_a)=0
 \end{align}
+\begin{align}
+V_b=V_a \cdot \frac{R_c}{R_c+R_b}
+\end{align}
+\begin{align}
+-I_{o-Max} \cdot R_a + V_{be} + V_a \cdot (1-\frac{R_c}{R_c+R_b})=0
+\end{align}
+\begin{align}
+-I_{o-Max} \cdot R_a + V_{be} + (I_{o-Max} \cdot R_a +V_o) \cdot \frac{R_b}{R_c+R_b}=0
+\end{align}
+lo cual despejando para $I_{o-Max}$ queda:
+\begin{align}
+I_{o-Max}=  \frac{V_o \cdot R_b + V_{be}\cdot (R_b+R_c)}{R_a \cdot R_c}
+\label{eq:Imaxfoldback}
+\end{align}
+De aquí se puede ver que la corriente caerá en función de la tensión de salida hasta establecerse en una corriente fija para la carga nula denominada $I_{sc}$ la tiene un valor de.
+\begin{align}
+I_{sc} = V_{be} \cdot \frac{R_b+R_c}{R_a \cdot R_c}
+\end{align}
+Luego graficando la curva se obtiene:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/foldbackLineal.png}
+	\caption{Característica de la Protección foldback.}
+	\label{fig:circuitofoldbackcarac}
+\end{figure}
+Se puede apreciar también la razón de su nombre dado que la curva de la corriente se ``dobla'' sobre si misma.
+Si bien armar esta fuente resulta en una mayor cantidad de componentes, el hecho de que reduzca la corriente de paso al tener una carga nula, y que por ello reduzca la potencia consumida es un factor no menor. por esta razón esta fue la protección elegida a utilizar.
+Solo a modo ilustrativo se grafica ambas curvas de las protecciones.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/foldback.png}
+	\caption{Característica de la Protección foldback y lineal.}
+	\label{fig:circuitofoldbacklinealcarac}
+\end{figure}
 \subsection{Análisis de Componentes}
 \subsubsection{Amplificador Operacional}
 \subsubsection{Transistores de Paso}
