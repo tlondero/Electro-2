@@ -38,6 +38,26 @@ El cual puede ser separado en 5 bloques fundamentales.
 \subsubsection{Transistor de Paso}
 
 \subsection{Protección por Corto-circuito}
+Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no explote. (escribi eso en no mono tomi por favor c:) 
+Para la protección de cortocircuito se evaluaron 2 alternativas:
+\subsubsection{Protección lineal}
+La implementación de una protección lineal resulta ser la mas sencilla debido a la facilidad de cálculo y que utiliza pocos componentes, como se ve a continuación:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.8\textwidth, page=3]{ImagenesEjercicio2/Regulador.pdf}
+	\caption{Circuito de Protección lineal.}
+	\label{fig:circuitolineal}
+\end{figure}
+El cálculo para la resistencia $R_a= \frac{V_{be}}{I_{o-Max}}$.
+Si bien la protección lineal es de sencilla implementación cuenta con la siguiente característica:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.8\textwidth, page=3]{ImagenesEjercicio2/Linearprotection.png}
+	\caption{Característica de la Protección lineal.}
+	\label{fig:circuitolinealcarac}
+\end{figure}
+Se puede notar que en el  peor caso ($V_o = 0$) sería máxima tanto la corriente de salída como la caida de potencail sobre el transistor de paso, haciendo que por consecuente sea máxima la disipación de potencia sobre este, lo cual es un problema.
+\subsubsection{Protección foldback}
 
 \subsection{Análisis de Componentes}
 \subsubsection{Amplificador Operacional}
