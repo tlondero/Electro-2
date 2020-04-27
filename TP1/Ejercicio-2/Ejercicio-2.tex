@@ -44,21 +44,32 @@ Para la protección de cortocircuito se evaluaron 2 alternativas:
 La implementación de una protección lineal resulta ser la mas sencilla debido a la facilidad de cálculo y que utiliza pocos componentes, como se ve a continuación:
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, page=3]{ImagenesEjercicio2/Regulador.pdf}
+	\includegraphics[width=0.5\textwidth, page=3]{ImagenesEjercicio2/Regulador.pdf}
 	\caption{Circuito de Protección lineal.}
 	\label{fig:circuitolineal}
 \end{figure}
 El cálculo para la resistencia $R_a= \frac{V_{be}}{I_{o-Max}}$.
+Esta protección limita la corriente de salida del regulador haciendola constante. Esto es asi debido a que el trasistor de proteccion sensa la tensión sobre la resistencai $R_a$ y al superar cierto valor $V_a = R_a \cdot I_{o-Max} $ el transistor pasa a modo activo directo, quitandole corriente de la base al transistor de paso.
 Si bien la protección lineal es de sencilla implementación cuenta con la siguiente característica:
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, page=3]{ImagenesEjercicio2/Linearprotection.png}
+	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/Linearprotection.png}
 	\caption{Característica de la Protección lineal.}
 	\label{fig:circuitolinealcarac}
 \end{figure}
 Se puede notar que en el  peor caso ($V_o = 0$) sería máxima tanto la corriente de salída como la caida de potencail sobre el transistor de paso, haciendo que por consecuente sea máxima la disipación de potencia sobre este, lo cual es un problema.
 \subsubsection{Protección foldback}
-
+La protección de Foldback es una variación de la lineal, la cual cuenta con 2 resistencias adicionales conectadas de la siguiente manera:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.5\textwidth, page=2]{ImagenesEjercicio2/Regulador.pdf}
+	\caption{Circuito de Protección Foldback.}
+	\label{fig:circuitofoldback}
+\end{figure}
+Si se desea resolver para $I_{o-Max}$ bastará con recorrer la malla:
+\begin{align}
+-I_{o-Max} \cdot R_a + V_{be} + V_a-V_b
+\end{align}
 \subsection{Análisis de Componentes}
 \subsubsection{Amplificador Operacional}
 \subsubsection{Transistores de Paso}
