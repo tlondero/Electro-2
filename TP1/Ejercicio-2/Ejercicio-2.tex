@@ -2,6 +2,66 @@
 
 \begin{document}
 
+\tableofcontents
+
+\subsection{Diseño Propuesto}
+\subsubsection{Análisis de realimentación negativa}
+\subsubsection{Bloques del Regulador}
+\subsubsection{Elemento de Referencia}
+\subsubsection{Amplificador de Error y Pre-regulador}
+\subsubsection{Circuito de Detección}
+\subsubsection{Transistor de Paso}
+
+\subsection{Protección por Corto-circuito}
+
+\subsection{Análisis de Componentes}
+\subsubsection{Amplificador Operacional}
+\subsubsection{Transistores de Paso}
+\subsubsection{Componentes de Protección}
+\subsubsection{Diodo de Referencia}
+\subsubsection{Fuentes de Alimentación}
+
+\subsection{Análisis de Potencia}
+\subsubsection{Amplificador Operacional}
+\subsubsection{Transistores}
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/Potencia - Transistor.pdf}
+	\caption{Circuito térmico para el cálculo de disipador del transistor.}
+	\label{fig:circuitopottrans}
+\end{figure}
+
+\begin{equation}
+\frac{T_j - T_a}{R_{\theta jc}+R_{\theta cs}+R_{\theta sa}} = P
+\end{equation}
+
+Asumiendo una temperatura ambiente de $40\degree C$; una temperatura máxima de juntura en funcionamiento de $140\degree C$, $20\degree C$ menor a la especificada por el fabricante; la $R_{\theta jc}$ también especificada, de $3.125\frac{\degree C}{W}$; el uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204\frac{\degree C \cdot inch}{W}$, y área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \frac{\degree C}{W}$; y finalmente una potencia disipada de $9.6W$, levemente mayor a la máxima disipada; se obtiene
+
+\begin{equation}
+R_{\theta sa} = 4.57 \frac{\degree C}{W}
+\end{equation}
+
+\subsubsection{Diodos y Resistencias}
+
+\subsection{Simulaciones}
+\subsubsection{Análisis Transitorio en Regulación}
+\subsubsection{Respuesta en Frecuencia}
+\subsubsection{Curva de Foldback}
+\subsubsection{Potencias}
+
+\subsection{Conclusiones}
+
+
+
+
+
+
+
+
+
+
+
 En la siguiente sección, se busca elaborar una fuente regulada de tensión que cumpla con una salida que varíe entre $0 \ V$ y $9 \ V$, con una corriente de salida máxima de $2.5 \ A$. Dado que la tensión mínima debe ser nula, se implementó un regulador serie que utiliza un lazo de realimentación negativa que muestrea tensión y suma corriente, siendo así el circuito resultante el presentado a continuación.
 \begin{figure}[H]
 \centering
@@ -39,7 +99,7 @@ V_{2min} = 11.65 \ V + 1.5 \ V = 13.15 \ V
 El pre-regulador cumple la función de brindar corriente \textbf{(habría que desarrollar un poco más)}. Para el caso presente, se observa que el amplificador operacional puede llegar hasta temperaturas de $125 \ ^o C$ son problema. Asumiendo una temperatura ambiente de $40 \ ^o C$, la potencia máxima disipada por operacional es de $0.7 \ W$.
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/Potencia.pdf}
+	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/Potencia - Opamp.pdf}
 	\caption{Circuito equivalente de potencias con $R_{\theta a-j} = 103 \ \frac{^o C}{W}$.}
 	\label{fig:circuitopot}
 \end{figure}
