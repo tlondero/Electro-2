@@ -64,7 +64,7 @@ Teniendo estas cosas en cuenta, es de notar que la fuente realiza un muestreo de
 En resumidas cuentas, el parámetro estabilizado del sistema será
 
 \begin{equation}
-PE = \frac{V_o}{I_g} = \frac{V_o \cdot R_2}{V_z} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
+PE = \frac{V_o}{I_N} = -\frac{V_o \cdot R_2}{|V_z|} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
 \end{equation}
 
 Luego, se puede demostrar que la ganancia $f$ se puede aproximar como la razón entre el parámetro que se suma en el lazo y el parámetro que se muestrea cuando la tensión en el nodo del terminal negativo del opamp es cero, obteniendo
@@ -76,7 +76,7 @@ f \approx -\frac{1}{R_1}
 Si se considera que la ganancia de lazo en módulo es mucho mayor que la unidad dado que se utiliza un opamp como amplificador, se obtiene finalmente que
 
 \begin{equation}
-V_o = V_z \cdot -\frac{R_2}{R_1}
+V_o = |V_z| \cdot \frac{R_2}{R_1}
 \end{equation}
 
 \subsubsection{Bloques del Regulador}
