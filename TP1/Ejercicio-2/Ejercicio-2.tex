@@ -4,6 +4,7 @@
 
 \tableofcontents
 \newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Diseño Propuesto}
 
 En la siguiente instancia se realiza una fuente de tensión regulada, la cual se ajusta a las especificaciones de:
@@ -124,6 +125,8 @@ El transistor de paso se encarga de llevar a cabo las correcciones detectadas po
 	\label{fig:transistorDePaso}
 \end{figure}
 siendo $Q_2$ y $Q_3$ transistores de potencia. Por otro lado, la función de $R_5$ es obtener una corriente de colector de $Q_1$ razonable.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Protección por Corto-circuito}
 Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no sufra un daño irreversible. 
 Para la protección de cortocircuito se evaluaron 2 alternativas:
@@ -145,7 +148,7 @@ Si bien la protección lineal es de sencilla implementación cuenta con la sigui
 	\label{fig:circuitolinealcarac}
 \end{figure}
 Donde $I_{max}$ corresponde a la máxima corriente que uno define para el circuito e $I_{damage}$ es la corriente bajo la cual el circuito sufrirá un daño irreversible.\\
-Se puede notar que en el  peor caso ($V_o = 0$) sería máxima tanto la corriente de salída como la caida de potencail sobre el transistor de paso, haciendo que por consecuente sea máxima la disipación de potencia sobre este, lo cual es un problema.
+Se puede notar que en el  peor caso ($V_o = 0$) sería máxima tanto la corriente de salída como la caída de potencial sobre el transistor de paso, haciendo que por consecuente sea máxima la disipación de potencia sobre este, lo cual es un problema.
 \subsubsection{Protección foldback}
 La protección de Foldback es una variación de la lineal, la cual cuenta con 2 resistencias adicionales conectadas de la siguiente manera:
 \begin{figure}[H]
@@ -194,6 +197,7 @@ Solo a modo ilustrativo se grafica ambas curvas de las protecciones.
 	\label{fig:circuitofoldbacklinealcarac}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Análisis de Componentes}
 \subsubsection{Amplificador Operacional}
 En la elección del amplificador operacional, se tuvieron en cuenta diversos componentes, como se ve a continuación en el siguiente cuadro comparativo:
@@ -216,7 +220,11 @@ En la elección del amplificador operacional, se tuvieron en cuenta diversos com
 También es notable que de todos los integrados el \textbf{OP284} es rail to rail, lo cual es de gran utilidad, si se desea obtener un valor de $V_1$ inferior, luego teniendo en cuenta el GBP, las corrientes de bias, la tension de offset, se optó por utilizar el OP284.
 \subsubsection{Transistores de Paso}
 Para la sección de transistor de paso, se eligió utilizar los transistores \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/532914/FAIRCHILD/TIP31C.html}{QTIP41C} que son transistores de potencia, al igual que un \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/2895/MOTOROLA/BC547C.html}{BC547C}, utilizando los TIP41C como el transistor que pasará la mayoría de la corriente y el BC547 como el que recibe la corriente del opamp.
-Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de \textcolor{red}{VER CLASE PETRUCCI} definiendole un valor de $R_5= --\Omega$ 
+Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor se encuentren con un hfe estable.El valor de $R_5$ se obtiene a partir de la siguiente ecuación:
+\begin{align}
+\frac{V_{be}}{R_5}=I_{R5}\approx I_c
+\end{align}
+Para un valor de 13mA corresponderá una resistencia de 56$\Omega$.
 \subsubsection{Componentes de Protección}
 
 Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, así la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó  $R_c$ lo cual definió inequivocamente $R_b$, también para el cálculo de estos valores se tuvo en cuenta que la máxima corriente (2.5A) sería suministrada únicamente cuando se regule a la tensión máxima, y la pendiente de la curva de foldback fue seleccionada para que cuando baje la tensión de regulación aun tenga una corriente de salida máxima apreciable,teniendo en cuenta esto, quedan los valores
@@ -243,10 +251,14 @@ Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del d
 \subsubsection{Resistencia circuito de detección}
 \label{sec:resdet}
 Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:vovz}) basta con definir un valor de $R_1$ tal que $V_o=9V$ dado que la $R_1$ será un potenciómetro con el cual se variará la tensión de regulación.\\ Así queda definido: $R_1= 10K \Omega$ (potenciómetro) y $R_2=6k8\Omega$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Análisis de cargas}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Análisis de Potencia}
+
 \subsubsection{Amplificador Operacional}
+
 \subsubsection{Transistores}
 
 \begin{figure}[H]
@@ -265,15 +277,66 @@ Asumiendo una temperatura ambiente de $40\degree C$; una temperatura máxima de 
 \begin{equation}
 R_{\theta sa} = 4.57 \frac{\degree C}{W}
 \end{equation}
-
 \subsubsection{Diodos y Resistencias}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Simulaciones}
-\subsubsection{Análisis Transitorio en Regulación}
+\subsubsection{Respuesta en régimen transitorio de Regulación}
+La respuesta transitoria del sistema se asemeja a la de un sistema de segundo orden como se observa a continuación:\footnote{Todos los gráficos a continuación fueron realizados con una carga igual a la mínima que el sistema soporta}
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/transresp.png}
+	\caption{Respuesta transitoria.}
+	\label{fig:transitorioFuente}
+\end{figure}
+Es notable señalar, que el sobrepico del sistema alcanza 9.15V, lo cual es un 1.6$\%$ de desvío respecto de la tensión de regulación, y también observar que el tiempo de establecimiento del sistema es aproximadamente 22$\mu$s.\\
+Además se simuló el circuito siendo afectado por ruido, con una frecuencia de 10kHz y una amplitud de 0.5V, estos valores fueron elegidos asi es apreciable la variación  durante el transitorio.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/transrespnoise.png}
+	\caption{Respuesta transitoria con ruido.}
+	\label{fig:transitorioFuentenoise}
+\end{figure}
+Si bien la imagen es realmente similar, esto se debe a la frecuencia del ruido, aun así se puede apreciar una diferencia de las pequeñas oscilaciones generedadas por el ruido en la tensión estabilizada en 9V. En cuanto a los parámetros del transitorio, el máximo sobrepico alcanzado es de 9.15V y el tiempo de establecimiento es de aproximadamente 32$\mu$s.
+\subsubsection{Respuesta en régimen permanente de Regulación}
+En el caso del regiment permantente se verá la capacidad de mantener al tensión regulada en la salida.
+En el caso de que la señal no tenga ruido la tensión regulada será 9V sin ningún tipo de variación.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/permresp.png}
+	\caption{Respuesta en régimen permanente.}
+	\label{fig:permanenteFuente}
+\end{figure}
+Lo cual es perfectamente esperable, ahora veremos como es la respuesta frente a señales con distintos tipos de contaminación.
+Para la primer prueba se vera la señal original, con la adición de una señal senoidal de 10kHz de amplitud 0.5V.
+La salida es la siguiente:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/permrespsine.png}
+	\caption{Respuesta en régimen permanente con ruido senoidal.}
+	\label{fig:permanenteFuentesine}
+\end{figure}
+Se puede ver que el desvío respecto de los 9V es del 0.14$\%$.
+Luego se agregó adicionalmente una señal triangular de frecuencia 50Hz y amplitud unitaria.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/permrespsinetri.png}
+	\caption{Respuesta en régimen permanente con ruido senoidal y triangular.}
+	\label{fig:permanenteFuentesinetri}
+\end{figure}
+Es notable que incluso con estas dos fuentes de ruido, de distinta amplitud y frecuencia el sistema continúa regulando con un desvio no mayor del $0.24\%$.
 \subsubsection{Respuesta en Frecuencia}
 \subsubsection{Curva de Foldback}
+La curva correspondiente al foldback fue simulada y graficada como se ve a continuación:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/curvefoldback.png}
+	\caption{Curva de Foldback.}
+	\label{fig:GraficoFOldbacki}
+\end{figure}
+Se puede apreciar, que la máxima corriente es de 2.5A como fue calculado al igual que el valor de $I_sc$.
 \subsubsection{Potencias}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Conclusiones}
 
 
