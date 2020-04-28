@@ -47,7 +47,7 @@ P.E. \approx \frac{1}{f}
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth]{ImagenesEjercicio2/circuito_lazo.png}
+	\includegraphics[width=0.8\textwidth, page=4]{ImagenesEjercicio2/Regulador.pdf}
 	\caption{Lazo de realimentación negativa.}
 	\label{fig:circuito_lazo}
 \end{figure}
@@ -246,13 +246,7 @@ En la elección del amplificador operacional, se tuvieron en cuenta diversos com
 También es notable que de todos los integrados el \textbf{OP284} es rail to rail, lo cual es de gran utilidad, si se desea obtener un valor de $V_1$ inferior, luego teniendo en cuenta el GBP, las corrientes de bias, la tension de offset, se optó por utilizar el OP284.
 \subsubsection{Transistores de Paso}
 Para la sección de transistor de paso, se eligió utilizar los transistores \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/532914/FAIRCHILD/TIP31C.html}{QTIP41C} que son transistores de potencia, al igual que un \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/2895/MOTOROLA/BC547C.html}{BC547C}, utilizando los TIP41C como el transistor que pasará la mayoría de la corriente y el BC547 como el que recibe la corriente del opamp.
-Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor se encuentren con un hfe estable,esto se puede observar claramente en la datasheet del BC547C del HFE en función de la corriente de colector:
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/hfe547b.png}
-\end{figure}
-Lo que se busca es tener una corriente de colector tal que el hfe se encuentre en la zona azul, sin esta resistencia la corriente de colector probablemente se encontraría en la zona verde, lo cual no corresponde a un hfe estable.\\ 
-El valor de $R_5$ se obtiene a partir de la siguiente ecuación:
+Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor se encuentren con un hfe estable.El valor de $R_5$ se obtiene a partir de la siguiente ecuación:
 \begin{align}
 \frac{V_{be}}{R_5}=I_{R5}\approx I_c
 \end{align}
@@ -275,7 +269,7 @@ Luego el valor de $R_2$ será discutido en la sección (\ref{sec:resdet})
 En la elección de la fuente de alimentación se buscó el $V_{1min}$ tal que el sistema regule, para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
 
 \begin{align}
-V_{1min}=V_{CEsat}+V_{Oreg}+V_{Ra}= 1.4 \ V+9 \ V +1.25 \ V \ =11.65 \ V
+V_{1min}=V_{CEsat}+V_{Oreg}= 1.4 \ V+9 \ V=10.4 \ V
 \end{align}
 Otro punto de interés es la tensión a la salida del operacional, la cual no debe ser mayor a la de alimentación del mismo, para obtener la tensión en este nodo basta con seguir el ciruito y se verá que:
 \begin{align}
@@ -337,7 +331,7 @@ Además se simuló el circuito siendo afectado por ruido, con una frecuencia de 
 Si bien la imagen es realmente similar, esto se debe a la frecuencia del ruido, aun así se puede apreciar una diferencia de las pequeñas oscilaciones generedadas por el ruido en la tensión estabilizada en 9V. En cuanto a los parámetros del transitorio, el máximo sobrepico alcanzado es de 9.15V y el tiempo de establecimiento es de aproximadamente $32 \ \mu s$.
 \subsubsection{Respuesta en régimen permanente de Regulación}
 En el caso del regiment permantente se verá la capacidad de mantener al tensión regulada en la salida.
-En el caso de que la señal no tenga ruido la tensión regulada será 9V sin ningún tipo de variación.
+En el caso de que la señal no tenga ruido la tensión regulada será $9 \ V$ sin ningún tipo de variación.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/permresp.png}
