@@ -377,13 +377,62 @@ La impedancia de salida fue simulada y graficada:
 Se observa que la impedancia de salida es baja para la mayor parte del espectro, no superando nunca los 220$\Omega$.
 \subsubsection{Potencias}
 En esta sección se simularon las curvas de potencias sobre los componentes al variar la carga del circuito.\\
-El  primer componente a analizar es el diodo zener de la referencia, el cual le corresponde la siguiente curva:
+\begin{itemize}
+\item Diodo Zener: 
+Se puede ve que la máxima potencia disipada corresponde a la mínima caraga, dicha potencia es de 37mW lo cual no es un problema para dicho diodo.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potzener.png}
 	\caption{Potencia sobre el zener.}
-	\label{fig:zout}
+	\label{fig:potzener}
 \end{figure}
+\item BC547C Darlington: La máxima potencia es de 330mW lo cual no es un problema para dicho transistor, al igual que la anterior curva se observa un aumento considerable una vez que se activa el foldback, pero aun en la zona de operación tiene una pendiente.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potbc547.png}
+	\caption{Potencia sobre el BC547C del darlington.}
+	\label{fig:potbc547}
+\end{figure}
+\item $R_a$: La potencia máxima disipada corresponde a 3.5W lo cual es esperado dado que es $R_a\cdot I_{max}^2$ 
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potra.png}
+	\caption{Potencia sobre la $R_a$.}
+	\label{fig:potra}
+\end{figure}
+\item TIP31C: La potencia sobre estos transistores de potencia es de 9W, lo cual indica que un disipador debe ser utilizado para su correcto funcionamiento.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/pottip31c.png}
+	\caption{Potencia sobre el TIP31C.}
+	\label{fig:pottip31}
+\end{figure}
+\item BC547 Protección: Se debe notar que el transistor consume nada de potencia, hasta el momento en el cual se activa, alcanzando un limite de 60mW.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potprot.png}
+	\caption{Potencia sobre el BC547C de la protección.}
+	\label{fig:potbc547prot}
+\end{figure}
+\item Operacional: Para el operacional se observa que la máxima potencia corresponde a 330mW para la carga nula, y vale la pena mencionar que al medir la potencia en spice, tambien son consideradas las corrientes de alimentación.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potopamp.png}
+	\caption{Potencia sobre el operacional.}
+	\label{fig:potop}
+\end{figure}
+\item Carga: Se observa que el crecimiento es lineal hasta la activación de la protección y luego sigue la curva del foldback, teniendo una potencia máxima de 22.5W.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potload.png}
+	\caption{Potencia sobre la carga.}
+	\label{fig:potload}
+\end{figure}
+\end{itemize}
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Conclusiones}
 
