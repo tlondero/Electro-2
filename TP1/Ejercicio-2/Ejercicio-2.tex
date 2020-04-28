@@ -100,7 +100,7 @@ El transistor de paso se encarga de llevar a cabo las correcciones detectadas po
 \end{figure}
 siendo $Q_2$ y $Q_3$ transistores de potencia. Por otro lado, la función de $R_5$ es obtener una corriente de colector de $Q_1$ razonable.
 \subsection{Protección por Corto-circuito}
-Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no explote. (escribi eso en no mono tomi por favor c:) 
+Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no sufra un daño irreversible. 
 Para la protección de cortocircuito se evaluaron 2 alternativas:
 \subsubsection{Protección lineal}
 La implementación de una protección lineal resulta ser la mas sencilla debido a la facilidad de cálculo y que utiliza pocos componentes, como se ve a continuación:
@@ -119,6 +119,7 @@ Si bien la protección lineal es de sencilla implementación cuenta con la sigui
 	\caption{Característica de la Protección lineal.}
 	\label{fig:circuitolinealcarac}
 \end{figure}
+Donde $I_{max}$ corresponde a la máxima corriente que uno define para el circuito e $I_{damage}$ es la corriente bajo la cual el circuito sufrirá un daño irreversible.\\
 Se puede notar que en el  peor caso ($V_o = 0$) sería máxima tanto la corriente de salída como la caida de potencail sobre el transistor de paso, haciendo que por consecuente sea máxima la disipación de potencia sobre este, lo cual es un problema.
 \subsubsection{Protección foldback}
 La protección de Foldback es una variación de la lineal, la cual cuenta con 2 resistencias adicionales conectadas de la siguiente manera:
@@ -130,9 +131,14 @@ La protección de Foldback es una variación de la lineal, la cual cuenta con 2 
 \end{figure}
 Si se desea resolver para $I_{o-Max}$ bastará con recorrer la malla:
 \begin{align}
--I_{o-Max} \cdot R_a + V_{be} + V_a-V_b
+-I_{o-Max} \cdot R_a + V_{be} - (V_b-V_a)=0
 \end{align}
-
+\begin{align}
+V_b=V_a \cdot \frac{R_c}{R_c+R_b}
+\end{align}
+\begin{align}
+-I_{o-Max} \cdot R_a + V_{be} + V_a \cdot (1-\frac{R_c}{R_c+R_b})=0
+\end{align}
 \begin{align}
 -I_{o-Max} \cdot R_a + V_{be} + (I_{o-Max} \cdot R_a +V_o) \cdot \frac{R_b}{R_c+R_b}=0
 \end{align}
