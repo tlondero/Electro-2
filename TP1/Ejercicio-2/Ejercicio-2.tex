@@ -80,7 +80,7 @@ V_o = |V_z| \cdot \frac{R_2}{R_1}
 \subsubsection{Amplificador de Error y Pre-regulador}
 \subsubsection{Circuito de Detección}
 \subsubsection{Transistor de Paso}
-El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de corrección y amplificadas por el amplificador de error, así proveyendo de la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un darlington integrado, el cual tendrá una gran ganancia de corriente, pero en este caso se implementara con un darlington discreto, el cual debe soportar una corriente y potencia elevada, en lo cual se profundizará luego en el informe, pero por estas razones se opto por utilizar dos transistores en paralelo para el segundo transistor del darlington con la idea de dividir la carga de la siguiente manera:
+El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de deteccion y amplificadas por el amplificador de error, así proveyendo de la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un darlington integrado, el cual tendrá una gran ganancia de corriente, pero en este caso se implementará con un darlington discreto, el cual debe soportar una corriente y potencia elevada, en lo cual se profundizará luego en el informe, pero por estas razones se opto por utilizar dos transistores en paralelo para el segundo transistor del darlington con la idea de dividir la carga de la siguiente manera:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=5]{ImagenesEjercicio2/Regulador.pdf}
@@ -144,6 +144,7 @@ En la elección del amplificador operacional, se tuvieron en cuenta diversos com
 También es notable que de todos los integrados el \textbf{OP284} es rail to rail, lo cual es de gran utilidad, si se desea obtener un valor de $V_1$ inferior, luego teniendo en cuenta el GBP, las corrientes de bias, la tension de offset, se optó por utilizar el OP284.
 \subsubsection{Transistores de Paso}
 \subsubsection{Componentes de Protección}
+Para la elección de estos 
 \subsubsection{Diodo de Referencia}
 \subsubsection{Fuentes de Alimentación}
 
