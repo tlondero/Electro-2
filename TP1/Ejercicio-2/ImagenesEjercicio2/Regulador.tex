@@ -172,7 +172,19 @@
 	\begin{scope}[on background layer, very thick,decoration = {markings}, mark = at position 0.05 with {\arrow{>}}] 
     	\draw[line width = 3pt, green!40, postaction = {decorate}, ->]
 			(A.out) -| (Q1.B) -| (cacona1.center) -- (cacona2.center) -- (Q1.E) -| (cacona3.center) -- (cacona4.center) -| (aux6.center) -| (A.-) 	
-    	; 
+    	;
+    \end{scope}
+    	
+    \begin{scope}[>=latex,color=orange,thick,text=black]
+		\draw[rounded corners=7pt]
+		(aux1.center) ++ (-0.25,-0.25) arc(-90:90:0.1 and 0.25)
+		(aux1.center) ++ (0.25,-0.25) arc(-90:90:-0.1 and 0.25)
+		(aux1.center) ++ (-0.25,0.4) arc(180:360:0.25 and 0.1)
+		
+		(aux6.center) ++ (-0.25,-0.25) arc(-90:90:0.1 and 0.25)
+		(aux6.center) ++ (0.25,-0.25) arc(-90:90:-0.1 and 0.25)
+		(aux6.center) ++ (-0.25,0.4) arc(180:360:0.25 and 0.1)
+		;
     \end{scope}
 \end{circuitikz}
 \end{page}
