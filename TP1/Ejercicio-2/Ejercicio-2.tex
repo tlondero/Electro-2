@@ -228,9 +228,10 @@ Donde el valor de $I_{sc}$ queda fijo por la ecuación (\ref{eq:Isc}).
 \subsubsection{Diodo de Referencia}
 El diodo zener elegido fue el \href{https://d1d2qsbl8m0m72.cloudfront.net/en/products/databook/datasheet/discrete/diode/zener/bzx84b6v2lt116-e.pdf}{BZX84B6V2L}
 debido a la estabilidad que cuenta para la $V_z$ y su reducida corriente de zener.\\
-Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_z =5.5mA$, sabiendo que $V_z$=6.2$V$  y utilizando la ecuación (\ref{eq:referencia}) se llega a un valor $R_Z=120\Omega$\footnote{El valor de $V_2$ será justificado en la siguiente sección}
-Luego el valor de $R_2$ será discutido en la sección 
+Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_z =5.5mA$, sabiendo que $V_z$=6.2$V$  y utilizando la ecuación (\ref{eq:referencia}) se llega a un valor $R_Z=120\Omega$ siendo adicionalmente el valor de $V_2$ definido en la sección (\ref{sec:fuentes}).
+Luego el valor de $R_2$ será discutido en la sección (\ref{sec:resdet})
 \subsubsection{Fuentes de Alimentación}
+\label{sec:fuentes}
 En la elección de la fuente de alimentación se buscó el $V1_{min}$ tal que el sistema regule, para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
 
 \begin{align}
@@ -239,8 +240,9 @@ V1_{min}=Vce_{sat}+Vo_{reg}= 1.4V+9V=10.4V
 Luego, dado que este es el mínimo absoluto, se dejará cierto margen de error, para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales puedan saturar alguno de los transistores, por lo cual se eligió un valor de $V1=14V$.\\
 Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del diodo elegido, tal que se encuentre polarizado correctamente.
 
-\subsection{Resistencia circuito de detección}
-Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:vovz}) basta con definir un valor de $R_1$ tal que $V_o=9V$ dado que la $R_1$ será un potenciometro con el cual se variará la tensión de regulación.\\ Así queda definido: $R_2= 10K \Omega$ (potenciometro) y $R_1=6k8\Omega$
+\subsubsection{Resistencia circuito de detección}
+\label{sec:resdet}
+Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:vovz}) basta con definir un valor de $R_1$ tal que $V_o=9V$ dado que la $R_1$ será un potenciómetro con el cual se variará la tensión de regulación.\\ Así queda definido: $R_1= 10K \Omega$ (potenciómetro) y $R_2=6k8\Omega$
 
 
 \subsection{Análisis de Potencia}
