@@ -77,6 +77,17 @@ V_o = |V_z| \cdot \frac{R_2}{R_1}
 
 \subsubsection{Bloques del Regulador}
 \subsubsection{Elemento de Referencia}
+El elemento de referencia (o también llamado entrada o generador en un circuito de realimentación negativa) proporciona la tensión de entrada al sistema, la cual comparte nodo con el amplificador error y el circuito de detección, como se mencionó anteriormente.
+
+En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta etapa del sistema s prácticamente independiente del resto del circuito, y además debe ser altamente estable, es por ello que se utiliza $R_Z >Z r_Z$ para evitar variaciones de $V_Z$, es decir, de la tensión de referencia, con respecto a $V^{-}$.
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.5\textwidth, page=6]{ImagenesEjercicio2/Regulador.pdf}
+	\caption{Circuito de transistor de paso.}
+	\label{fig:transistorDePaso}
+\end{figure}
+
 \subsubsection{Amplificador de Error y Pre-regulador}
 \subsubsection{Circuito de Detección}
 \subsubsection{Transistor de Paso}

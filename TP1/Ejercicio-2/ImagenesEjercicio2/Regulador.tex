@@ -169,12 +169,9 @@
 \end{circuitikz}
 \end{page}
 
-%darlington
+%Darlington
 \begin{page}
 \begin{circuitikz}[european voltages]
-
-		
-	%Transistor de paso
 	\draw
 		(aux2.north) ++ (0,2) -- ++ (0,2) node[npn, anchor = B, label=right:$Q_1$](Q1){}
 		(Q1.E) -- ++ (2.15,0) node[npn, anchor = B, label=north:$Q_2$](Q2){}
@@ -193,4 +190,19 @@
 
 \end{circuitikz}
 \end{page}
+
+\begin{page}
+\begin{circuitikz}[european voltages]
+%Elemento de referencia
+	\draw
+		node[](begin){} to[R, l_=$R_2$] ++ (-2,0) node[](aux7){} to[R, l_=$R_Z$] ++ (-2,0) node[](aux8){}
+		(aux7.center) to[zzDo] ++ (0,-1.5) node[ground](){}
+		;
+	\draw[dashed]
+		(begin) -- ++ (1,0)
+		(aux8) -- ++ (-1,0)
+		;
+\end{circuitikz}
+\end{page}
+
 \end{document}
