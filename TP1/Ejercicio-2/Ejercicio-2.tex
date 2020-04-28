@@ -83,7 +83,7 @@ V_o = |V_z| \cdot \frac{R_1}{R_2}
 
 El elemento de referencia (o también llamado entrada o generador en un circuito de realimentación negativa) proporciona la tensión de entrada al sistema, la cual comparte nodo con el amplificador error y el circuito de detección, como se mencionó anteriormente.
 
-En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta etapa del sistema s prácticamente independiente del resto del circuito, y además debe ser altamente estable, es por ello que se utiliza $R_Z >> r_Z$ para evitar variaciones de $V_Z$, es decir, de la tensión de referencia, con respecto a $V^{-}$. Para ello se plantea las ecuaciones propias del nodo $V_Z$: 
+En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta etapa del sistema es prácticamente independiente del resto del circuito, y además debe ser altamente estable, es por ello que se utiliza $R_Z >> r_Z$ para evitar variaciones de $V_Z$, es decir, de la tensión de referencia, con respecto a $V^{-}$. Para ello se plantea las ecuaciones propias del nodo $V_Z$: 
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=6]{ImagenesEjercicio2/Regulador.pdf}
@@ -117,6 +117,7 @@ El circuito de detección está compuesto por la resistencia $R_2$. La caída de
  De esta manera, se genera una resta de corrientes en el nodo del terminal negativo del operacional, siendo estas la corriente suministrada por la $R_2$, la corriente fija suministrada por la $R_1$, y la corriente del terminal negativo del opamp. Denominaremos a esta última corriente como el error de la fuente regulada.
 
 \subsubsection{Amplificador de Error y Pre-regulador}
+\label{sec:amp-error}
 
 \begin{figure}[H]
 \centering
@@ -243,7 +244,7 @@ En la elección del amplificador operacional, se tuvieron en cuenta diversos com
 \end{tabular}
 \caption{Comparación de operacionales.}
 \end{table}
-También es notable que de todos los integrados el \textbf{OP284} es rail to rail, lo cual es de gran utilidad, si se desea obtener un valor de $V_1$ inferior, luego teniendo en cuenta el GBP, las corrientes de bias, la tension de offset, se optó por utilizar el OP284.
+También es notable que de todos los integrados el OP284 es rail to rail, lo cual es de gran utilidad si se desea obtener un valor de $V_1$ inferior, dado que las restricción de $V_1$ mínima por el lado del operacional será más laxa. Luego teniendo en cuenta el GBP, las corrientes de bias, la tension de offset, y lo observado anteriormente se optó por utilizar el OP284. En la Sección (\ref{sec:opamppot}) se analiza la potencia que deberá disipar el operacional.
 \subsubsection{Transistores de Paso}
 Para la sección de transistor de paso, se eligió utilizar los transistores \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/532914/FAIRCHILD/TIP31C.html}{QTIP41C} que son transistores de potencia, al igual que un \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/2895/MOTOROLA/BC547C.html}{BC547C}, utilizando los TIP41C como el transistor que pasará la mayoría de la corriente y el BC547 como el que recibe la corriente del opamp.
 Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor se encuentren con un hfe estable.El valor de $R_5$ se obtiene a partir de la siguiente ecuación:
@@ -281,9 +282,46 @@ Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:
 \subsection{Análisis de cargas}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Análisis de Potencia}
+\subsection{Análisis de Potencias Máximas}
 
 \subsubsection{Amplificador Operacional}
+\label{sec:opamppot}
+
+Como ya analizado en la Sección (\ref{sec:amp-error}), el amplificador operacional OP-284 cumplirá la función de suministrar corriente al transistor de paso. Si bien esta corriente suministrada a la base del transistor es pequeña, análisis en la Sección (\ref{sec:fuentes}) demuestra que la caída de potencial en el opamp es grande. Por esta razón se debe realizar un análisis de potencia disipada para no quemar a este. Para el caso presente, se observa que el \href{https://www.alldatasheet.com/datasheet-pdf/pdf/49039/AD/OP284.html}{OP284} puede llegar hasta temperaturas de operación de $125 \degree C$. Asumiendo una temperatura ambiente de $40 \degree C$, y dejando un margen de seguridad de $15\degree C$ en la temperatura del operacional, se calcula que la potencia máxima disipada por operacional será de $0.7 \ W$.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, page=2]{ImagenesEjercicio2/Potencia.pdf}
+	\caption{Circuito equivalente de potencias con $R_{\theta a-j} = 103 \ \frac{^o C}{W}$.}
+	\label{fig:circuitopot}
+\end{figure}
+
+Para hallar la potencia máxima que disipará el amplificador operacional se deben considerar dos modos de funcionamiento de la fuente: en regulación, y cuando la protección se encuentra activada. Cuando la fuente se encuentra regulando, la tensión $V_0$ será constante, sin embargo, la corriente de salida será cada vez mayor, causando que el operacional deba entregar una corriente mayor a la base del transistor de paso. En este caso, despreciando la corriente por $R_5$, se tiene que la corriente máxima que deberá entregar el opamp será
+
+\begin{equation}
+I_{opamp_{max}}|_{reg} = \frac{I_{reg_{max}}}{\beta _{Q_{1}} \cdot \beta _{Q_{2}}} = \frac{2.5A}{110 \cdot 10} = 2.3mA
+\end{equation}
+
+Luego, utilizando la ley de mallas, se obtiene que
+
+\begin{equation}
+V_{opamp_{max}}|_{reg} = V_o + I_{reg_{max}} \cdot R_a + V_{BE_{Q_2}} + V_{BE_{Q_1}} = 11.8V
+\end{equation}
+
+Por lo que la potencia máxima disipada por el operacional en regulación será
+
+\begin{equation}
+P_{opamp_{max}}|_{reg} = 27.14mW
+\end{equation}
+
+Lo cual estará muy por debajo del máximo.
+
+Por otro lado, cuando se activa la protección de foldback, si bien será menor, el transistor de paso seguirá pidiendole corriente al operacional, mientras que el transistor de protección $Q_p$ también pedirá corriente, la cual será suministrada por el operacional. Se puede observar que aunque la corriente $I_o$ decrezca, la corriente que pedirá $Q_p$ es mediante su colector, por lo que no será reducida en un factor de $\beta_p$ como sucedía con el transistor de paso, por lo que la corriente que se le pedirá al opamp será mucho mayor que en regulación y el peor caso será cuando la carga tienda a cero.
+
+Sin embargo, la tensión a la salida de la fuente regulada disminuirá, por lo que disminuirá también la tensión en el amplificador operacional. Utilizando la ley de mallas, se obtiene que
+
+\begin{equation}
+V_{opamp_{max}}|_{cc} = V_{o} + I_{o}\cdot R_s + V_{BE_{Q_2}} + V_{BE_{Q_1}}
+\end{equation}
 
 \subsubsection{Transistores}
 
@@ -304,6 +342,11 @@ Asumiendo una temperatura ambiente de $40\degree C$; una temperatura máxima de 
 R_{\theta sa} = 4.57 \frac{\degree C}{W}
 \end{equation}
 \subsubsection{Diodos y Resistencias}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Rendimiento}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Simulaciones}
@@ -360,7 +403,7 @@ La curva correspondiente al foldback fue simulada y graficada como se ve a conti
 	\caption{Curva de Foldback.}
 	\label{fig:GraficoFOldbacki}
 \end{figure}
-Se puede apreciar, que la máxima corriente es de 2.5A como fue calculado al igual que el valor de $I_sc$.
+Se puede apreciar, que la máxima corriente es de 2.5A como fue calculado al igual que el valor de $I_{sc}$.
 \subsubsection{Potencias}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Conclusiones}
@@ -408,22 +451,6 @@ V_{2min} = 11.65 \ V + 1.5 \ V = 13.15 \ V
 \begin{equation}
 	V_{Lmin} = R_Z \cdot \left( \frac{V_Z}{R_2} + I_z \right) + V_Z
 \end{equation}
-
-El pre-regulador cumple la función de brindar corriente \textbf{(habría que desarrollar un poco más)}. Para el caso presente, se observa que el amplificador operacional puede llegar hasta temperaturas de $125 \ ^o C$ son problema. Asumiendo una temperatura ambiente de $40 \ ^o C$, la potencia máxima disipada por operacional es de $0.7 \ W$.
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth, page=2]{ImagenesEjercicio2/Potencia.pdf}
-	\caption{Circuito equivalente de potencias con $R_{\theta a-j} = 103 \ \frac{^o C}{W}$.}
-	\label{fig:circuitopot}
-\end{figure}
-
-Es por ello que se analiza la potencia tanto en regulación como fuera de esta. Durante la primer etapa, la tensión de salida $V_O$ es estable pero la corriente es cada vez mayor. A pesar de esto, la potencia disipada por el opamp se mantiene menor a la máxima. Por otro lado, con el circuito fodlback activado, la tensión decae, haciendo que también decaiga la potencia del amplificador, manteniendola por debajo del máximo.
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth]{ImagenesEjercicio2/Potencia2.png}
-	\caption{Curvas de potencia consumida.}
-	\label{fig:curvapot}
-\end{figure}
 
 
 \end{document}
