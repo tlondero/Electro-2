@@ -250,33 +250,33 @@ Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el ob
 \begin{align}
 \frac{V_{be}}{R_5}=I_{R5}\approx I_c
 \end{align}
-Para un valor de 13mA corresponderá una resistencia de 56$\Omega$.
+Para un valor de $13 \ mA$ corresponderá una resistencia de $56 \ \Omega$.
 \subsubsection{Componentes de Protección}
 
-Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, así la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó  $R_c$ lo cual definió inequivocamente $R_b$, también para el cálculo de estos valores se tuvo en cuenta que la máxima corriente (2.5A) sería suministrada únicamente cuando se regule a la tensión máxima, y la pendiente de la curva de foldback fue seleccionada para que cuando baje la tensión de regulación aun tenga una corriente de salida máxima apreciable,teniendo en cuenta esto, quedan los valores
+Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, así la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó  $R_c$ lo cual definió inequivocamente $R_b$, también para el cálculo de estos valores se tuvo en cuenta que la máxima corriente ($2.5 \ A$) sería suministrada únicamente cuando se regule a la tensión máxima, y la pendiente de la curva de foldback fue seleccionada para que cuando baje la tensión de regulación aun tenga una corriente de salida máxima apreciable,teniendo en cuenta esto, quedan los valores
 \begin{align}
-R_a=0.56 \Omega  \ \ \ \ R_b=680\Omega \ \ \ R_c=10k\Omega \ \ \ I_{o-Max}=2.5A \ \ \ I_{sc}= 1.34A
+R_a=0.56 \ \Omega  \ \ \ \ R_b=680 \ \Omega \ \ \ R_c=10 \ k\Omega \ \ \ I_{o-Max}=2.5 \ A \ \ \ I_{sc}= 1.34 \ A
 \end{align}
 Donde el valor de $I_{sc}$ queda fijo por la ecuación (\ref{eq:Isc}).
 
 \subsubsection{Diodo de Referencia}
 El diodo zener elegido fue el \href{https://d1d2qsbl8m0m72.cloudfront.net/en/products/databook/datasheet/discrete/diode/zener/bzx84b6v2lt116-e.pdf}{BZX84B6V2L}
 debido a la estabilidad que cuenta para la $V_z$ y su reducida corriente de zener.\\
-Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_z =5.5mA$, sabiendo que $V_z$=6.2$V$  y utilizando la ecuación (\ref{eq:referencia}) se llega a un valor $R_Z=120\Omega$ siendo adicionalmente el valor de $V_2$ definido en la sección (\ref{sec:fuentes}).
+Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_z =5.5 \ mA$, sabiendo que $V_z=6.2 \ V$  y utilizando la ecuación (\ref{eq:referencia}) se llega a un valor $R_Z=120 \ \Omega$ siendo adicionalmente el valor de $V_2$ definido en la sección (\ref{sec:fuentes}).
 Luego el valor de $R_2$ será discutido en la sección (\ref{sec:resdet})
 \subsubsection{Fuentes de Alimentación}
 \label{sec:fuentes}
-En la elección de la fuente de alimentación se buscó el $V1_{min}$ tal que el sistema regule, para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
+En la elección de la fuente de alimentación se buscó el $V_{1min}$ tal que el sistema regule, para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
 
 \begin{align}
-V1_{min}=Vce_{sat}+Vo_{reg}= 1.4V+9V=10.4V
+V_{1min}=V_{CEsat}+V_{Oreg}= 1.4 \ V+9 \ V=10.4 \ V
 \end{align}
-Luego, dado que este es el mínimo absoluto, se dejará cierto margen de error, para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales puedan saturar alguno de los transistores, por lo cual se eligió un valor de $V1=14V$.\\
+Luego, dado que este es el mínimo absoluto, se dejará cierto margen de error, para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales puedan saturar alguno de los transistores, por lo cual se eligió un valor de $V_1=14 \ V$.\\
 Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del diodo elegido, tal que se encuentre polarizado correctamente.
 
 \subsubsection{Resistencia circuito de detección}
 \label{sec:resdet}
-Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:vovz}) basta con definir un valor de $R_1$ tal que $V_o=9V$ dado que la $R_1$ será un potenciómetro con el cual se variará la tensión de regulación.\\ Así queda definido: $R_1= 10K \Omega$ (potenciómetro) y $R_2=6k8\Omega$
+Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:vovz}) basta con definir un valor de $R_1$ tal que $V_o=9 \ V$ dado que la $R_1$ será un potenciómetro con el cual se variará la tensión de regulación.\\ Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  \Omega$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Análisis de cargas}
 
@@ -298,10 +298,10 @@ Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:
 \frac{T_j - T_a}{R_{\theta jc}+R_{\theta cs}+R_{\theta sa}} = P
 \end{equation}
 
-Asumiendo una temperatura ambiente de $40\degree C$; una temperatura máxima de juntura en funcionamiento de $140\degree C$, $20\degree C$ menor a la especificada por el fabricante; la $R_{\theta jc}$ también especificada, de $3.125\frac{\degree C}{W}$; el uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204\frac{\degree C \cdot inch}{W}$, y área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \frac{\degree C}{W}$; y finalmente una potencia disipada de $9.6W$, levemente mayor a la máxima disipada; se obtiene
+Asumiendo una temperatura ambiente de $40 \ \degree C$; una temperatura máxima de juntura en funcionamiento de $140 \ \degree C$, $20 \ \degree C$ menor a la especificada por el fabricante; la $R_{\theta jc}$ también especificada, de $3.125 \ \frac{\degree C}{W}$; el uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$, y área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \frac{\degree C}{W}$; y finalmente una potencia disipada de $9.6 \ W$, levemente mayor a la máxima disipada; se obtiene
 
 \begin{equation}
-R_{\theta sa} = 4.57 \frac{\degree C}{W}
+R_{\theta sa} = 4.57  \  \frac{\degree C}{W}
 \end{equation}
 \subsubsection{Diodos y Resistencias}
 
