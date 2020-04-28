@@ -205,4 +205,59 @@
 \end{circuitikz}
 \end{page}
 
+\begin{page}
+\begin{circuitikz}[european voltages]
+%Elemento de deteccion
+	\draw
+		node[circ, label=south:$V_0$](begin){} to[R, l_=$R_1$, i_=$i_1$] ++ (-3,0) node[circ, label = south:$0V$](aux7){} 
+		;
+	\draw[dashed]
+		(begin) -- ++ (0,1)
+		(aux7) -- ++ (-1,0)
+		(aux7) -- ++ (0,1)
+		;
+\end{circuitikz}
+\end{page}
+
+\begin{page}
+\begin{circuitikz}[european voltages]
+%mierdas
+	%Amplificador error
+	\node[] [op amp, yscale=-1](A){};
+	\draw
+		(A.+) -- ++(-1,0) node[ground](g1){}
+		(A.down) -- ++ (0,0.5) node[ocirc, label=north:$V^{-}$](){}    
+		(A.up) -- ++ (0,-0.5) node[ocirc, label=south:$V^{+}$](){}
+		(A.-) to[open] ++ (0,-2.55) node[ocirc](aux1){}
+		(aux1) to[short, i=$i_e$] (A.-)
+		(A.out) -- ++ (1,0) node[](aux2){}
+		;
+		
+	%Circuito de detección (Realimentador)
+	\draw
+		(aux6.west) to[R, l_=$R_1$, -*, i=$i_1$] (aux1.center) node[label=south:$0V$]{}
+		;
+		
+	%Elemento de referencia
+	\draw
+		(aux1.west) to[R, l_=$R_2$, i_=$i_2$] ++ (-2,0) node[](aux7){} to[R, l_=$R_Z$] ++ (-2,0) node[ocirc](aux8){}
+		(aux7.center) to[zzDo] ++ (0,-1.5) node[ground](){}
+		;
+		%Transistor de paso
+	\draw
+		(aux2.center) -- ++ (0,2) node[npn, anchor = B, label=right:$Q_1$](Q1){}
+		(Q1.E) -- ++ (2.15,0) node[npn, anchor = B, label=north:$Q_2$](Q2){}
+		(Q2.B) -- ++ (1.2,0) node[npn, anchor = B, label=north:$Q_3$](Q3){}
+		
+		($ (Q1.E) !.5! (Q2.B) $) to[R, l=$R_5$] ++(0,-2) to[short, -*] ++ (3.11,0)
+		(Q2.E) -| (aux3.center)
+		(Q1.C) -- ++ (0,1) node[](aux5){}
+		(Q2.C) to[short, -*] ++ (0, 1.755)
+		(aux5) ++ (-1,0) -| (Q3.C)
+		(aux5) ++ (-1,0)  node[ocirc]{}
+		(aux3.center) to[short] ++ (0,-3) to[short] ++ (-0.04,0) node[label=south:$V_0$]{}
+		;
+\end{circuitikz}
+\end{page}
+
 \end{document}
