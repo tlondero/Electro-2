@@ -117,7 +117,7 @@ De esta manera, se genera una resta de corrientes en el nodo del terminal negati
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth, page=8]{ImagenesEjercicio2/Regulador.pdf}
+	\includegraphics[width=0.8\textwidth, page=8]{ImagenesEjercicio2/Regulador.pdf}
 	\caption{Corrientes en circuito de detección, elemento de referencia y operacional.}
 	\label{fig:amp-prereg-det-ref}
 \end{figure}
@@ -146,11 +146,9 @@ El transistor de paso se encarga de llevar a cabo las correcciones detectadas po
 \end{figure}
 siendo $Q_2$ y $Q_3$ transistores de potencia. Por otro lado, la función de $R_5$ es obtener una corriente de colector de $Q_1$ razonable.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Protección por Corto-circuito}
-Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no sufra un daño irreversible. 
-Para la protección de cortocircuito se evaluaron 2 alternativas:
-\subsubsection{Protección lineal}
+Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que no se conoce con exactitud que carga va a ser proporcionadas al circuito, como puede ser el caso de que el usuario, en contra-indicación de las especificaciones del equipo, utilice una carga menor a la mínima. En dicha situación, es deseable que el circuito no sufra un daño irreversible. Es por ello que se evaluaron 2 alternativas, las cuales son presentadas a continuación.
+\subsubsection{Protección Lineal}
 La implementación de una protección lineal resulta ser la mas sencilla debido a la facilidad de cálculo y que utiliza pocos componentes, como se ve a continuación:
 \begin{figure}[H]
 \centering
@@ -158,18 +156,20 @@ La implementación de una protección lineal resulta ser la mas sencilla debido 
 	\caption{Circuito de Protección lineal.}
 	\label{fig:circuitolineal}
 \end{figure}
-El cálculo para la resistencia $R_a= \frac{V_{be}}{I_{o-Max}}$.
-Esta protección limita la corriente de salida del regulador haciendola constante. Esto es asi debido a que el trasistor de proteccion sensa la tensión sobre la resistencai $R_a$ y al superar cierto valor $V_a = R_a \cdot I_{o-Max} $ el transistor pasa a modo activo directo, quitandole corriente de la base al transistor de paso.
-Si bien la protección lineal es de sencilla implementación cuenta con la siguiente característica:
+El cálculo para la resistencia es simple, siendo este 
+$$R_a= \frac{V_{BE}}{I_{o-Max}}$$
+Esta protección limita la corriente de salida del regulador haciéndola constante. Esto es así debido a que el transistor de protección se encuentra censando la tensión sobre la resistencia $R_a$. Al superar cierto valor $V_a = R_a I_{o-Max}$ el transistor pasa a modo activo directo, quitándole corriente de la base al de paso. Es por ello que cuenta con la siguiente característica:
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/Linearprotection.png}
-	\caption{Característica de la Protección lineal.}
+	\includegraphics[width=0.4\textwidth]{ImagenesEjercicio2/Linearprotection.png}
+	\caption{Característica de la protección Lineal.}
 	\label{fig:circuitolinealcarac}
 \end{figure}
-Donde $I_{max}$ corresponde a la máxima corriente que uno define para el circuito e $I_{damage}$ es la corriente bajo la cual el circuito sufrirá un daño irreversible.\\
-Se puede notar que en el  peor caso ($V_o = 0$) sería máxima tanto la corriente de salída como la caída de potencial sobre el transistor de paso, haciendo que por consecuente sea máxima la disipación de potencia sobre este, lo cual es un problema.
-\subsubsection{Protección foldback}
+En la Figura (\ref{fig:circuitolinealcarac}) se observa que $I_{max}$ corresponde a la máxima corriente que uno define para el circuito, mientras que $I_{damage}$ es la corriente bajo la cual el circuito sufre un daño irreversible.
+
+Se puede notar que en el peor caso ($V_o = 0$), la corriente de salida, como la caída de potencial sobre el transistor de paso, son máximas, haciendo que también sea máxima la disipación de potencia sobre este.
+
+\subsubsection{Protección Foldback}
 La protección de Foldback es una variación de la lineal, la cual cuenta con 2 resistencias adicionales conectadas de la siguiente manera:
 \begin{figure}[H]
 \centering
@@ -177,50 +177,50 @@ La protección de Foldback es una variación de la lineal, la cual cuenta con 2 
 	\caption{Circuito de Protección Foldback.}
 	\label{fig:circuitofoldback}
 \end{figure}
-Si se desea resolver para $I_{o-Max}$ bastará con recorrer la malla:
+Si se desea resolver para $I_{o-Max}$ basta con recorrer la malla:
 \begin{align}
--I_{o-Max} \cdot R_a + V_{be} - (V_b-V_a)=0
+-I_{o-Max} \cdot R_a + V_{BE} - (V_b-V_a)=0
 \end{align}
 \begin{align}
 V_b=V_a \cdot \frac{R_c}{R_c+R_b}
 \end{align}
 \begin{align}
--I_{o-Max} \cdot R_a + V_{be} + V_a \cdot (1-\frac{R_c}{R_c+R_b})=0
+-I_{o-Max} \cdot R_a + V_{BE} + V_a \cdot (1-\frac{R_c}{R_c+R_b})=0
 \end{align}
 \begin{align}
--I_{o-Max} \cdot R_a + V_{be} + (I_{o-Max} \cdot R_a +V_o) \cdot \frac{R_b}{R_c+R_b}=0
+-I_{o-Max} \cdot R_a + V_{BE} + (I_{o-Max} \cdot R_a +V_o) \cdot \frac{R_b}{R_c+R_b}=0
 \end{align}
 lo cual despejando para $I_{o-Max}$ queda:
 \begin{align}
-I_{o-Max}=  \frac{V_o \cdot R_b + V_{be}\cdot (R_b+R_c)}{R_a \cdot R_c}
+I_{o-Max}=  \frac{V_o \cdot R_b + V_{BE}\cdot (R_b+R_c)}{R_a \cdot R_c}
 \label{eq:Imaxfoldback}
 \end{align}
-De aquí se puede ver que la corriente caerá en función de la tensión de salida hasta establecerse en una corriente fija para la carga nula denominada $I_{sc}$ la tiene un valor de.
+
+De aquí se puede ver que la corriente cae en función de la tensión de salida hasta establecerse en una corriente fija para la carga nula denominada $I_{sc}$.
 \begin{align}
-I_{sc} = V_{be} \cdot \frac{R_b+R_c}{R_a \cdot R_c}
+I_{sc} = V_{BE} \cdot \frac{R_b+R_c}{R_a \cdot R_c}
 \label{eq:Isc}
 \end{align}
-Luego graficando la curva se obtiene:
+
+Graficando la curva se obtiene:
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/foldbackLineal.png}
-	\caption{Característica de la Protección foldback.}
+	\includegraphics[width=0.4\textwidth]{ImagenesEjercicio2/foldbackLineal.png}
+	\caption{Característica de la protección Foldback.}
 	\label{fig:circuitofoldbackcarac}
 \end{figure}
-Se puede apreciar también la razón de su nombre dado que la curva de la corriente se ``dobla'' sobre si misma.\\
-Si bien armar esta fuente resulta en una mayor cantidad de componentes, el hecho de que reduzca la corriente de paso al tener una carga nula, y que por ello reduzca la potencia consumida es un factor no menor. por esta razón esta fue la protección elegida a utilizar.\\
-Solo a modo ilustrativo se grafica ambas curvas de las protecciones.
+Se puede apreciar la razón de su nombre dado que la curva de la corriente se ``dobla'' sobre si misma. Si bien armar esta fuente resulta en una mayor cantidad de componentes, el hecho de que reduzca la corriente de paso al tener una carga nula, y que por ello reduzca la potencia consumida, es un factor no menor. Por dicha razón, esta fue la protección elegida para el diseño. A modo ilustrativo se grafica ambas curvas de las protecciones superpuestas.
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/foldback.png}
-	\caption{Característica de la Protección foldback y lineal.}
+	\includegraphics[width=0.4\textwidth]{ImagenesEjercicio2/foldback.png}
+	\caption{Característica de la protección Foldback y Lineal.}
 	\label{fig:circuitofoldbacklinealcarac}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Análisis de Componentes}
 \subsubsection{Amplificador Operacional}
-En la elección del amplificador operacional, se tuvieron en cuenta diversos componentes, como se ve a continuación en el siguiente cuadro comparativo:
+En la elección del amplificador operacional, se analizaron diversos componentes, siendo estos los presentados a continuación en el siguiente cuadro comparativo:
 \begin{table}[H]
 \hspace*{-0.5cm}
 \begin{tabular}{ccccccccc}
@@ -237,56 +237,69 @@ En la elección del amplificador operacional, se tuvieron en cuenta diversos com
 \end{tabular}
 \caption{Comparación de operacionales.}
 \end{table}
-También es notable que de todos los integrados el OP284 es rail to rail, lo cual es de gran utilidad si se desea obtener un valor de $V_1$ inferior, dado que las restricción de $V_1$ mínima por el lado del operacional será más laxa. Luego teniendo en cuenta el GBP, las corrientes de bias, la tension de offset, y lo observado anteriormente se optó por utilizar el OP284. En la Sección (\ref{sec:opamppot}) se analiza la potencia que deberá disipar el operacional.
+
+Es notable que de todos los integrados el \textbf{OP284} es rail to rail, lo cual es de gran utilidad si se desea obtener un valor de $V_1$ inferior. Además, se tuvo en cuenta el GBP, las corrientes de bias, la tension de offset, para optar utilizar el OP284.
+
 \subsubsection{Transistores de Paso}
+
 Para la sección de transistor de paso, se eligió utilizar los transistores \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/532914/FAIRCHILD/TIP31C.html}{QTIP41C} que son transistores de potencia, al igual que un \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/2895/MOTOROLA/BC547C.html}{BC547C}, utilizando los TIP41C como el transistor que pasará la mayoría de la corriente y el BC547 como el que recibe la corriente del opamp.
-Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor se encuentren con un hfe estable.El valor de $R_5$ se obtiene a partir de la siguiente ecuación:
+Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor se encuentren con un hfe estable,esto se puede observar claramente en la datasheet del BC547C del HFE en función de la corriente de colector:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/hfe547b.png}
+\end{figure}
+Lo que se busca es tener una corriente de colector tal que el hfe se encuentre en la zona azul, sin esta resistencia la corriente de colector probablemente se encontraría en la zona verde, lo cual no corresponde a un hfe estable.\\ 
+
+El valor de $R_5$ se obtiene a partir de la siguiente ecuación:
+
 \begin{align}
-\frac{V_{be}}{R_5}=I_{R5}\approx I_c
+\frac{V_{BE}}{R_5}=I_{R5}\approx I_c
 \end{align}
 Para un valor de $13 \ mA$ corresponderá una resistencia de $56 \ \Omega$.
-\subsubsection{Componentes de Protección}
 
-Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, así la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó  $R_c$ lo cual definió inequivocamente $R_b$, también para el cálculo de estos valores se tuvo en cuenta que la máxima corriente ($2.5 \ A$) sería suministrada únicamente cuando se regule a la tensión máxima, y la pendiente de la curva de foldback fue seleccionada para que cuando baje la tensión de regulación aun tenga una corriente de salida máxima apreciable,teniendo en cuenta esto, quedan los valores
+\subsubsection{Componentes de Protección}
+Para la elección de estos componentes, se tuvo en cuenta la Ecuación (\ref{eq:Imaxfoldback}) para la cual, dado que se cuenta con dos grados de libertad, se fijó $R_a$ así la potencia disipada en corto-circuito no es de un valor muy elevado. Luego se tomó un valor para $R_c$, lo cual definió inequívocamente $R_b$. Para el cálculo de estos valores, se tuvo en cuenta que la máxima corriente ($2.5 \ A$) es suministrada únicamente cuando se regule a la tensión máxima. También se observó la pendiente de la curva de Foldback, la cual fue seleccionada para que cuando baje la tensión de regulación, aún tenga una corriente de salida máxima apreciable. Teniendo en cuenta esto, los valores seleccionados son los siguientes:
 \begin{align}
 R_a=0.56 \ \Omega  \ \ \ \ R_b=680 \ \Omega \ \ \ R_c=10 \ k\Omega \ \ \ I_{o-Max}=2.5 \ A \ \ \ I_{sc}= 1.34 \ A
 \end{align}
-Donde el valor de $I_{sc}$ queda fijo por la ecuación (\ref{eq:Isc}).
+Donde el valor de $I_{sc}$ queda fijado por la Ecuación (\ref{eq:Isc}).
 
 \subsubsection{Diodo de Referencia}
-El diodo zener elegido fue el \href{https://d1d2qsbl8m0m72.cloudfront.net/en/products/databook/datasheet/discrete/diode/zener/bzx84b6v2lt116-e.pdf}{BZX84B6V2L}
-debido a la estabilidad que cuenta para la $V_z$ y su reducida corriente de zener.\\
-Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_z =5.5 \ mA$, sabiendo que $V_z=6.2 \ V$  y utilizando la ecuación (\ref{eq:referencia}) se llega a un valor $R_Z=120 \ \Omega$ siendo adicionalmente el valor de $V_2$ definido en la sección (\ref{sec:fuentes}).
-Luego el valor de $R_2$ será discutido en la sección (\ref{sec:resdet})
+El diodo zener elegido es el \href{https://d1d2qsbl8m0m72.cloudfront.net/en/products/databook/datasheet/discrete/diode/zener/bzx84b6v2lt116-e.pdf}{BZX84B6V2L},
+debido a la estabilidad que cuenta para la $V_Z$ y su reducida corriente de mantenimiento.
+
+Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_Z =5.5 \ mA$, sabiendo que $V_Z=6.2 \ V$ y utilizando la Ecuación (\ref{eq:referencia}). De esta forma se llega a un valor $R_Z=120 \ \Omega$, siendo adicionalmente el valor de $V_2$ definido en la Sección (\ref{sec:fuentes}), mientras que el valor de $R_2$ es discutido en la Sección (\ref{sec:resdet}).
+
 \subsubsection{Fuentes de Alimentación}
 \label{sec:fuentes}
-En la elección de la fuente de alimentación se buscó el $V_{1min}$ tal que el sistema regule, para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
-
+En cuanto a la elección de la fuente de alimentación, se buscó el $V_{1min}$ tal que el sistema regule. Para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
 \begin{align}
-V_{1min}=V_{CEsat}+V_{Oreg}= 1.4 \ V+9 \ V=10.4 \ V
+V_{1min}=V_{CEsat}+V_{Oreg}+V_{Ra}= 1.4 \ V+9 \ V +1.25 \ V \ =11.65 \ V
 \end{align}
-Otro punto de interés es la tensión a la salida del operacional, la cual no debe ser mayor a la de alimentación del mismo, para obtener la tensión en este nodo basta con seguir el ciruito y se verá que:
+
+Otro punto de interés es la tensión a la salida del operacional, la cual no debe ser mayor a la de alimentación del mismo. Para obtener la variable en este nodo basta con seguir el circuito, observándose que:
 \begin{align}
-V_{Out-opamp}= V_o+2\cdot V_{be} = 11.65V
+V_{Out-opamp}= V_o+2\cdot V_{be} = 11.65 \ V
 \end{align}
-Obteniendo que la máxima tensión de salida en el opamp coincide con el $V^+$.\\
-Luego, dado que este es el mínimo absoluto, se dejará cierto margen de error, para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales puedan saturar alguno de los transistores, por lo cual se eligió un valor de $V_1=14 \ V$.\\
-Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del diodo elegido, tal que con el valor de resistencai $R_Z$ elegido se encuentre polarizado correctamente, por lo que se fijó $V_2=7\ V$.
+obteniendo que la máxima tensión de salida en el opamp coincide con el $V^+$.
 
+Luego, dado que este es el mínimo absoluto, se deja cierto margen de error para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales pueden saturar alguno de los transistores. De esta forma se eligió un valor de $V_1=14 \ V$.
 
+Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_Z$, tal que con el valor de resistencia $R_Z$ se encuentre polarizado correctamente. Es así que se obtuvo $V_2=7 \ V$.
 
 \subsubsection{Resistencia circuito de detección}
 \label{sec:resdet}
-Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:vovz}) basta con definir un valor de $R_1$ tal que $V_o=9 \ V$ dado que la $R_1$ será un potenciómetro con el cual se variará la tensión de regulación.\\ Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  \Omega$
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Dado que la salida en regulación depende directamente de la Ecuación (\ref{eq:vovz}), basta con definir un valor de $R_1$ tal que $V_o=9 \ V$, dado que la $R_1$ es un potenciómetro con el cual se varia la tensión de regulación. Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  \Omega$
+
 \subsection{Análisis de cargas}
 En la búsqueda de la carga mínima, basta con una vez definida la máxima corriente y la máxima tensión de regulación, queda:
 
 \begin{equation}
 	R_{Lmin} = \frac{V_{Omax}}{I_{Omax}} = 3.6 \ \Omega
 \end{equation}
-Luego la máxima carga corresponde a $R_L = \infty$
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Luego la máxima carga corresponde a $R_{LMax} = \infty$
+
 \subsection{Análisis de Potencias Máximas}
 
 \subsubsection{Amplificador Operacional}
@@ -343,6 +356,36 @@ Asumiendo una temperatura ambiente de $40 \ \degree C$; una temperatura máxima 
 R_{\theta sa} = 4.57 \ \frac{\degree C}{W}
 \end{equation}
 \subsubsection{Diodos y Resistencias}
+\begin{itemize}
+\item Diodo zener:
+Se obtiene que
+\begin{align}
+P_{z}=I_{z}^2\cdot r_z+I_z \cdot V_z = 34.4mW
+\end{align}
+La máxima potencia capaz de disipar dicho diodo es de 250mW, por lo que este componente se encuentra en perfectas condiciones.
+\item $R_a$: Será 
+\begin{align}
+P_{Ra}=I_{max}^2\cdot R_a+ = 3.5W
+\end{align}
+Utilizando una $R_a$ de potencia.
+\item $R_5$:
+La potencia será 
+\begin{align}
+P_{R5}=I_{R5}^2\cdot R_5 = 9.46mW
+\end{align}
+será una resistencia de 0.25W
+\item $R_2$
+será
+\begin{align}
+P_{R2}=\frac{V_z^2}{R_2} = 57mW
+\end{align}
+\item $R_z$
+será
+\begin{align}
+P_{Rz}=\frac{(V^- - V_z)^2}{R_z} = 5.33mW
+\end{align}
+
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
