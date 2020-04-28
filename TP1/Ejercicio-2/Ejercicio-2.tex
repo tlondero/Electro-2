@@ -190,6 +190,7 @@ En la elección del amplificador operacional, se tuvieron en cuenta diversos com
 \end{table}
 También es notable que de todos los integrados el \textbf{OP284} es rail to rail, lo cual es de gran utilidad, si se desea obtener un valor de $V_1$ inferior, luego teniendo en cuenta el GBP, las corrientes de bias, la tension de offset, se optó por utilizar el OP284.
 \subsubsection{Transistores de Paso}
+
 \subsubsection{Componentes de Protección}
 
 Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, así la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó  $R_c$ lo cual definió inequivocamente $R_b$, también para el cálculo de estos valores se tuvo en cuenta que la máxima corriente (2.5A) sería suministrada únicamente cuando se regule a la tensión máxima, y la pendiente de la curva de foldback fue seleccionada para que cuando baje la tensión de regulación aun tenga una corriente de salida máxima apreciable,teniendo en cuenta esto, quedan los valores
@@ -199,8 +200,17 @@ R_a=0.56 \Omega  \ \ \ \ R_b=680\Omega \ \ \ R_c=10k\Omega \ \ \ I_{o-Max}=2.5A 
 Donde el valor de $I_{sc}$ queda fijo por la ecuación (\ref{eq:Isc}).
 
 \subsubsection{Diodo de Referencia}
+El diodo zener elegido fue el \href{https://d1d2qsbl8m0m72.cloudfront.net/en/products/databook/datasheet/discrete/diode/zener/bzx84b6v2lt116-e.pdf}{BZX84B6V2L}
+debido a la estabilidad que cuenta para la $V_z$ y su reducida corriente de zener.\\
+Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_z =5.5mA$, sabiendo que $V_z$=6.2$V$  y utilizando la ecuación (\ref{eq:referencia}) se llega a un valor $R_Z=120\Omega$\footnote{El valor de $V_2$ será justificado en la siguiente sección}
 \subsubsection{Fuentes de Alimentación}
+En la elección de la fuente de alimentación se buscó el $V1_{min}$ tal que el sistema regule, para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
 
+\begin{align}
+V1_{min}=Vce_{sat}+Vo_{reg}= 1.4V+9V=10.4V
+\end{align}
+Luego, dado que este es el mínimo absoluto, se dejará cierto margen de error, para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales puedan saturar alguno de los transistores, por lo cual se eligió un valor de $V1=14V$.\\
+Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del diodo elegido, tal que se encuentre polarizado correctamente.
 \subsection{Análisis de Potencia}
 \subsubsection{Amplificador Operacional}
 \subsubsection{Transistores}
