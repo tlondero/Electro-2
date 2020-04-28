@@ -80,15 +80,14 @@ V_o = |V_z| \cdot \frac{R_2}{R_1}
 \subsubsection{Amplificador de Error y Pre-regulador}
 \subsubsection{Circuito de Detección}
 \subsubsection{Transistor de Paso}
-El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de deteccion y amplificadas por el amplificador de error, así proveyendo de la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un darlington integrado, el cual tendrá una gran ganancia de corriente, pero en este caso se implementará con un darlington discreto, el cual debe soportar una corriente y potencia elevada, en lo cual se profundizará luego en el informe, pero por estas razones se opto por utilizar dos transistores en paralelo para el segundo transistor del darlington con la idea de dividir la carga de la siguiente manera:
+El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de deteccion y amplificadas por el amplificador de error, así proveyendo de la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un par Darlington integrado, el cual tiene una gran ganancia de corriente, pero en este caso se implementa con un Darlington discreto, el cual debe soportar una corriente y potencia elevada, lo cual se profundiza más adelante en el informe. Por estas razones, se optó por utilizar dos transistores en paralelo para el segundo transistor del par, con la idea de dividir la carga de la siguiente manera:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=5]{ImagenesEjercicio2/Regulador.pdf}
 	\caption{Circuito de transistor de paso.}
 	\label{fig:transistorDePaso}
 \end{figure}
-teniendo a $Q_2$ y $Q_3$ siendo transistores de potencia.
-La función de $R_5$ será obtener una corriente de colector de $Q_1$ razonable.
+siendo $Q_2$ y $Q_3$ transistores de potencia. Por otro lado, la función de $R_5$ es obtener una corriente de colector de $Q_1$ razonable.
 \subsection{Protección por Corto-circuito}
 Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no sufra un daño irreversible. 
 Para la protección de cortocircuito se evaluaron 2 alternativas:
