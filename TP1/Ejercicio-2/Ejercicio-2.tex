@@ -300,10 +300,10 @@ Como ya analizado en la Sección (\ref{sec:amp-error}), el amplificador operacio
 	\label{fig:circuitopot}
 \end{figure}
 
-Para hallar la potencia máxima que disipará el amplificador operacional se deben considerar dos modos de funcionamiento de la fuente: en regulación, y cuando la protección se encuentra activada. Cuando la fuente se encuentra regulando, la tensión $V_0$ será constante, sin embargo, la corriente de salida será cada vez mayor, causando que el operacional deba entregar una corriente mayor a la base del transistor de paso. En este caso, despreciando la corriente por $R_5$, se tiene que la corriente máxima que deberá entregar el opamp será
+Para hallar la potencia máxima que disipará el amplificador operacional se deben considerar dos modos de funcionamiento de la fuente: en regulación, y cuando la protección se encuentra activada. Cuando la fuente se encuentra regulando, la tensión $V_0$ será constante, sin embargo, la corriente de salida será cada vez mayor, causando que el operacional deba entregar una corriente mayor a la base del transistor de paso. En este caso, y suponiendo que el transistor de protección esta totalmente apagado, se tiene que la corriente máxima que deberá entregar el opamp será
 
 \begin{equation}
-I_{opamp_{max}}|_{reg} = \frac{I_{reg_{max}}}{\beta _{Q_{1}} \cdot \beta _{Q_{2}}} = \frac{2.5A}{110 \cdot 10} = 2.3mA
+I_{opamp_{max}}|_{reg} = \frac{\frac{I_{o}}{\beta_{Q_2}}+\frac{V_{BE_{Q_2}}}{R_5}}{\beta_{Q_1}} =  \frac{\frac{2.5A}{100}+\frac{0.7V}{56\Omega}}{480} = 78uA
 \end{equation}
 
 Luego, utilizando la ley de mallas, se obtiene que
@@ -315,18 +315,14 @@ V_{opamp_{max}}|_{reg} = V_o + I_{reg_{max}} \cdot R_a + V_{BE_{Q_2}} + V_{BE_{Q
 Por lo que la potencia máxima disipada por el operacional en regulación será
 
 \begin{equation}
-P_{opamp_{max}}|_{reg} = 27.14mW
+P_{opamp_{max}}|_{reg} = 920.4uW
 \end{equation}
 
 Lo cual estará muy por debajo del máximo.
 
 Por otro lado, cuando se activa la protección de foldback, si bien será menor, el transistor de paso seguirá pidiendole corriente al operacional, mientras que el transistor de protección $Q_p$ también pedirá corriente, la cual será suministrada por el operacional. Se puede observar que aunque la corriente $I_o$ decrezca, la corriente que pedirá $Q_p$ es mediante su colector, por lo que no será reducida en un factor de $\beta_p$ como sucedía con el transistor de paso, por lo que la corriente que se le pedirá al opamp será mucho mayor que en regulación y el peor caso será cuando la carga tienda a cero.
 
-Sin embargo, la tensión a la salida de la fuente regulada disminuirá, por lo que disminuirá también la tensión en el amplificador operacional. Utilizando la ley de mallas, se obtiene que
-
-\begin{equation}
-V_{opamp_{max}}|_{cc} = V_{o} + I_{o}\cdot R_s + V_{BE_{Q_2}} + V_{BE_{Q_1}}
-\end{equation}
+Sin embargo, la tensión a la salida de la fuente regulada disminuirá, por lo que disminuirá también la tensión en el amplificador operacional, contrarrestando, pero no en su mayoría, el aumento de corriente. En la Sección \ref{sec:sim-pot} se analizó la curva de potencia disipada del operacional cuando la fuente se encuentra cortocircuitada, obteniendo una potencia máxima disipada de $P_{opamp_{max}}|_{cc} = 330mW$ el cual se encuentra aún por debajo de la máxima potencia que puede disipar el amplificador operacional.
 
 \subsubsection{Transistores}
 
@@ -419,6 +415,7 @@ La impedancia de salida fue simulada y graficada:
 \end{figure}
 Se observa que la impedancia de salida es baja para la mayor parte del espectro, no superando nunca los 220$\Omega$.
 \subsubsection{Potencias}
+\label{sec:sim-pot}
 En esta sección se simularon las curvas de potencias sobre los componentes al variar la carga del circuito.\\
 \begin{itemize}
 \item Diodo Zener: 
