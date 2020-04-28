@@ -5,20 +5,21 @@
 \tableofcontents
 \newpage
 \subsection{Diseño Propuesto}
-Se requiere una fuente que se ajuste a las siguientes especificaciones:
-El cual se ajusta a las especificaciones de:
+
+En la siguiente instancia se realiza una fuente de tensión regulada, la cual se ajusta a las especificaciones de:
 \begin{align}
 0V \leq V_o \leq 9V \ \ \ \ \ \ \wedge \ \ \ \ \ \ I_{o-Max}=2.5A
-\end{align} 
-Se optó por un diseño que muestre tensión y sume corriente.  
-El diseño elegido para la fuente regulada es el siguiente.
+\end{align}
+
+Se optó por un diseño que muestre tensión y sume corriente, siendo el diseño elegido para la fuente el presentado a continuación.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.8\textwidth, page=1]{ImagenesEjercicio2/Regulador.pdf}
 	\caption{Circuito regulador de tensión propuesto.}
 	\label{fig:circuitoprop}
 \end{figure}
-El cual puede ser separado en 5 bloques fundamentales.
+
+Dicho circuito puede ser separado en 5 bloques fundamentales:
 \begin{itemize}
 \item \textcolor{blue}{Amplificador error}
 \item \textcolor{olive}{Transistor de paso}
@@ -32,49 +33,44 @@ El cual puede ser separado en 5 bloques fundamentales.
 
 \subsubsection{Análisis de realimentación negativa}
 
-La teoría de la realimentación negativa plantea que dado un sistema a lazo cerrado ideal con un número impar de inversiones de fase, la ganancia de este puede aproximarse como la inversa del factor de realimentación si la ganancia de lazo en módulo es mucho mayor a la unidad, es decir
-
+La teoría de la realimentación negativa plantea que dado un sistema a lazo cerrado ideal, con un número impar de inversiones de fase, la ganancia de este puede aproximarse como la inversa del factor de realimentación si la ganancia de lazo en módulo es mucho mayor a la unidad, es decir
 \begin{equation}
-PE = \frac{A }{1+ f \cdot A} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
+P.E. = \frac{A }{1+ f \cdot A} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
 \end{equation}
-
 donde $A$ es la respuesta a lazo abierto, $f$ el factor de realimentación y $T$ es la ganancia de lazo. Se puede observar que bajo las condiciones descritas anteriormente, se tiene entonces que 
 
 \begin{equation}
-PE \approx \frac{1}{f}
+P.E. \approx \frac{1}{f}
 \end{equation}
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/circuito_lazo.png}
+	\includegraphics[width=0.8\textwidth]{ImagenesEjercicio2/circuito_lazo.png}
 	\caption{Lazo de realimentación negativa.}
 	\label{fig:circuito_lazo}
 \end{figure}
 
-En el circuito realizado puede observarse un lazo de realimentación negativa el cual posee una inversión de fase producida por el amplificador operacional detallado en la Figura (\ref{fig:circuito_lazo}). También son de observar varias cosas: 
-
+En el circuito realizado puede observarse un lazo de realimentación negativa el cual posee una inversión de fase producida por el amplificador operacional detallado en la Figura (\ref{fig:circuito_lazo}). También es de interés observar los siguientes puntos: 
 \begin{itemize}
-\item Por tierra virtual el opamp trabajará para mantener la tensión nula en su terminal negativo.
-\item El diodo zener consumirá la corriente necesaria para mantener la caída de tensión sobre este fija.
-\item El lazo de realimentación tratará de fijar una tensión a la salida de la fuente regulada.
+\item Por tierra virtual, el opamp trabaja para mantener la tensión nula en su terminal negativo.
+\item El diodo zener consume la corriente necesaria para mantener la caída de tensión sobre este fija.
+\item El lazo de realimentación trata de fijar una tensión a la salida de la fuente regulada.
 \end{itemize}
 
-Teniendo estas cosas en cuenta, es de notar que la fuente realiza un muestreo de tensión a la salida de la fuente mediante la resistencia $R_1$, la cual inyectará una corriente proporcional a la tensión muestreada a la salida, realizándose una suma de corrientes en el nodo del terminal negativo del amplificador operacional, siendo la referencia la corriente fija proporcionada por la resistencia $R_2$.
+Teniendo en cuenta dichos aspectos, es de notar que la fuente realiza un muestreo de tensión a la salida mediante la resistencia $R_1$, la cual inyecta una corriente proporcional a la dicha, realizándose una suma de corrientes en el nodo del terminal negativo del amplificador operacional, siendo la referencia la corriente fija proporcionada por la resistencia $R_2$.
 
-En resumidas cuentas, el parámetro estabilizado del sistema será
+En resumidas cuentas, el parámetro estabilizado del sistema es
 
 \begin{equation}
-PE = \frac{V_o}{I_N} = -\frac{V_o \cdot R_2}{|V_z|} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
+P.E. = \frac{V_o}{I_N} = -\frac{V_o \cdot R_2}{|V_z|} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
 \end{equation}
 
-Luego, se puede demostrar que la ganancia $f$ se puede aproximar como la razón entre el parámetro que se suma en el lazo y el parámetro que se muestrea cuando la tensión en el nodo del terminal negativo del opamp es cero, obteniendo
-
+Luego, se puede demostrar que la ganancia $f$ se puede aproximar como la razón entre el parámetro que se suma en el lazo y el parámetro que se muestrea, cuando la tensión en el nodo del terminal negativo del opamp es cero, obteniendo así
 \begin{equation}
 f \approx -\frac{1}{R_1}
 \end{equation}
 
 Si se considera que la ganancia de lazo en módulo es mucho mayor que la unidad dado que se utiliza un opamp como amplificador, se obtiene finalmente que
-
 \begin{equation}
 V_o = |V_z| \cdot \frac{R_2}{R_1}
 \end{equation}
