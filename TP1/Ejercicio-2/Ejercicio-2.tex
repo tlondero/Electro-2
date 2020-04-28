@@ -102,8 +102,7 @@ En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta
 \subsubsection{Circuito de Detección}
 \label{sec:circuito-de-deteccion}
 
-El circuito de detección está compuesto por la resistencia $R_2$. La caída de potencial sobre esta depende solamente de la tensión a la salida de la fuente, lo que permite generar una corriente proporcional a esta.
-
+El circuito de detección está compuesto por la resistencia $R_1$. La caída de potencial sobre esta depende solamente de la tensión a la salida de la fuente, lo que permite generar una corriente proporcional a esta.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=7]{ImagenesEjercicio2/Regulador.pdf}
@@ -111,36 +110,33 @@ El circuito de detección está compuesto por la resistencia $R_2$. La caída de
 	\label{fig:circdeteccion}
 \end{figure}
 
- De esta manera, se genera una resta de corrientes en el nodo del terminal negativo del operacional, siendo estas la corriente suministrada por la $R_2$, la corriente fija suministrada por la $R_1$, y la corriente del terminal negativo del opamp. Denominaremos a esta última corriente como el error de la fuente regulada.
+De esta manera, se genera una resta de corrientes en el nodo del terminal negativo del operacional, siendo estas la corriente suministrada por la $R_2$, la corriente fija suministrada por la $R_1$ y la corriente del terminal negativo del opamp. Se denomina a esta última corriente como el error de la fuente regulada.
 
 \subsubsection{Amplificador de Error y Pre-regulador}
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.5\textwidth, page=8]{ImagenesEjercicio2/Regulador.pdf}
-	\caption{Corrientes en circuito de detección, elemento de referencia, y operacional.}
+	\includegraphics[width=0.7\textwidth, page=8]{ImagenesEjercicio2/Regulador.pdf}
+	\caption{Corrientes en circuito de detección, elemento de referencia y operacional.}
 	\label{fig:amp-prereg-det-ref}
 \end{figure}
 
-En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que si se define a la corriente $i_1$ como la corriente suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener; la corriente $i_2$ como la corriente suministrada por la resistencia $R_2$, la cual depende de la tensión que efectivamente provee la fuente regulada; e $i_e$ como la corriente error que atraviesa el terminal negativo del operacional, se tiene que
-
+En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que, si se define a la corriente $i_1$ como la corriente suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener, la corriente $i_2$ como la corriente suministrada por la resistencia $R_2$, la cual depende de la tensión que efectivamente provee la fuente regulada, e $i_e$ como la corriente error que atraviesa el terminal negativo del operacional, se tiene que
 \begin{equation}
-i_e = i_1 - i_2 = \frac{V_o}{R_1} - \frac{-V_z}{R_2}
+	i_e = i_1 - i_2 = \frac{V_o}{R_1} - \frac{-V_z}{R_2}
 \end{equation}
 
-Esta corriente error será amplificada por el operacional para luego ser inyectada a la base del transistor de paso lo cual aumenta (o disminuye) la tensión a la salida de la fuente regulada mitigando la corriente de error. Si sucede que $i_e = 0$ se observa el resultado obtenido en la Sección (\ref{sec:realimentacion-negativa}) dado que
-
+Esta corriente error es amplificada por el operacional para luego ser inyectada a la base del transistor de paso, lo cual aumenta (o disminuye) la tensión a la salida de la fuente regulada, mitigando la corriente de error. Si se da la situación que $i_e = 0$, se observa el resultado obtenido en la Sección (\ref{sec:realimentacion-negativa}) dado que
 \begin{equation}
 V_o = |V_z| \cdot \frac{R_1}{R_2}
 \end{equation}
 
-Es entonces este amplificador operacional el cual no solo amplifica el error de la fuente regulada sino también entrega la corriente necesaria a la base del transistor de paso.
+Es por ello que el amplificador operacional amplifica el error de la fuente regulada y además entrega la corriente necesaria a la base del transistor de paso.
 
 \subsubsection{Transistor de Paso}
 
 \label{sec:transistor-de-paso}
-El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de deteccion y amplificadas por el amplificador de error, así proveyendo de la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un par Darlington integrado, el cual tiene una gran ganancia de corriente, pero en este caso se implementa con un Darlington discreto, el cual debe soportar una corriente y potencia elevada, lo cual se profundiza más adelante en el informe. Por estas razones, se optó por utilizar dos transistores en paralelo para el segundo transistor del par, con la idea de dividir la carga de la siguiente manera:
-
+El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de detección y amplificadas por el amplificador de error, proveyendo así la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un par Darlington integrado, el cual tiene una gran ganancia de corriente, pero en este caso se implementa con un Darlington discreto, el cual debe soportar una corriente y potencia elevada, lo cual se profundiza más adelante en el informe. Por estas razones, se optó por utilizar dos transistores en paralelo para el segundo transistor del par, con la idea de dividir la carga de la siguiente manera:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=5]{ImagenesEjercicio2/Regulador.pdf}
