@@ -69,17 +69,18 @@
 \begin{circuitikz}[european voltages]
 	\node [circ, label=$V_A$](aux1){};
 	\draw
-		to[R, l=$R_A$] ++ (2,0) node[circ, label=$V_O$](aux3){} -- ++(0,-1.225) node[npn, anchor=E, yscale=-1, label=right:$T_P$](tp){}
+		to[R, l=$R_A$] ++ (2,0) node[label=$V_O$](aux3){} -- ++(0,-1.225) node[npn, anchor=E, yscale=-1, label=right:$T_P$](tp){}
 		(aux1) -- ++ (-1,0) node[npn, anchor=E, rotate=90, label=$T_1$](t1){}
 		(aux1) to[R, l_=$R_B$] ++ (0,-2) node[circ, label=left:$V_B$](aux2){} to[R, l_=$R_C$] ++ (0,-1.5
 ) node[ground](){}
 		(tp.B) -- (aux2)
 		(t1.B) -- ++ (0,-4) -| (tp.C)
 		(aux2) ++ (1,1) node[](malla){}
+		(aux3.center) -- ++ (0.5,0) node[](muchacaca){}
 		;
 	\draw[dashed]
 		(t1.C) -- ++ (-1,0)
-		(aux3.center) -- ++ (1,0)
+		(muchacaca.center) -- ++ (1,0)
 		;
 	\draw[->,shift={(malla)}] (210:.7cm) arc (210:-30:.7cm) node at(0,0){};
 \end{circuitikz}
@@ -88,15 +89,16 @@
 %LINEAL
 \begin{page}
 \begin{circuitikz}[european voltages]
-	\node [circ](aux1){};
+	\node [](aux1){};
 	\draw
-		to[R, l=$R_A$] ++ (2,0) node[circ](aux2){} -- ++(0,-0.5) node[npn, anchor=E, yscale=-1, label=right:$T_P$](tp){}
-		(tp.B) -| (aux1) node[npn, anchor=E, rotate=90, label=$T_1$](t1){}
-		(t1.B) |- (tp.C)		
+		to[R, l=$R_A$] ++ (2,0) node[](aux2){} -- ++(0,-0.5) node[npn, anchor=E, yscale=-1, label=right:$T_P$](tp){}
+		(tp.B) -| (aux1.center) node[npn, anchor=E, rotate=90, label=$T_1$](t1){}
+		(t1.B) |- (tp.C)
+		(aux2.center) -- ++ (0.5,0) node[](aux3){}		
 		;
 	\draw[dashed]
 		(t1.C) -- ++ (-1,0)
-		(aux2.center) -- ++ (1,0)
+		(aux3.center) -- ++ (1,0)
 		;
 \end{circuitikz}
 \end{page}
@@ -195,7 +197,7 @@
 \begin{circuitikz}[european voltages]
 %Elemento de referencia
 	\draw
-		node[](begin){} to[R, l_=$R_2$] ++ (-2,0) node[](aux7){} to[R, l_=$R_Z$] ++ (-2,0) node[](aux8){}
+		node[label=$V_1$](begin){} to[R, l_=$R_2$] ++ (-2,0) node[circ, label=$V_Z$](aux7){} to[R, l_=$R_Z$] ++ (-2,0) node[label=$V^{-}$](aux8){}
 		(aux7.center) to[zzDo] ++ (0,-1.5) node[ground](){}
 		;
 	\draw[dashed]
