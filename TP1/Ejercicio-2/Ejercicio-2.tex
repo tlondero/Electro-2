@@ -277,8 +277,13 @@ En la elección de la fuente de alimentación se buscó el $V_{1min}$ tal que el
 \begin{align}
 V_{1min}=V_{CEsat}+V_{Oreg}+V_{Ra}= 1.4 \ V+9 \ V +1.25 \ V \ =11.65 \ V
 \end{align}
+Otro punto de interés es la tensión a la salida del operacional, la cual no debe ser mayor a la de alimentación del mismo, para obtener la tensión en este nodo basta con seguir el ciruito y se verá que:
+\begin{align}
+V_{Out-opamp}= V_o+2\cdot V_{be} = 11.65V
+\end{align}
+Obteniendo que la máxima tensión de salida en el opamp coincide con el $V^+$.\\
 Luego, dado que este es el mínimo absoluto, se dejará cierto margen de error, para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales puedan saturar alguno de los transistores, por lo cual se eligió un valor de $V_1=14 \ V$.\\
-Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del diodo elegido, tal que se encuentre polarizado correctamente.
+Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del diodo elegido, tal que se encuentre polarizado correctamente, por lo que se fijó $V_2=7\ V$.
 
 \subsubsection{Resistencia circuito de detección}
 \label{sec:resdet}
@@ -367,7 +372,24 @@ La curva correspondiente al foldback fue simulada y graficada como se ve a conti
 	\label{fig:GraficoFOldbacki}
 \end{figure}
 Se puede apreciar, que la máxima corriente es de 2.5A como fue calculado al igual que el valor de $I_{sc}$, vale la pena mencionar que a medida que se varíe la $R_1$ variará la corriente máxima de salida acorde a la ecuación (\ref{eq:Imaxfoldback})
+\subsubsection{Impedancia de Salida}
+La impedancia de salida fue simulada y graficada:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/zoutspice.png}
+	\caption{Impedancia de salida.}
+	\label{fig:zout}
+\end{figure}
+Se observa que la impedancia de salida es baja para la mayor parte del espectro, no superando nunca los 220$\Omega$.
 \subsubsection{Potencias}
+En esta sección se simularon las curvas de potencias sobre los componentes al variar la carga del circuito.\\
+El  primer componente a analizar es el diodo zener de la referencia, el cual le corresponde la siguiente curva:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potzener.png}
+	\caption{Potencia sobre el zener.}
+	\label{fig:zout}
+\end{figure}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Conclusiones}
 
