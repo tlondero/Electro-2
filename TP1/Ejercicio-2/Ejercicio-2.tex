@@ -146,9 +146,8 @@ El transistor de paso se encarga de llevar a cabo las correcciones detectadas po
 \end{figure}
 siendo $Q_2$ y $Q_3$ transistores de potencia. Por otro lado, la función de $R_5$ es obtener una corriente de colector de $Q_1$ razonable.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Protección por Corto-circuito}
-Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que no se conoce con exactitud que cargas va a ser proporcionadas al circuito, como puede ser el caso de que el usuario, en contra-indicación de las especificaciones del equipo, utilice una carga menor a la mínima. En dicha situación, es deseable que el circuito no sufra un daño irreversible. Es por ello que se evaluaron 2 alternativas, las cuales son presentadas a continuación.
+Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que no se conoce con exactitud que carga va a ser proporcionadas al circuito, como puede ser el caso de que el usuario, en contra-indicación de las especificaciones del equipo, utilice una carga menor a la mínima. En dicha situación, es deseable que el circuito no sufra un daño irreversible. Es por ello que se evaluaron 2 alternativas, las cuales son presentadas a continuación.
 \subsubsection{Protección Lineal}
 La implementación de una protección lineal resulta ser la mas sencilla debido a la facilidad de cálculo y que utiliza pocos componentes, como se ve a continuación:
 \begin{figure}[H]
@@ -250,38 +249,39 @@ Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el ob
 Para un valor de $13 \ mA$ corresponderá una resistencia de $56 \ \Omega$.
 
 \subsubsection{Componentes de Protección}
-Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, así la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó  $R_c$ lo cual definió inequivocamente $R_b$, también para el cálculo de estos valores se tuvo en cuenta que la máxima corriente ($2.5 \ A$) sería suministrada únicamente cuando se regule a la tensión máxima, y la pendiente de la curva de foldback fue seleccionada para que cuando baje la tensión de regulación aun tenga una corriente de salida máxima apreciable,teniendo en cuenta esto, quedan los valores
+Para la elección de estos componentes, se tuvo en cuenta la Ecuación (\ref{eq:Imaxfoldback}) para la cual, dado que se cuenta con dos grados de libertad, se fijó $R_a$ así la potencia disipada en corto-circuito no es de un valor muy elevado. Luego se tomó un valor para $R_c$, lo cual definió inequívocamente $R_b$. Para el cálculo de estos valores, se tuvo en cuenta que la máxima corriente ($2.5 \ A$) es suministrada únicamente cuando se regule a la tensión máxima. También se observó la pendiente de la curva de Foldback, la cual fue seleccionada para que cuando baje la tensión de regulación, aún tenga una corriente de salida máxima apreciable. Teniendo en cuenta esto, los valores seleccionados son los siguientes:
 \begin{align}
 R_a=0.56 \ \Omega  \ \ \ \ R_b=680 \ \Omega \ \ \ R_c=10 \ k\Omega \ \ \ I_{o-Max}=2.5 \ A \ \ \ I_{sc}= 1.34 \ A
 \end{align}
-Donde el valor de $I_{sc}$ queda fijo por la ecuación (\ref{eq:Isc}).
+Donde el valor de $I_{sc}$ queda fijado por la Ecuación (\ref{eq:Isc}).
 
 \subsubsection{Diodo de Referencia}
-El diodo zener elegido fue el \href{https://d1d2qsbl8m0m72.cloudfront.net/en/products/databook/datasheet/discrete/diode/zener/bzx84b6v2lt116-e.pdf}{BZX84B6V2L}
-debido a la estabilidad que cuenta para la $V_z$ y su reducida corriente de zener.\\
-Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_z =5.5 \ mA$, sabiendo que $V_z=6.2 \ V$  y utilizando la ecuación (\ref{eq:referencia}) se llega a un valor $R_Z=120 \ \Omega$ siendo adicionalmente el valor de $V_2$ definido en la sección (\ref{sec:fuentes}).
-Luego el valor de $R_2$ será discutido en la sección (\ref{sec:resdet})
+El diodo zener elegido es el \href{https://d1d2qsbl8m0m72.cloudfront.net/en/products/databook/datasheet/discrete/diode/zener/bzx84b6v2lt116-e.pdf}{BZX84B6V2L},
+debido a la estabilidad que cuenta para la $V_Z$ y su reducida corriente de mantenimiento.
+
+Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_Z =5.5 \ mA$, sabiendo que $V_Z=6.2 \ V$ y utilizando la Ecuación (\ref{eq:referencia}). De esta forma se llega a un valor $R_Z=120 \ \Omega$, siendo adicionalmente el valor de $V_2$ definido en la Sección (\ref{sec:fuentes}), mientras que el valor de $R_2$ es discutido en la Sección (\ref{sec:resdet}).
+
 \subsubsection{Fuentes de Alimentación}
 \label{sec:fuentes}
-En la elección de la fuente de alimentación se buscó el $V_{1min}$ tal que el sistema regule, para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
-
+En cuanto a la elección de la fuente de alimentación, se buscó el $V_{1min}$ tal que el sistema regule. Para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
 \begin{align}
 V_{1min}=V_{CEsat}+V_{Oreg}= 1.4 \ V+9 \ V=10.4 \ V
 \end{align}
-Otro punto de interés es la tensión a la salida del operacional, la cual no debe ser mayor a la de alimentación del mismo, para obtener la tensión en este nodo basta con seguir el ciruito y se verá que:
+
+Otro punto de interés es la tensión a la salida del operacional, la cual no debe ser mayor a la de alimentación del mismo. Para obtener la variable en este nodo basta con seguir el circuito, observándose que:
 \begin{align}
-V_{Out-opamp}= V_o+2\cdot V_{be} = 11.65V
+V_{Out-opamp}= V_o+2\cdot V_{be} = 11.65 \ V
 \end{align}
-Obteniendo que la máxima tensión de salida en el opamp coincide con el $V^+$.\\
-Luego, dado que este es el mínimo absoluto, se dejará cierto margen de error, para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales puedan saturar alguno de los transistores, por lo cual se eligió un valor de $V_1=14 \ V$.\\
-Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del diodo elegido, tal que con el valor de resistencai $R_Z$ elegido se encuentre polarizado correctamente, por lo que se fijó $V_2=7\ V$.
+obteniendo que la máxima tensión de salida en el opamp coincide con el $V^+$.
 
+Luego, dado que este es el mínimo absoluto, se deja cierto margen de error para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales pueden saturar alguno de los transistores. De esta forma se eligió un valor de $V_1=14 \ V$.
 
+Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_Z$, tal que con el valor de resistencia $R_Z$ se encuentre polarizado correctamente. Es así que se obtuvo $V_2=7 \ V$.
 
 \subsubsection{Resistencia circuito de detección}
 \label{sec:resdet}
-Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:vovz}) basta con definir un valor de $R_1$ tal que $V_o=9 \ V$ dado que la $R_1$ será un potenciómetro con el cual se variará la tensión de regulación.\\ Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  \Omega$
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Dado que la salida en regulación depende directamente de la Ecuación (\ref{eq:vovz}), basta con definir un valor de $R_1$ tal que $V_o=9 \ V$, dado que la $R_1$ es un potenciómetro con el cual se varia la tensión de regulación. Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  \Omega$
+
 \subsection{Análisis de cargas}
 En la búsqueda de la carga mínima, basta con una vez definida la máxima corriente y la máxima tensión de regulación, queda:
 
@@ -289,7 +289,7 @@ En la búsqueda de la carga mínima, basta con una vez definida la máxima corri
 	R_{Lmin} = \frac{V_{Omax}}{I_{Omax}} = 3.6 \ \Omega
 \end{equation}
 Luego la máxima carga corresponde a $R_L = \infty$
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{Análisis de Potencias Máximas}
 
 \subsubsection{Amplificador Operacional}
