@@ -29,9 +29,6 @@ Dicho circuito puede ser separado en 5 bloques fundamentales:
 \item \textcolor{orange}{Circuito de protección}
 \end{itemize}
 
- 
-
-
 \subsubsection{Análisis de realimentación negativa}
 \label{sec:realimentacion-negativa}
 
@@ -83,7 +80,7 @@ V_o = |V_z| \cdot \frac{R_1}{R_2}
 
 El elemento de referencia (o también llamado entrada o generador en un circuito de realimentación negativa) proporciona la tensión de entrada al sistema, la cual comparte nodo con el amplificador error y el circuito de detección, como se mencionó anteriormente.
 
-En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta etapa del sistema s prácticamente independiente del resto del circuito, y además debe ser altamente estable, es por ello que se utiliza $R_Z >> r_Z$ para evitar variaciones de $V_Z$, es decir, de la tensión de referencia, con respecto a $V^{-}$. Para ello se plantea las ecuaciones propias del nodo $V_Z$: 
+En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta etapa del sistema es prácticamente independiente del resto del circuito, y además debe ser altamente estable, es por ello que se utiliza $R_Z >> r_Z$ para evitar variaciones de $V_Z$, es decir, de la tensión de referencia, con respecto a $V^{-}$. Para ello se plantea las ecuaciones propias del nodo $V_Z$: 
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=6]{ImagenesEjercicio2/Regulador.pdf}
@@ -105,8 +102,7 @@ En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta
 \subsubsection{Circuito de Detección}
 \label{sec:circuito-de-deteccion}
 
-El circuito de detección está compuesto por la resistencia $R_2$. La caída de potencial sobre esta depende solamente de la tensión a la salida de la fuente, lo que permite generar una corriente proporcional a esta.
-
+El circuito de detección está compuesto por la resistencia $R_1$. La caída de potencial sobre esta depende solamente de la tensión a la salida de la fuente, lo que permite generar una corriente proporcional a esta.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=7]{ImagenesEjercicio2/Regulador.pdf}
@@ -114,36 +110,34 @@ El circuito de detección está compuesto por la resistencia $R_2$. La caída de
 	\label{fig:circdeteccion}
 \end{figure}
 
- De esta manera, se genera una resta de corrientes en el nodo del terminal negativo del operacional, siendo estas la corriente suministrada por la $R_2$, la corriente fija suministrada por la $R_1$, y la corriente del terminal negativo del opamp. Denominaremos a esta última corriente como el error de la fuente regulada.
+De esta manera, se genera una resta de corrientes en el nodo del terminal negativo del operacional, siendo estas la corriente suministrada por la $R_2$, la corriente fija suministrada por la $R_1$ y la corriente del terminal negativo del opamp. Se denomina a esta última corriente como el error de la fuente regulada.
 
 \subsubsection{Amplificador de Error y Pre-regulador}
+\label{sec:amp-error}
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.5\textwidth, page=8]{ImagenesEjercicio2/Regulador.pdf}
-	\caption{Corrientes en circuito de detección, elemento de referencia, y operacional.}
+	\includegraphics[width=0.8\textwidth, page=8]{ImagenesEjercicio2/Regulador.pdf}
+	\caption{Corrientes en circuito de detección, elemento de referencia y operacional.}
 	\label{fig:amp-prereg-det-ref}
 \end{figure}
 
-En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que si se define a la corriente $i_1$ como la corriente suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener; la corriente $i_2$ como la corriente suministrada por la resistencia $R_2$, la cual depende de la tensión que efectivamente provee la fuente regulada; e $i_e$ como la corriente error que atraviesa el terminal negativo del operacional, se tiene que
-
+En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que, si se define a la corriente $i_1$ como la corriente suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener, la corriente $i_2$ como la corriente suministrada por la resistencia $R_2$, la cual depende de la tensión que efectivamente provee la fuente regulada, e $i_e$ como la corriente error que atraviesa el terminal negativo del operacional, se tiene que
 \begin{equation}
-i_e = i_1 - i_2 = \frac{V_o}{R_1} - \frac{-V_z}{R_2}
+	i_e = i_1 - i_2 = \frac{V_o}{R_1} - \frac{-V_z}{R_2}
 \end{equation}
 
-Esta corriente error será amplificada por el operacional para luego ser inyectada a la base del transistor de paso lo cual aumenta (o disminuye) la tensión a la salida de la fuente regulada mitigando la corriente de error. Si sucede que $i_e = 0$ se observa el resultado obtenido en la Sección (\ref{sec:realimentacion-negativa}) dado que
-
+Esta corriente error es amplificada por el operacional para luego ser inyectada a la base del transistor de paso, lo cual aumenta (o disminuye) la tensión a la salida de la fuente regulada, mitigando la corriente de error. Si se da la situación que $i_e = 0$, se observa el resultado obtenido en la Sección (\ref{sec:realimentacion-negativa}) dado que
 \begin{equation}
 V_o = |V_z| \cdot \frac{R_1}{R_2}
 \end{equation}
 
-Es entonces este amplificador operacional el cual no solo amplifica el error de la fuente regulada sino también entrega la corriente necesaria a la base del transistor de paso.
+Es por ello que el amplificador operacional amplifica el error de la fuente regulada y además entrega la corriente necesaria a la base del transistor de paso.
 
 \subsubsection{Transistor de Paso}
 
 \label{sec:transistor-de-paso}
-El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de deteccion y amplificadas por el amplificador de error, así proveyendo de la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un par Darlington integrado, el cual tiene una gran ganancia de corriente, pero en este caso se implementa con un Darlington discreto, el cual debe soportar una corriente y potencia elevada, lo cual se profundiza más adelante en el informe. Por estas razones, se optó por utilizar dos transistores en paralelo para el segundo transistor del par, con la idea de dividir la carga de la siguiente manera:
-
+El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de detección y amplificadas por el amplificador de error, proveyendo así la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un par Darlington integrado, el cual tiene una gran ganancia de corriente, pero en este caso se implementa con un Darlington discreto, el cual debe soportar una corriente y potencia elevada, lo cual se profundiza más adelante en el informe. Por estas razones, se optó por utilizar dos transistores en paralelo para el segundo transistor del par, con la idea de dividir la carga de la siguiente manera:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=5]{ImagenesEjercicio2/Regulador.pdf}
@@ -154,9 +148,8 @@ siendo $Q_2$ y $Q_3$ transistores de potencia. Por otro lado, la función de $R_
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Protección por Corto-circuito}
-Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no sufra un daño irreversible. 
-Para la protección de cortocircuito se evaluaron 2 alternativas:
-\subsubsection{Protección lineal}
+Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que no se conoce con exactitud que cargas va a ser proporcionadas al circuito, como puede ser el caso de que el usuario, en contra-indicación de las especificaciones del equipo, utilice una carga menor a la mínima. En dicha situación, es deseable que el circuito no sufra un daño irreversible. Es por ello que se evaluaron 2 alternativas, las cuales son presentadas a continuación.
+\subsubsection{Protección Lineal}
 La implementación de una protección lineal resulta ser la mas sencilla debido a la facilidad de cálculo y que utiliza pocos componentes, como se ve a continuación:
 \begin{figure}[H]
 \centering
@@ -164,18 +157,20 @@ La implementación de una protección lineal resulta ser la mas sencilla debido 
 	\caption{Circuito de Protección lineal.}
 	\label{fig:circuitolineal}
 \end{figure}
-El cálculo para la resistencia $R_a= \frac{V_{be}}{I_{o-Max}}$.
-Esta protección limita la corriente de salida del regulador haciendola constante. Esto es asi debido a que el trasistor de proteccion sensa la tensión sobre la resistencai $R_a$ y al superar cierto valor $V_a = R_a \cdot I_{o-Max} $ el transistor pasa a modo activo directo, quitandole corriente de la base al transistor de paso.
-Si bien la protección lineal es de sencilla implementación cuenta con la siguiente característica:
+El cálculo para la resistencia es simple, siendo este 
+$$R_a= \frac{V_{BE}}{I_{o-Max}}$$
+Esta protección limita la corriente de salida del regulador haciéndola constante. Esto es así debido a que el transistor de protección se encuentra censando la tensión sobre la resistencia $R_a$. Al superar cierto valor $V_a = R_a I_{o-Max}$ el transistor pasa a modo activo directo, quitándole corriente de la base al de paso. Es por ello que cuenta con la siguiente característica:
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/Linearprotection.png}
-	\caption{Característica de la Protección lineal.}
+	\includegraphics[width=0.4\textwidth]{ImagenesEjercicio2/Linearprotection.png}
+	\caption{Característica de la protección Lineal.}
 	\label{fig:circuitolinealcarac}
 \end{figure}
-Donde $I_{max}$ corresponde a la máxima corriente que uno define para el circuito e $I_{damage}$ es la corriente bajo la cual el circuito sufrirá un daño irreversible.\\
-Se puede notar que en el  peor caso ($V_o = 0$) sería máxima tanto la corriente de salída como la caída de potencial sobre el transistor de paso, haciendo que por consecuente sea máxima la disipación de potencia sobre este, lo cual es un problema.
-\subsubsection{Protección foldback}
+En la Figura (\ref{fig:circuitolinealcarac}) se observa que $I_{max}$ corresponde a la máxima corriente que uno define para el circuito, mientras que $I_{damage}$ es la corriente bajo la cual el circuito sufre un daño irreversible.
+
+Se puede notar que en el peor caso ($V_o = 0$), la corriente de salida, como la caída de potencial sobre el transistor de paso, son máximas, haciendo que también sea máxima la disipación de potencia sobre este.
+
+\subsubsection{Protección Foldback}
 La protección de Foldback es una variación de la lineal, la cual cuenta con 2 resistencias adicionales conectadas de la siguiente manera:
 \begin{figure}[H]
 \centering
@@ -183,50 +178,50 @@ La protección de Foldback es una variación de la lineal, la cual cuenta con 2 
 	\caption{Circuito de Protección Foldback.}
 	\label{fig:circuitofoldback}
 \end{figure}
-Si se desea resolver para $I_{o-Max}$ bastará con recorrer la malla:
+Si se desea resolver para $I_{o-Max}$ basta con recorrer la malla:
 \begin{align}
--I_{o-Max} \cdot R_a + V_{be} - (V_b-V_a)=0
+-I_{o-Max} \cdot R_a + V_{BE} - (V_b-V_a)=0
 \end{align}
 \begin{align}
 V_b=V_a \cdot \frac{R_c}{R_c+R_b}
 \end{align}
 \begin{align}
--I_{o-Max} \cdot R_a + V_{be} + V_a \cdot (1-\frac{R_c}{R_c+R_b})=0
+-I_{o-Max} \cdot R_a + V_{BE} + V_a \cdot (1-\frac{R_c}{R_c+R_b})=0
 \end{align}
 \begin{align}
--I_{o-Max} \cdot R_a + V_{be} + (I_{o-Max} \cdot R_a +V_o) \cdot \frac{R_b}{R_c+R_b}=0
+-I_{o-Max} \cdot R_a + V_{BE} + (I_{o-Max} \cdot R_a +V_o) \cdot \frac{R_b}{R_c+R_b}=0
 \end{align}
 lo cual despejando para $I_{o-Max}$ queda:
 \begin{align}
-I_{o-Max}=  \frac{V_o \cdot R_b + V_{be}\cdot (R_b+R_c)}{R_a \cdot R_c}
+I_{o-Max}=  \frac{V_o \cdot R_b + V_{BE}\cdot (R_b+R_c)}{R_a \cdot R_c}
 \label{eq:Imaxfoldback}
 \end{align}
-De aquí se puede ver que la corriente caerá en función de la tensión de salida hasta establecerse en una corriente fija para la carga nula denominada $I_{sc}$ la tiene un valor de.
+
+De aquí se puede ver que la corriente cae en función de la tensión de salida hasta establecerse en una corriente fija para la carga nula denominada $I_{sc}$.
 \begin{align}
-I_{sc} = V_{be} \cdot \frac{R_b+R_c}{R_a \cdot R_c}
+I_{sc} = V_{BE} \cdot \frac{R_b+R_c}{R_a \cdot R_c}
 \label{eq:Isc}
 \end{align}
-Luego graficando la curva se obtiene:
+
+Graficando la curva se obtiene:
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/foldbackLineal.png}
-	\caption{Característica de la Protección foldback.}
+	\includegraphics[width=0.4\textwidth]{ImagenesEjercicio2/foldbackLineal.png}
+	\caption{Característica de la protección Foldback.}
 	\label{fig:circuitofoldbackcarac}
 \end{figure}
-Se puede apreciar también la razón de su nombre dado que la curva de la corriente se ``dobla'' sobre si misma.\\
-Si bien armar esta fuente resulta en una mayor cantidad de componentes, el hecho de que reduzca la corriente de paso al tener una carga nula, y que por ello reduzca la potencia consumida es un factor no menor. por esta razón esta fue la protección elegida a utilizar.\\
-Solo a modo ilustrativo se grafica ambas curvas de las protecciones.
+Se puede apreciar la razón de su nombre dado que la curva de la corriente se ``dobla'' sobre si misma. Si bien armar esta fuente resulta en una mayor cantidad de componentes, el hecho de que reduzca la corriente de paso al tener una carga nula, y que por ello reduzca la potencia consumida, es un factor no menor. Por dicha razón, esta fue la protección elegida para el diseño. A modo ilustrativo se grafica ambas curvas de las protecciones superpuestas.
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/foldback.png}
-	\caption{Característica de la Protección foldback y lineal.}
+	\includegraphics[width=0.4\textwidth]{ImagenesEjercicio2/foldback.png}
+	\caption{Característica de la protección Foldback y Lineal.}
 	\label{fig:circuitofoldbacklinealcarac}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Análisis de Componentes}
 \subsubsection{Amplificador Operacional}
-En la elección del amplificador operacional, se tuvieron en cuenta diversos componentes, como se ve a continuación en el siguiente cuadro comparativo:
+En la elección del amplificador operacional, se analizaron diversos componentes, siendo estos los presentados a continuación en el siguiente cuadro comparativo:
 \begin{table}[H]
 \hspace*{-0.5cm}
 \begin{tabular}{ccccccccc}
@@ -243,8 +238,11 @@ En la elección del amplificador operacional, se tuvieron en cuenta diversos com
 \end{tabular}
 \caption{Comparación de operacionales.}
 \end{table}
-También es notable que de todos los integrados el \textbf{OP284} es rail to rail, lo cual es de gran utilidad, si se desea obtener un valor de $V_1$ inferior, luego teniendo en cuenta el GBP, las corrientes de bias, la tension de offset, se optó por utilizar el OP284.
+
+Es notable que de todos los integrados el \textbf{OP284} es rail to rail, lo cual es de gran utilidad si se desea obtener un valor de $V_1$ inferior. Además, se tuvo en cuenta el GBP, las corrientes de bias, la tension de offset, para optar utilizar el OP284.
+
 \subsubsection{Transistores de Paso}
+
 Para la sección de transistor de paso, se eligió utilizar los transistores \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/532914/FAIRCHILD/TIP31C.html}{QTIP41C} que son transistores de potencia, al igual que un \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/2895/MOTOROLA/BC547C.html}{BC547C}, utilizando los TIP41C como el transistor que pasará la mayoría de la corriente y el BC547 como el que recibe la corriente del opamp.
 Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor se encuentren con un hfe estable,esto se puede observar claramente en la datasheet del BC547C del HFE en función de la corriente de colector:
 \begin{figure}[H]
@@ -254,12 +252,13 @@ Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el ob
 Lo que se busca es tener una corriente de colector tal que el hfe se encuentre en la zona azul, sin esta resistencia la corriente de colector probablemente se encontraría en la zona verde, lo cual no corresponde a un hfe estable.\\ 
 
 El valor de $R_5$ se obtiene a partir de la siguiente ecuación:
+
 \begin{align}
-\frac{V_{be}}{R_5}=I_{R5}\approx I_c
+\frac{V_{BE}}{R_5}=I_{R5}\approx I_c
 \end{align}
 Para un valor de $13 \ mA$ corresponderá una resistencia de $56 \ \Omega$.
-\subsubsection{Componentes de Protección}
 
+\subsubsection{Componentes de Protección}
 Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, así la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó  $R_c$ lo cual definió inequivocamente $R_b$, también para el cálculo de estos valores se tuvo en cuenta que la máxima corriente ($2.5 \ A$) sería suministrada únicamente cuando se regule a la tensión máxima, y la pendiente de la curva de foldback fue seleccionada para que cuando baje la tensión de regulación aun tenga una corriente de salida máxima apreciable,teniendo en cuenta esto, quedan los valores
 \begin{align}
 R_a=0.56 \ \Omega  \ \ \ \ R_b=680 \ \Omega \ \ \ R_c=10 \ k\Omega \ \ \ I_{o-Max}=2.5 \ A \ \ \ I_{sc}= 1.34 \ A
@@ -298,11 +297,50 @@ En la búsqueda de la carga mínima, basta con una vez definida la máxima corri
 \begin{equation}
 	R_{Lmin} = \frac{V_{Omax}}{I_{Omax}} = 3.6 \ \Omega
 \end{equation}
+
 Luego la máxima carga corresponde a $R_{LMax} = \infty$
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Análisis de Potencia}
+\subsection{Análisis de Potencias Máximas}
 
 \subsubsection{Amplificador Operacional}
+\label{sec:opamppot}
+
+Como ya analizado en la Sección (\ref{sec:amp-error}), el amplificador operacional OP-284 cumplirá la función de suministrar corriente al transistor de paso. Si bien esta corriente suministrada a la base del transistor es pequeña, análisis en la Sección (\ref{sec:fuentes}) demuestra que la caída de potencial en el opamp es grande. Por esta razón se debe realizar un análisis de potencia disipada para no quemar a este. Para el caso presente, se observa que el \href{https://www.alldatasheet.com/datasheet-pdf/pdf/49039/AD/OP284.html}{OP284} puede llegar hasta temperaturas de operación de $125 \degree C$. Asumiendo una temperatura ambiente de $40 \degree C$, y dejando un margen de seguridad de $15\degree C$ en la temperatura del operacional, se calcula que la potencia máxima disipada por operacional será de $0.7 \ W$.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.6\textwidth, page=2]{ImagenesEjercicio2/Potencia.pdf}
+	\caption{Circuito equivalente de potencias con $R_{\theta a-j} = 103 \ \frac{^o C}{W}$.}
+	\label{fig:circuitopot}
+\end{figure}
+
+Para hallar la potencia máxima que disipará el amplificador operacional se deben considerar dos modos de funcionamiento de la fuente: en regulación, y cuando la protección se encuentra activada. Cuando la fuente se encuentra regulando, la tensión $V_0$ será constante, sin embargo, la corriente de salida será cada vez mayor, causando que el operacional deba entregar una corriente mayor a la base del transistor de paso. En este caso, despreciando la corriente por $R_5$, se tiene que la corriente máxima que deberá entregar el opamp será
+
+\begin{equation}
+I_{opamp_{max}}|_{reg} = \frac{I_{reg_{max}}}{\beta _{Q_{1}} \cdot \beta _{Q_{2}}} = \frac{2.5A}{110 \cdot 10} = 2.3mA
+\end{equation}
+
+Luego, utilizando la ley de mallas, se obtiene que
+
+\begin{equation}
+V_{opamp_{max}}|_{reg} = V_o + I_{reg_{max}} \cdot R_a + V_{BE_{Q_2}} + V_{BE_{Q_1}} = 11.8V
+\end{equation}
+
+Por lo que la potencia máxima disipada por el operacional en regulación será
+
+\begin{equation}
+P_{opamp_{max}}|_{reg} = 27.14mW
+\end{equation}
+
+Lo cual estará muy por debajo del máximo.
+
+Por otro lado, cuando se activa la protección de foldback, si bien será menor, el transistor de paso seguirá pidiendole corriente al operacional, mientras que el transistor de protección $Q_p$ también pedirá corriente, la cual será suministrada por el operacional. Se puede observar que aunque la corriente $I_o$ decrezca, la corriente que pedirá $Q_p$ es mediante su colector, por lo que no será reducida en un factor de $\beta_p$ como sucedía con el transistor de paso, por lo que la corriente que se le pedirá al opamp será mucho mayor que en regulación y el peor caso será cuando la carga tienda a cero.
+
+Sin embargo, la tensión a la salida de la fuente regulada disminuirá, por lo que disminuirá también la tensión en el amplificador operacional. Utilizando la ley de mallas, se obtiene que
+
+\begin{equation}
+V_{opamp_{max}}|_{cc} = V_{o} + I_{o}\cdot R_s + V_{BE_{Q_2}} + V_{BE_{Q_1}}
+\end{equation}
 
 \subsubsection{Transistores}
 
@@ -317,10 +355,10 @@ Luego la máxima carga corresponde a $R_{LMax} = \infty$
 \frac{T_j - T_a}{R_{\theta jc}+R_{\theta cs}+R_{\theta sa}} = P
 \end{equation}
 
-Asumiendo una temperatura ambiente de $40 \ \degree C$; una temperatura máxima de juntura en funcionamiento de $140 \ \degree C$, $20 \ \degree C$ menor a la especificada por el fabricante; la $R_{\theta jc}$ también especificada, de $3.125 \ \frac{\degree C}{W}$; el uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$, y área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \frac{\degree C}{W}$; y finalmente una potencia disipada de $9.6 \ W$, levemente mayor a la máxima disipada; se obtiene
+Asumiendo una temperatura ambiente de $40 \ \degree C$; una temperatura máxima de juntura en funcionamiento de $140 \ \degree C$, $20 \ \degree C$ menor a la especificada por el fabricante; la $R_{\theta jc}$ también especificada, de $3.125 \ \frac{\degree C}{W}$; el uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$, y área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \ \frac{\degree C}{W}$; y finalmente una potencia disipada de $9.6 \ W$, levemente mayor a la máxima disipada; se obtiene
 
 \begin{equation}
-R_{\theta sa} = 4.57  \  \frac{\degree C}{W}
+R_{\theta sa} = 4.57 \ \frac{\degree C}{W}
 \end{equation}
 \subsubsection{Diodos y Resistencias}
 \begin{itemize}
@@ -353,6 +391,11 @@ P_{Rz}=\frac{(V^- - V_z)^2}{R_z} = 5.33mW
 \end{align}
 
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Rendimiento}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Simulaciones}
@@ -508,22 +551,6 @@ En la siguiente sección, se busca elaborar una fuente regulada de tensión que 
 
 
 
-
-El pre-regulador cumple la función de brindar corriente \textbf{(habría que desarrollar un poco más)}. Para el caso presente, se observa que el amplificador operacional puede llegar hasta temperaturas de $125 \ ^o C$ son problema. Asumiendo una temperatura ambiente de $40 \ ^o C$, la potencia máxima disipada por operacional es de $0.7 \ W$.
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth, page=2]{ImagenesEjercicio2/Potencia.pdf}
-	\caption{Circuito equivalente de potencias con $R_{\theta a-j} = 103 \ \frac{^o C}{W}$.}
-	\label{fig:circuitopot}
-\end{figure}
-
-Es por ello que se analiza la potencia tanto en regulación como fuera de esta. Durante la primer etapa, la tensión de salida $V_O$ es estable pero la corriente es cada vez mayor. A pesar de esto, la potencia disipada por el opamp se mantiene menor a la máxima. Por otro lado, con el circuito fodlback activado, la tensión decae, haciendo que también decaiga la potencia del amplificador, manteniendola por debajo del máximo.
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth]{ImagenesEjercicio2/Potencia2.png}
-	\caption{Curvas de potencia consumida.}
-	\label{fig:curvapot}
-\end{figure}
 
 
 \end{document}
