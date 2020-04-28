@@ -32,6 +32,7 @@ Dicho circuito puede ser separado en 5 bloques fundamentales:
 
 
 \subsubsection{Análisis de realimentación negativa}
+\label{sec:realimentacion-negativa}
 
 La teoría de la realimentación negativa plantea que dado un sistema a lazo cerrado ideal, con un número impar de inversiones de fase, la ganancia de este puede aproximarse como la inversa del factor de realimentación si la ganancia de lazo en módulo es mucho mayor a la unidad, es decir
 \begin{equation}
@@ -77,10 +78,10 @@ V_o = |V_z| \cdot \frac{R_2}{R_1}
 
 \subsubsection{Bloques del Regulador}
 \subsubsection{Elemento de Referencia}
+
 El elemento de referencia (o también llamado entrada o generador en un circuito de realimentación negativa) proporciona la tensión de entrada al sistema, la cual comparte nodo con el amplificador error y el circuito de detección, como se mencionó anteriormente.
 
-En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta etapa del sistema s prácticamente independiente del resto del circuito, y además debe ser altamente estable, es por ello que se utiliza $R_Z >Z r_Z$ para evitar variaciones de $V_Z$, es decir, de la tensión de referencia, con respecto a $V^{-}$.
-
+En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta etapa del sistema s prácticamente independiente del resto del circuito, y además debe ser altamente estable, es por ello que se utiliza $R_Z >> r_Z$ para evitar variaciones de $V_Z$, es decir, de la tensión de referencia, con respecto a $V^{-}$. Para ello se plantea las ecuaciones propias del nodo $V_Z$: 
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=6]{ImagenesEjercicio2/Regulador.pdf}
@@ -88,10 +89,33 @@ En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta
 	\label{fig:transistorDePaso}
 \end{figure}
 
-\subsubsection{Amplificador de Error y Pre-regulador}
+\begin{equation*}
+	\frac{V^{-} - V_Z}{R_Z} + I_Z = \frac{V_Z - V_1}{R_2} \approx \frac{V_Z}{R_2}
+\end{equation*}
+\begin{equation*}
+	V^{-} - V_Z = \left( \frac{V_Z}{R_2} - I_Z \right) \cdot \frac{1}{R_Z}
+\end{equation*}
+\begin{equation}
+	R_Z = R_2 \cdot \frac{V^{-} - V_Z}{V_Z - R_2 I_Z}
+	\label{eq:referencia}
+\end{equation}
+
 \subsubsection{Circuito de Detección}
+\label{sec:circuito-de-deteccion}
+
+El circuito de detección está compuesto por la resistencia $R_2$. La caída de potencial sobre esta depende solamente de la tensión a la salida de la fuente, lo que permite generar una corriente proporcional a esta. De esta manera, se genera una resta de corrientes en el nodo del terminal negativo del operacional, siendo estas la corriente suministrada por la $R_2$, la corriente fija suministrada por la $R_1$, y la corriente del terminal negativo del opamp. Denominaremos a esta última corriente como el error de la fuente regulada.
+
+\subsubsection{Amplificador de Error y Pre-regulador}
+
+En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que si $R_1 = R_2$ entonces la corriente que ingresa (o egresa) del terminal negativo del operacional será igual a la diferencia entre la corriente fija suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener; y la corriente suministrada por la resistencia $R_2$, la cual depende de la tensión que provee la fuente regulada. Si sucede que $R_1 \neq R_2$ entonces se tiene que la corriente por el terminal negativo del opamp será proporcional a la diferencias de corrientes de las otras dos ramas, siendo esta proporción la razón entre $R_1$ y $R_2$, como se dedujo en la Sección (\ref{sec:realimentacion-negativa}).
+
+Luego, este error es amplificado por el amplificador proporcional, el cual le entrega corriente al transistor de paso analizado en la Sección (\ref{sec:transistor-de-paso}). Es entonces este amplificador operacional el cual no solo amplifica el error de la fuente regulada sino también entrega la corriente necesaria a la base del transistor de paso.
+
 \subsubsection{Transistor de Paso}
+
+\label{sec:transistor-de-paso}
 El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de deteccion y amplificadas por el amplificador de error, así proveyendo de la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un par Darlington integrado, el cual tiene una gran ganancia de corriente, pero en este caso se implementa con un Darlington discreto, el cual debe soportar una corriente y potencia elevada, lo cual se profundiza más adelante en el informe. Por estas razones, se optó por utilizar dos transistores en paralelo para el segundo transistor del par, con la idea de dividir la carga de la siguiente manera:
+
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=5]{ImagenesEjercicio2/Regulador.pdf}
