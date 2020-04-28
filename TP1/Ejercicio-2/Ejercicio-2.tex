@@ -251,7 +251,7 @@ Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/Potencia - Transistor.pdf}
+	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/Potencia.pdf}
 	\caption{Circuito térmico para el cálculo de disipador del transistor.}
 	\label{fig:circuitopottrans}
 \end{figure}
@@ -287,14 +287,14 @@ R_{\theta sa} = 4.57 \frac{\degree C}{W}
 
 
 En la siguiente sección, se busca elaborar una fuente regulada de tensión que cumpla con una salida que varíe entre $0 \ V$ y $9 \ V$, con una corriente de salida máxima de $2.5 \ A$. Dado que la tensión mínima debe ser nula, se implementó un regulador serie que utiliza un lazo de realimentación negativa que muestrea tensión y suma corriente, siendo así el circuito resultante el presentado a continuación.
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.8\textwidth, page=1]{ImagenesEjercicio2/Regulador.pdf}
-	\caption{Circuito regulador de tensión.}
-	\label{fig:circuito1}
-\end{figure}
-
-En la Figura (\ref{fig:circuito1}) se puede observar en distintos colores las diferentes etapas del sistema, siendo \textcolor{blue}{en azul el amplificador error}, \textcolor{olive}{en verde el transistor de paso}, \textcolor{red}{en rojo el elemento de referencia}, \textcolor{purple}{en violeta el circuito de detección} y \textcolor{orange}{en naranja el circuito de protección}.
+%\begin{figure}[H]
+%\centering
+%	\includegraphics[width=0.8\textwidth, page=1]{ImagenesEjercicio2/Regulador.pdf}
+%	\caption{Circuito regulador de tensión.}
+%	\label{fig:circuito1}
+%\end{figure}
+%
+%En la Figura (\ref{fig:circuito1}) se puede observar en distintos colores las diferentes etapas del sistema, siendo \textcolor{blue}{en azul el amplificador error}, \textcolor{olive}{en verde el transistor de paso}, \textcolor{red}{en rojo el elemento de referencia}, \textcolor{purple}{en violeta el circuito de detección} y \textcolor{orange}{en naranja el circuito de protección}.
 
 \begin{equation}
 \frac{V^- - V_Z}{R_Z} + I_Z = \frac{V_Z}{R_9}
@@ -323,7 +323,7 @@ V_{2min} = 11.65 \ V + 1.5 \ V = 13.15 \ V
 El pre-regulador cumple la función de brindar corriente \textbf{(habría que desarrollar un poco más)}. Para el caso presente, se observa que el amplificador operacional puede llegar hasta temperaturas de $125 \ ^o C$ son problema. Asumiendo una temperatura ambiente de $40 \ ^o C$, la potencia máxima disipada por operacional es de $0.7 \ W$.
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/Potencia - Opamp.pdf}
+	\includegraphics[width=0.6\textwidth, page=2]{ImagenesEjercicio2/Potencia.pdf}
 	\caption{Circuito equivalente de potencias con $R_{\theta a-j} = 103 \ \frac{^o C}{W}$.}
 	\label{fig:circuitopot}
 \end{figure}
