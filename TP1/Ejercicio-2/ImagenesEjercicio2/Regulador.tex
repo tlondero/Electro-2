@@ -169,25 +169,40 @@
 \end{circuitikz}
 \end{page}
 
-%darlington
+%Darlington
 \begin{page}
 \begin{circuitikz}[european voltages]
-
-		
-	%Transistor de paso
 	\draw
-		(aux2.north) -- ++ (0,4) node[npn, anchor = B, label=right:$Q_1$](Q1){}
+		(aux2.north) ++ (0,2) -- ++ (0,2) node[npn, anchor = B, label=right:$Q_1$](Q1){}
 		(Q1.E) -- ++ (2.15,0) node[npn, anchor = B, label=north:$Q_2$](Q2){}
 		(Q2.B) -- ++ (1.2,0) node[npn, anchor = B, label=north:$Q_3$](Q3){}
 		
-		($ (Q1.E) !.5! (Q2.B) $) to[R, l=$R_5$] ++(0,-2) |- ($ (Q3.E) !.5! (aux3) $)% -| (aux3.center)
-		(Q2.E) -| (aux3.center)
-		(Q1.C) -- ++ (0,1) node[ocirc](aux5){}
-		(Q2.C) |- (aux5.east)
+		($ (Q1.E) !.5! (Q2.B) $) to[R, l=$R_5$] ++(0,-2) |- ($ (Q3.E) !.5! (aux3) $) node[](algo){} -- (Q3.E) 
+		(Q2.E) -- (Q3.E)
+		(Q1.C) -- ++ (0,1) node[](aux5){}
+		(Q2.C) |- (aux5.center)
 		(aux5) ++ (2,0) -| (Q3.C)
 		;
-				
+	\draw[dashed]
+		(aux2.north) -- ++ (0,2)
+		(algo) -- ++ (0,-1.5)
+		;
 
 \end{circuitikz}
 \end{page}
+
+\begin{page}
+\begin{circuitikz}[european voltages]
+%Elemento de referencia
+	\draw
+		node[](begin){} to[R, l_=$R_2$] ++ (-2,0) node[](aux7){} to[R, l_=$R_Z$] ++ (-2,0) node[](aux8){}
+		(aux7.center) to[zzDo] ++ (0,-1.5) node[ground](){}
+		;
+	\draw[dashed]
+		(begin) -- ++ (1,0)
+		(aux8) -- ++ (-1,0)
+		;
+\end{circuitikz}
+\end{page}
+
 \end{document}

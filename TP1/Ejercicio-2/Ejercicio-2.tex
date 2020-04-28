@@ -5,20 +5,21 @@
 \tableofcontents
 \newpage
 \subsection{Diseño Propuesto}
-Se requiere una fuente que se ajuste a las siguientes especificaciones:
-El cual se ajusta a las especificaciones de:
+
+En la siguiente instancia se realiza una fuente de tensión regulada, la cual se ajusta a las especificaciones de:
 \begin{align}
 0V \leq V_o \leq 9V \ \ \ \ \ \ \wedge \ \ \ \ \ \ I_{o-Max}=2.5A
-\end{align} 
-Se optó por un diseño que muestre tensión y sume corriente.  
-El diseño elegido para la fuente regulada es el siguiente.
+\end{align}
+
+Se optó por un diseño que muestre tensión y sume corriente, siendo el diseño elegido para la fuente el presentado a continuación.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.8\textwidth, page=1]{ImagenesEjercicio2/Regulador.pdf}
 	\caption{Circuito regulador de tensión propuesto.}
 	\label{fig:circuitoprop}
 \end{figure}
-El cual puede ser separado en 5 bloques fundamentales.
+
+Dicho circuito puede ser separado en 5 bloques fundamentales:
 \begin{itemize}
 \item \textcolor{blue}{Amplificador error}
 \item \textcolor{olive}{Transistor de paso}
@@ -33,55 +34,61 @@ El cual puede ser separado en 5 bloques fundamentales.
 \subsubsection{Análisis de realimentación negativa}
 \label{sec:realimentacion-negativa}
 
-La teoría de la realimentación negativa plantea que dado un sistema a lazo cerrado ideal con un número impar de inversiones de fase, la ganancia de este puede aproximarse como la inversa del factor de realimentación si la ganancia de lazo en módulo es mucho mayor a la unidad, es decir
-
+La teoría de la realimentación negativa plantea que dado un sistema a lazo cerrado ideal, con un número impar de inversiones de fase, la ganancia de este puede aproximarse como la inversa del factor de realimentación si la ganancia de lazo en módulo es mucho mayor a la unidad, es decir
 \begin{equation}
-PE = \frac{A }{1+ f \cdot A} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
+P.E. = \frac{A }{1+ f \cdot A} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
 \end{equation}
-
 donde $A$ es la respuesta a lazo abierto, $f$ el factor de realimentación y $T$ es la ganancia de lazo. Se puede observar que bajo las condiciones descritas anteriormente, se tiene entonces que 
 
 \begin{equation}
-PE \approx \frac{1}{f}
+P.E. \approx \frac{1}{f}
 \end{equation}
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/circuito_lazo.png}
+	\includegraphics[width=0.8\textwidth]{ImagenesEjercicio2/circuito_lazo.png}
 	\caption{Lazo de realimentación negativa.}
 	\label{fig:circuito_lazo}
 \end{figure}
 
-En el circuito realizado puede observarse un lazo de realimentación negativa el cual posee una inversión de fase producida por el amplificador operacional detallado en la Figura (\ref{fig:circuito_lazo}). También son de observar varias cosas: 
-
+En el circuito realizado puede observarse un lazo de realimentación negativa el cual posee una inversión de fase producida por el amplificador operacional detallado en la Figura (\ref{fig:circuito_lazo}). También es de interés observar los siguientes puntos: 
 \begin{itemize}
-\item Por tierra virtual el opamp trabajará para mantener la tensión nula en su terminal negativo.
-\item El diodo zener consumirá la corriente necesaria para mantener la caída de tensión sobre este fija.
-\item El lazo de realimentación tratará de fijar una tensión a la salida de la fuente regulada.
+\item Por tierra virtual, el opamp trabaja para mantener la tensión nula en su terminal negativo.
+\item El diodo zener consume la corriente necesaria para mantener la caída de tensión sobre este fija.
+\item El lazo de realimentación trata de fijar una tensión a la salida de la fuente regulada.
 \end{itemize}
 
-Teniendo estas cosas en cuenta, es de notar que la fuente realiza un muestreo de tensión a la salida de la fuente mediante la resistencia $R_1$, la cual inyectará una corriente proporcional a la tensión muestreada a la salida, realizándose una suma de corrientes en el nodo del terminal negativo del amplificador operacional, siendo la referencia la corriente fija proporcionada por la resistencia $R_2$.
+Teniendo en cuenta dichos aspectos, es de notar que la fuente realiza un muestreo de tensión a la salida mediante la resistencia $R_1$, la cual inyecta una corriente proporcional a la dicha, realizándose una suma de corrientes en el nodo del terminal negativo del amplificador operacional, siendo la referencia la corriente fija proporcionada por la resistencia $R_2$.
 
-En resumidas cuentas, el parámetro estabilizado del sistema será
+En resumidas cuentas, el parámetro estabilizado del sistema es
 
 \begin{equation}
-PE = \frac{V_o}{I_N} = -\frac{V_o \cdot R_2}{|V_z|} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
+P.E. = \frac{V_o}{I_N} = -\frac{V_o \cdot R_2}{|V_z|} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
 \end{equation}
 
-Luego, se puede demostrar que la ganancia $f$ se puede aproximar como la razón entre el parámetro que se suma en el lazo y el parámetro que se muestrea cuando la tensión en el nodo del terminal negativo del opamp es cero, obteniendo
-
+Luego, se puede demostrar que la ganancia $f$ se puede aproximar como la razón entre el parámetro que se suma en el lazo y el parámetro que se muestrea, cuando la tensión en el nodo del terminal negativo del opamp es cero, obteniendo así
 \begin{equation}
 f \approx -\frac{1}{R_1}
 \end{equation}
 
 Si se considera que la ganancia de lazo en módulo es mucho mayor que la unidad dado que se utiliza un opamp como amplificador, se obtiene finalmente que
-
 \begin{equation}
 V_o = |V_z| \cdot \frac{R_2}{R_1}
 \end{equation}
 
 \subsubsection{Bloques del Regulador}
 \subsubsection{Elemento de Referencia}
+
+El elemento de referencia (o también llamado entrada o generador en un circuito de realimentación negativa) proporciona la tensión de entrada al sistema, la cual comparte nodo con el amplificador error y el circuito de detección, como se mencionó anteriormente.
+
+En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta etapa del sistema s prácticamente independiente del resto del circuito, y además debe ser altamente estable, es por ello que se utiliza $R_Z >Z r_Z$ para evitar variaciones de $V_Z$, es decir, de la tensión de referencia, con respecto a $V^{-}$.
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.5\textwidth, page=6]{ImagenesEjercicio2/Regulador.pdf}
+	\caption{Circuito de transistor de paso.}
+	\label{fig:transistorDePaso}
+\end{figure}
 
 \subsubsection{Circuito de Detección}
 \label{sec:circuito-de-deteccion}
@@ -95,19 +102,19 @@ En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una 
 Luego, este error es amplificado por el amplificador proporcional, el cual le entrega corriente al transistor de paso analizado en la Sección (\ref{sec:transistor-de-paso}). Es entonces este amplificador operacional el cual no solo amplifica el error de la fuente regulada sino también entrega la corriente necesaria a la base del transistor de paso.
 
 \subsubsection{Transistor de Paso}
-\label{sec:transistor-de-paso}
 
-El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de corrección y amplificadas por el amplificador de error, así proveyendo de la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un darlington integrado, el cual tendrá una gran ganancia de corriente, pero en este caso se implementara con un darlington discreto, el cual debe soportar una corriente y potencia elevada, en lo cual se profundizará luego en el informe, pero por estas razones se opto por utilizar dos transistores en paralelo para el segundo transistor del darlington con la idea de dividir la carga de la siguiente manera:
+\label{sec:transistor-de-paso}
+El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de deteccion y amplificadas por el amplificador de error, así proveyendo de la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un par Darlington integrado, el cual tiene una gran ganancia de corriente, pero en este caso se implementa con un Darlington discreto, el cual debe soportar una corriente y potencia elevada, lo cual se profundiza más adelante en el informe. Por estas razones, se optó por utilizar dos transistores en paralelo para el segundo transistor del par, con la idea de dividir la carga de la siguiente manera:
+
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=5]{ImagenesEjercicio2/Regulador.pdf}
 	\caption{Circuito de transistor de paso.}
 	\label{fig:transistorDePaso}
 \end{figure}
-teniendo a $Q_2$ y $Q_3$ siendo transistores de potencia.
-La función de $R_5$ será obtener una corriente de colector de $Q_1$ razonable.
+siendo $Q_2$ y $Q_3$ transistores de potencia. Por otro lado, la función de $R_5$ es obtener una corriente de colector de $Q_1$ razonable.
 \subsection{Protección por Corto-circuito}
-Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no explote. (escribi eso en no mono tomi por favor c:) 
+Implementar una protección de cortocircuito es una sección fundamental en el diseño de una fuente de tensión debido que uno desconoce con que cargas va  a ser utilizado el circuito, en caso de que el usuario en contra-indicación de las especificaciones del equipo utilize una carga menor a la mínima, el circuito no sufra un daño irreversible. 
 Para la protección de cortocircuito se evaluaron 2 alternativas:
 \subsubsection{Protección lineal}
 La implementación de una protección lineal resulta ser la mas sencilla debido a la facilidad de cálculo y que utiliza pocos componentes, como se ve a continuación:
@@ -126,6 +133,7 @@ Si bien la protección lineal es de sencilla implementación cuenta con la sigui
 	\caption{Característica de la Protección lineal.}
 	\label{fig:circuitolinealcarac}
 \end{figure}
+Donde $I_{max}$ corresponde a la máxima corriente que uno define para el circuito e $I_{damage}$ es la corriente bajo la cual el circuito sufrirá un daño irreversible.\\
 Se puede notar que en el  peor caso ($V_o = 0$) sería máxima tanto la corriente de salída como la caida de potencail sobre el transistor de paso, haciendo que por consecuente sea máxima la disipación de potencia sobre este, lo cual es un problema.
 \subsubsection{Protección foldback}
 La protección de Foldback es una variación de la lineal, la cual cuenta con 2 resistencias adicionales conectadas de la siguiente manera:
@@ -137,8 +145,44 @@ La protección de Foldback es una variación de la lineal, la cual cuenta con 2 
 \end{figure}
 Si se desea resolver para $I_{o-Max}$ bastará con recorrer la malla:
 \begin{align}
--I_{o-Max} \cdot R_a + V_{be} + V_a-V_b
+-I_{o-Max} \cdot R_a + V_{be} - (V_b-V_a)=0
 \end{align}
+\begin{align}
+V_b=V_a \cdot \frac{R_c}{R_c+R_b}
+\end{align}
+\begin{align}
+-I_{o-Max} \cdot R_a + V_{be} + V_a \cdot (1-\frac{R_c}{R_c+R_b})=0
+\end{align}
+\begin{align}
+-I_{o-Max} \cdot R_a + V_{be} + (I_{o-Max} \cdot R_a +V_o) \cdot \frac{R_b}{R_c+R_b}=0
+\end{align}
+lo cual despejando para $I_{o-Max}$ queda:
+\begin{align}
+I_{o-Max}=  \frac{V_o \cdot R_b + V_{be}\cdot (R_b+R_c)}{R_a \cdot R_c}
+\label{eq:Imaxfoldback}
+\end{align}
+De aquí se puede ver que la corriente caerá en función de la tensión de salida hasta establecerse en una corriente fija para la carga nula denominada $I_{sc}$ la tiene un valor de.
+\begin{align}
+I_{sc} = V_{be} \cdot \frac{R_b+R_c}{R_a \cdot R_c}
+\label{eq:Isc}
+\end{align}
+Luego graficando la curva se obtiene:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/foldbackLineal.png}
+	\caption{Característica de la Protección foldback.}
+	\label{fig:circuitofoldbackcarac}
+\end{figure}
+Se puede apreciar también la razón de su nombre dado que la curva de la corriente se ``dobla'' sobre si misma.\\
+Si bien armar esta fuente resulta en una mayor cantidad de componentes, el hecho de que reduzca la corriente de paso al tener una carga nula, y que por ello reduzca la potencia consumida es un factor no menor. por esta razón esta fue la protección elegida a utilizar.\\
+Solo a modo ilustrativo se grafica ambas curvas de las protecciones.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.5\textwidth]{ImagenesEjercicio2/foldback.png}
+	\caption{Característica de la Protección foldback y lineal.}
+	\label{fig:circuitofoldbacklinealcarac}
+\end{figure}
+
 \subsection{Análisis de Componentes}
 \subsubsection{Amplificador Operacional}
 En la elección del amplificador operacional, se tuvieron en cuenta diversos componentes, como se ve a continuación en el siguiente cuadro comparativo:
@@ -161,6 +205,13 @@ En la elección del amplificador operacional, se tuvieron en cuenta diversos com
 También es notable que de todos los integrados el \textbf{OP284} es rail to rail, lo cual es de gran utilidad, si se desea obtener un valor de $V_1$ inferior, luego teniendo en cuenta el GBP, las corrientes de bias, la tension de offset, se optó por utilizar el OP284.
 \subsubsection{Transistores de Paso}
 \subsubsection{Componentes de Protección}
+
+Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, así la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó  $R_c$ lo cual definió inequivocamente $R_b$, también para el cálculo de estos valores se tuvo en cuenta que la máxima corriente (2.5A) sería suministrada únicamente cuando se regule a la tensión máxima, y la pendiente de la curva de foldback fue seleccionada para que cuando baje la tensión de regulación aun tenga una corriente de salida máxima apreciable,teniendo en cuenta esto, quedan los valores
+\begin{align}
+R_a=0.56 \Omega  \ \ \ \ R_b=680\Omega \ \ \ R_c=10k\Omega \ \ \ I_{o-Max}=2.5A \ \ \ I_{sc}= 1.34A
+\end{align}
+Donde el valor de $I_{sc}$ queda fijo por la ecuación (\ref{eq:Isc}).
+
 \subsubsection{Diodo de Referencia}
 \subsubsection{Fuentes de Alimentación}
 
