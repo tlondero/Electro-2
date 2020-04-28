@@ -78,7 +78,7 @@ V_o = |V_z| \cdot \frac{R_1}{R_2}
 \label{eq:vovz}
 \end{equation}
 
-\subsubsection{Bloques del Regulador}
+\subsection{Bloques del Regulador}
 \subsubsection{Elemento de Referencia}
 
 El elemento de referencia (o también llamado entrada o generador en un circuito de realimentación negativa) proporciona la tensión de entrada al sistema, la cual comparte nodo con el amplificador error y el circuito de detección, como se mencionó anteriormente.
@@ -105,13 +105,39 @@ En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta
 \subsubsection{Circuito de Detección}
 \label{sec:circuito-de-deteccion}
 
-El circuito de detección está compuesto por la resistencia $R_2$. La caída de potencial sobre esta depende solamente de la tensión a la salida de la fuente, lo que permite generar una corriente proporcional a esta. De esta manera, se genera una resta de corrientes en el nodo del terminal negativo del operacional, siendo estas la corriente suministrada por la $R_2$, la corriente fija suministrada por la $R_1$, y la corriente del terminal negativo del opamp. Denominaremos a esta última corriente como el error de la fuente regulada.
+El circuito de detección está compuesto por la resistencia $R_2$. La caída de potencial sobre esta depende solamente de la tensión a la salida de la fuente, lo que permite generar una corriente proporcional a esta.
+
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.5\textwidth, page=7]{ImagenesEjercicio2/Regulador.pdf}
+	\caption{Circuito de detección.}
+	\label{fig:circdeteccion}
+\end{figure}
+
+ De esta manera, se genera una resta de corrientes en el nodo del terminal negativo del operacional, siendo estas la corriente suministrada por la $R_2$, la corriente fija suministrada por la $R_1$, y la corriente del terminal negativo del opamp. Denominaremos a esta última corriente como el error de la fuente regulada.
 
 \subsubsection{Amplificador de Error y Pre-regulador}
 
-En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que si $R_1 = R_2$ entonces la corriente que ingresa (o egresa) del terminal negativo del operacional será igual a la diferencia entre la corriente fija suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener; y la corriente suministrada por la resistencia $R_2$, la cual depende de la tensión que provee la fuente regulada. Si sucede que $R_1 \neq R_2$ entonces se tiene que la corriente por el terminal negativo del opamp será proporcional a la diferencias de corrientes de las otras dos ramas, siendo esta proporción la razón entre $R_1$ y $R_2$, como se dedujo en la Sección (\ref{sec:realimentacion-negativa}).
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.5\textwidth, page=8]{ImagenesEjercicio2/Regulador.pdf}
+	\caption{Corrientes en circuito de detección, elemento de referencia, y operacional.}
+	\label{fig:amp-prereg-det-ref}
+\end{figure}
 
-Luego, este error es amplificado por el amplificador proporcional, el cual le entrega corriente al transistor de paso analizado en la Sección (\ref{sec:transistor-de-paso}). Es entonces este amplificador operacional el cual no solo amplifica el error de la fuente regulada sino también entrega la corriente necesaria a la base del transistor de paso.
+En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que si se define a la corriente $i_1$ como la corriente suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener; la corriente $i_2$ como la corriente suministrada por la resistencia $R_2$, la cual depende de la tensión que efectivamente provee la fuente regulada; e $i_e$ como la corriente error que atraviesa el terminal negativo del operacional, se tiene que
+
+\begin{equation}
+i_e = i_1 - i_2 = \frac{V_o}{R_1} - \frac{-V_z}{R_2}
+\end{equation}
+
+Esta corriente error será amplificada por el operacional para luego ser inyectada a la base del transistor de paso lo cual aumenta (o disminuye) la tensión a la salida de la fuente regulada mitigando la corriente de error. Si sucede que $i_e = 0$ se observa el resultado obtenido en la Sección (\ref{sec:realimentacion-negativa}) dado que
+
+\begin{equation}
+V_o = |V_z| \cdot \frac{R_1}{R_2}
+\end{equation}
+
+Es entonces este amplificador operacional el cual no solo amplifica el error de la fuente regulada sino también entrega la corriente necesaria a la base del transistor de paso.
 
 \subsubsection{Transistor de Paso}
 
