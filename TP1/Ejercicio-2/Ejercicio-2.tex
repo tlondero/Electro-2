@@ -29,9 +29,6 @@ Dicho circuito puede ser separado en 5 bloques fundamentales:
 \item \textcolor{orange}{Circuito de protección}
 \end{itemize}
 
- 
-
-
 \subsubsection{Análisis de realimentación negativa}
 \label{sec:realimentacion-negativa}
 
@@ -47,7 +44,7 @@ P.E. \approx \frac{1}{f}
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth]{ImagenesEjercicio2/circuito_lazo.png}
+	\includegraphics[width=0.8\textwidth, page=4]{ImagenesEjercicio2/Regulador.pdf}
 	\caption{Lazo de realimentación negativa.}
 	\label{fig:circuito_lazo}
 \end{figure}
@@ -105,8 +102,7 @@ En cuanto al funcionamiento, el zener está polarizado por $V^{-}$ y $R_Z$. Esta
 \subsubsection{Circuito de Detección}
 \label{sec:circuito-de-deteccion}
 
-El circuito de detección está compuesto por la resistencia $R_2$. La caída de potencial sobre esta depende solamente de la tensión a la salida de la fuente, lo que permite generar una corriente proporcional a esta.
-
+El circuito de detección está compuesto por la resistencia $R_1$. La caída de potencial sobre esta depende solamente de la tensión a la salida de la fuente, lo que permite generar una corriente proporcional a esta.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=7]{ImagenesEjercicio2/Regulador.pdf}
@@ -114,37 +110,34 @@ El circuito de detección está compuesto por la resistencia $R_2$. La caída de
 	\label{fig:circdeteccion}
 \end{figure}
 
- De esta manera, se genera una resta de corrientes en el nodo del terminal negativo del operacional, siendo estas la corriente suministrada por la $R_2$, la corriente fija suministrada por la $R_1$, y la corriente del terminal negativo del opamp. Denominaremos a esta última corriente como el error de la fuente regulada.
+De esta manera, se genera una resta de corrientes en el nodo del terminal negativo del operacional, siendo estas la corriente suministrada por la $R_2$, la corriente fija suministrada por la $R_1$ y la corriente del terminal negativo del opamp. Se denomina a esta última corriente como el error de la fuente regulada.
 
 \subsubsection{Amplificador de Error y Pre-regulador}
 \label{sec:amp-error}
 
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.5\textwidth, page=8]{ImagenesEjercicio2/Regulador.pdf}
-	\caption{Corrientes en circuito de detección, elemento de referencia, y operacional.}
+	\includegraphics[width=0.7\textwidth, page=8]{ImagenesEjercicio2/Regulador.pdf}
+	\caption{Corrientes en circuito de detección, elemento de referencia y operacional.}
 	\label{fig:amp-prereg-det-ref}
 \end{figure}
 
-En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que si se define a la corriente $i_1$ como la corriente suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener; la corriente $i_2$ como la corriente suministrada por la resistencia $R_2$, la cual depende de la tensión que efectivamente provee la fuente regulada; e $i_e$ como la corriente error que atraviesa el terminal negativo del operacional, se tiene que
-
+En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que, si se define a la corriente $i_1$ como la corriente suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener, la corriente $i_2$ como la corriente suministrada por la resistencia $R_2$, la cual depende de la tensión que efectivamente provee la fuente regulada, e $i_e$ como la corriente error que atraviesa el terminal negativo del operacional, se tiene que
 \begin{equation}
-i_e = i_1 - i_2 = \frac{V_o}{R_1} - \frac{-V_z}{R_2}
+	i_e = i_1 - i_2 = \frac{V_o}{R_1} - \frac{-V_z}{R_2}
 \end{equation}
 
-Esta corriente error será amplificada por el operacional para luego ser inyectada a la base del transistor de paso lo cual aumenta (o disminuye) la tensión a la salida de la fuente regulada mitigando la corriente de error. Si sucede que $i_e = 0$ se observa el resultado obtenido en la Sección (\ref{sec:realimentacion-negativa}) dado que
-
+Esta corriente error es amplificada por el operacional para luego ser inyectada a la base del transistor de paso, lo cual aumenta (o disminuye) la tensión a la salida de la fuente regulada, mitigando la corriente de error. Si se da la situación que $i_e = 0$, se observa el resultado obtenido en la Sección (\ref{sec:realimentacion-negativa}) dado que
 \begin{equation}
 V_o = |V_z| \cdot \frac{R_1}{R_2}
 \end{equation}
 
-Es entonces este amplificador operacional el cual no solo amplifica el error de la fuente regulada sino también entrega la corriente necesaria a la base del transistor de paso.
+Es por ello que el amplificador operacional amplifica el error de la fuente regulada y además entrega la corriente necesaria a la base del transistor de paso.
 
 \subsubsection{Transistor de Paso}
 
 \label{sec:transistor-de-paso}
-El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de deteccion y amplificadas por el amplificador de error, así proveyendo de la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un par Darlington integrado, el cual tiene una gran ganancia de corriente, pero en este caso se implementa con un Darlington discreto, el cual debe soportar una corriente y potencia elevada, lo cual se profundiza más adelante en el informe. Por estas razones, se optó por utilizar dos transistores en paralelo para el segundo transistor del par, con la idea de dividir la carga de la siguiente manera:
-
+El transistor de paso se encarga de llevar a cabo las correcciones detectadas por el circuito de detección y amplificadas por el amplificador de error, proveyendo así la corriente necesaria para mantener la diferencia de potencial fija a la salida. Este bloque se puede implementar con un par Darlington integrado, el cual tiene una gran ganancia de corriente, pero en este caso se implementa con un Darlington discreto, el cual debe soportar una corriente y potencia elevada, lo cual se profundiza más adelante en el informe. Por estas razones, se optó por utilizar dos transistores en paralelo para el segundo transistor del par, con la idea de dividir la carga de la siguiente manera:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.5\textwidth, page=5]{ImagenesEjercicio2/Regulador.pdf}
@@ -251,36 +244,48 @@ Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el ob
 \begin{align}
 \frac{V_{be}}{R_5}=I_{R5}\approx I_c
 \end{align}
-Para un valor de 13mA corresponderá una resistencia de 56$\Omega$.
+Para un valor de $13 \ mA$ corresponderá una resistencia de $56 \ \Omega$.
 \subsubsection{Componentes de Protección}
 
-Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, así la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó  $R_c$ lo cual definió inequivocamente $R_b$, también para el cálculo de estos valores se tuvo en cuenta que la máxima corriente (2.5A) sería suministrada únicamente cuando se regule a la tensión máxima, y la pendiente de la curva de foldback fue seleccionada para que cuando baje la tensión de regulación aun tenga una corriente de salida máxima apreciable,teniendo en cuenta esto, quedan los valores
+Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, así la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó  $R_c$ lo cual definió inequivocamente $R_b$, también para el cálculo de estos valores se tuvo en cuenta que la máxima corriente ($2.5 \ A$) sería suministrada únicamente cuando se regule a la tensión máxima, y la pendiente de la curva de foldback fue seleccionada para que cuando baje la tensión de regulación aun tenga una corriente de salida máxima apreciable,teniendo en cuenta esto, quedan los valores
 \begin{align}
-R_a=0.56 \Omega  \ \ \ \ R_b=680\Omega \ \ \ R_c=10k\Omega \ \ \ I_{o-Max}=2.5A \ \ \ I_{sc}= 1.34A
+R_a=0.56 \ \Omega  \ \ \ \ R_b=680 \ \Omega \ \ \ R_c=10 \ k\Omega \ \ \ I_{o-Max}=2.5 \ A \ \ \ I_{sc}= 1.34 \ A
 \end{align}
 Donde el valor de $I_{sc}$ queda fijo por la ecuación (\ref{eq:Isc}).
 
 \subsubsection{Diodo de Referencia}
 El diodo zener elegido fue el \href{https://d1d2qsbl8m0m72.cloudfront.net/en/products/databook/datasheet/discrete/diode/zener/bzx84b6v2lt116-e.pdf}{BZX84B6V2L}
 debido a la estabilidad que cuenta para la $V_z$ y su reducida corriente de zener.\\
-Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_z =5.5mA$, sabiendo que $V_z$=6.2$V$  y utilizando la ecuación (\ref{eq:referencia}) se llega a un valor $R_Z=120\Omega$ siendo adicionalmente el valor de $V_2$ definido en la sección (\ref{sec:fuentes}).
+Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_z =5.5 \ mA$, sabiendo que $V_z=6.2 \ V$  y utilizando la ecuación (\ref{eq:referencia}) se llega a un valor $R_Z=120 \ \Omega$ siendo adicionalmente el valor de $V_2$ definido en la sección (\ref{sec:fuentes}).
 Luego el valor de $R_2$ será discutido en la sección (\ref{sec:resdet})
 \subsubsection{Fuentes de Alimentación}
 \label{sec:fuentes}
-En la elección de la fuente de alimentación se buscó el $V1_{min}$ tal que el sistema regule, para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
+En la elección de la fuente de alimentación se buscó el $V_{1min}$ tal que el sistema regule, para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
 
 \begin{align}
-V1_{min}=Vce_{sat}+Vo_{reg}= 1.4V+9V=10.4V
+V_{1min}=V_{CEsat}+V_{Oreg}= 1.4 \ V+9 \ V=10.4 \ V
 \end{align}
-Luego, dado que este es el mínimo absoluto, se dejará cierto margen de error, para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales puedan saturar alguno de los transistores, por lo cual se eligió un valor de $V1=14V$.\\
-Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del diodo elegido, tal que se encuentre polarizado correctamente.
+Otro punto de interés es la tensión a la salida del operacional, la cual no debe ser mayor a la de alimentación del mismo, para obtener la tensión en este nodo basta con seguir el ciruito y se verá que:
+\begin{align}
+V_{Out-opamp}= V_o+2\cdot V_{be} = 11.65V
+\end{align}
+Obteniendo que la máxima tensión de salida en el opamp coincide con el $V^+$.\\
+Luego, dado que este es el mínimo absoluto, se dejará cierto margen de error, para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales puedan saturar alguno de los transistores, por lo cual se eligió un valor de $V_1=14 \ V$.\\
+Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del diodo elegido, tal que con el valor de resistencai $R_Z$ elegido se encuentre polarizado correctamente, por lo que se fijó $V_2=7\ V$.
+
+
 
 \subsubsection{Resistencia circuito de detección}
 \label{sec:resdet}
-Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:vovz}) basta con definir un valor de $R_1$ tal que $V_o=9V$ dado que la $R_1$ será un potenciómetro con el cual se variará la tensión de regulación.\\ Así queda definido: $R_1= 10K \Omega$ (potenciómetro) y $R_2=6k8\Omega$
+Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:vovz}) basta con definir un valor de $R_1$ tal que $V_o=9 \ V$ dado que la $R_1$ será un potenciómetro con el cual se variará la tensión de regulación.\\ Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  \Omega$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Análisis de cargas}
+En la búsqueda de la carga mínima, basta con una vez definida la máxima corriente y la máxima tensión de regulación, queda:
 
+\begin{equation}
+	R_{Lmin} = \frac{V_{Omax}}{I_{Omax}} = 3.6 \ \Omega
+\end{equation}
+Luego la máxima carga corresponde a $R_l = \infty$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Análisis de Potencias Máximas}
 
@@ -336,10 +341,10 @@ V_{opamp_{max}}|_{cc} = V_{o} + I_{o}\cdot R_s + V_{BE_{Q_2}} + V_{BE_{Q_1}}
 \frac{T_j - T_a}{R_{\theta jc}+R_{\theta cs}+R_{\theta sa}} = P
 \end{equation}
 
-Asumiendo una temperatura ambiente de $40\degree C$; una temperatura máxima de juntura en funcionamiento de $140\degree C$, $20\degree C$ menor a la especificada por el fabricante; la $R_{\theta jc}$ también especificada, de $3.125\frac{\degree C}{W}$; el uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204\frac{\degree C \cdot inch}{W}$, y área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \frac{\degree C}{W}$; y finalmente una potencia disipada de $9.6W$, levemente mayor a la máxima disipada; se obtiene
+Asumiendo una temperatura ambiente de $40 \ \degree C$; una temperatura máxima de juntura en funcionamiento de $140 \ \degree C$, $20 \ \degree C$ menor a la especificada por el fabricante; la $R_{\theta jc}$ también especificada, de $3.125 \ \frac{\degree C}{W}$; el uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$, y área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \frac{\degree C}{W}$; y finalmente una potencia disipada de $9.6 \ W$, levemente mayor a la máxima disipada; se obtiene
 
 \begin{equation}
-R_{\theta sa} = 4.57 \frac{\degree C}{W}
+R_{\theta sa} = 4.57  \  \frac{\degree C}{W}
 \end{equation}
 \subsubsection{Diodos y Resistencias}
 
@@ -358,7 +363,7 @@ La respuesta transitoria del sistema se asemeja a la de un sistema de segundo or
 	\caption{Respuesta transitoria.}
 	\label{fig:transitorioFuente}
 \end{figure}
-Es notable señalar, que el sobrepico del sistema alcanza 9.15V, lo cual es un 1.6$\%$ de desvío respecto de la tensión de regulación, y también observar que el tiempo de establecimiento del sistema es aproximadamente 22$\mu$s.\\
+Es notable señalar, que el sobrepico del sistema alcanza 9.15V, lo cual es un 1.6$\%$ de desvío respecto de la tensión de regulación, y también observar que el tiempo de establecimiento del sistema es aproximadamente $22 \ \mu s$.\\
 Además se simuló el circuito siendo afectado por ruido, con una frecuencia de 10kHz y una amplitud de 0.5V, estos valores fueron elegidos asi es apreciable la variación  durante el transitorio.
 \begin{figure}[H]
 \centering
@@ -366,10 +371,10 @@ Además se simuló el circuito siendo afectado por ruido, con una frecuencia de 
 	\caption{Respuesta transitoria con ruido.}
 	\label{fig:transitorioFuentenoise}
 \end{figure}
-Si bien la imagen es realmente similar, esto se debe a la frecuencia del ruido, aun así se puede apreciar una diferencia de las pequeñas oscilaciones generedadas por el ruido en la tensión estabilizada en 9V. En cuanto a los parámetros del transitorio, el máximo sobrepico alcanzado es de 9.15V y el tiempo de establecimiento es de aproximadamente 32$\mu$s.
+Si bien la imagen es realmente similar, esto se debe a la frecuencia del ruido, aun así se puede apreciar una diferencia de las pequeñas oscilaciones generedadas por el ruido en la tensión estabilizada en 9V. En cuanto a los parámetros del transitorio, el máximo sobrepico alcanzado es de 9.15V y el tiempo de establecimiento es de aproximadamente $32 \ \mu s$.
 \subsubsection{Respuesta en régimen permanente de Regulación}
 En el caso del regiment permantente se verá la capacidad de mantener al tensión regulada en la salida.
-En el caso de que la señal no tenga ruido la tensión regulada será 9V sin ningún tipo de variación.
+En el caso de que la señal no tenga ruido la tensión regulada será $9 \ V$ sin ningún tipo de variación.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/permresp.png}
@@ -377,7 +382,7 @@ En el caso de que la señal no tenga ruido la tensión regulada será 9V sin nin
 	\label{fig:permanenteFuente}
 \end{figure}
 Lo cual es perfectamente esperable, ahora veremos como es la respuesta frente a señales con distintos tipos de contaminación.
-Para la primer prueba se vera la señal original, con la adición de una señal senoidal de 10kHz de amplitud 0.5V.
+Para la primer prueba se vera la señal original, con la adición de una señal senoidal de $10 \ kHz$ de amplitud $0.5 \ V$.
 La salida es la siguiente:
 \begin{figure}[H]
 \centering
@@ -385,8 +390,8 @@ La salida es la siguiente:
 	\caption{Respuesta en régimen permanente con ruido senoidal.}
 	\label{fig:permanenteFuentesine}
 \end{figure}
-Se puede ver que el desvío respecto de los 9V es del 0.14$\%$.
-Luego se agregó adicionalmente una señal triangular de frecuencia 50Hz y amplitud unitaria.
+Se puede ver que el desvío respecto de los $9 \ V$ es del $0.14\%$.
+Luego se agregó adicionalmente una señal triangular de frecuencia $50 \ Hz$ y amplitud unitaria.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/permrespsinetri.png}
@@ -403,8 +408,74 @@ La curva correspondiente al foldback fue simulada y graficada como se ve a conti
 	\caption{Curva de Foldback.}
 	\label{fig:GraficoFOldbacki}
 \end{figure}
-Se puede apreciar, que la máxima corriente es de 2.5A como fue calculado al igual que el valor de $I_{sc}$.
+Se puede apreciar, que la máxima corriente es de 2.5A como fue calculado al igual que el valor de $I_{sc}$, vale la pena mencionar que a medida que se varíe la $R_1$ variará la corriente máxima de salida acorde a la ecuación (\ref{eq:Imaxfoldback})
+\subsubsection{Impedancia de Salida}
+La impedancia de salida fue simulada y graficada:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/zoutspice.png}
+	\caption{Impedancia de salida.}
+	\label{fig:zout}
+\end{figure}
+Se observa que la impedancia de salida es baja para la mayor parte del espectro, no superando nunca los 220$\Omega$.
 \subsubsection{Potencias}
+En esta sección se simularon las curvas de potencias sobre los componentes al variar la carga del circuito.\\
+\begin{itemize}
+\item Diodo Zener: 
+Se puede ve que la máxima potencia disipada corresponde a la mínima caraga, dicha potencia es de 37mW lo cual no es un problema para dicho diodo.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potzener.png}
+	\caption{Potencia sobre el zener.}
+	\label{fig:potzener}
+\end{figure}
+\item BC547C Darlington: La máxima potencia es de 330mW lo cual no es un problema para dicho transistor, al igual que la anterior curva se observa un aumento considerable una vez que se activa el foldback, pero aun en la zona de operación tiene una pendiente.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potbc547.png}
+	\caption{Potencia sobre el BC547C del darlington.}
+	\label{fig:potbc547}
+\end{figure}
+\item $R_a$: La potencia máxima disipada corresponde a 3.5W lo cual es esperado dado que es $R_a\cdot I_{max}^2$ 
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potra.png}
+	\caption{Potencia sobre la $R_a$.}
+	\label{fig:potra}
+\end{figure}
+\item TIP31C: La potencia sobre estos transistores de potencia es de 9W, lo cual indica que un disipador debe ser utilizado para su correcto funcionamiento.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/pottip31c.png}
+	\caption{Potencia sobre el TIP31C.}
+	\label{fig:pottip31}
+\end{figure}
+\item BC547 Protección: Se debe notar que el transistor consume nada de potencia, hasta el momento en el cual se activa, alcanzando un limite de 60mW.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potprot.png}
+	\caption{Potencia sobre el BC547C de la protección.}
+	\label{fig:potbc547prot}
+\end{figure}
+\item Operacional: Para el operacional se observa que la máxima potencia corresponde a 330mW para la carga nula, y vale la pena mencionar que al medir la potencia en spice, tambien son consideradas las corrientes de alimentación.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potopamp.png}
+	\caption{Potencia sobre el operacional.}
+	\label{fig:potop}
+\end{figure}
+\item Carga: Se observa que el crecimiento es lineal hasta la activación de la protección y luego sigue la curva del foldback, teniendo una potencia máxima de 22.5W.
+\begin{figure}[H]
+\centering
+	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potload.png}
+	\caption{Potencia sobre la carga.}
+	\label{fig:potload}
+\end{figure}
+\end{itemize}
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Conclusiones}
 
@@ -432,25 +503,10 @@ En la siguiente sección, se busca elaborar una fuente regulada de tensión que 
 \frac{V^- - V_Z}{R_Z} + I_Z = \frac{V_Z}{R_9}
 \end{equation}
 
-\begin{equation}
-V_{B1max} = V_{Oreg} + V_{Ra} + 1.4 \ V = 9 \ V + 1.25 \ V + 1.4 \ V = 11.65
-\end{equation}
 
-\begin{equation}
-V_{2min} = 11.65 \ V + 1.5 \ V = 13.15 \ V
-\end{equation}
 
-\begin{equation}
-	R_{Lmin} = \frac{V_{Omax}}{I_{Omax}} = 3.6 \ \Omega
-\end{equation}
 
-\begin{equation}
-	R_{Lmax} = \infty
-\end{equation}
 
-\begin{equation}
-	V_{Lmin} = R_Z \cdot \left( \frac{V_Z}{R_2} + I_z \right) + V_Z
-\end{equation}
 
 
 \end{document}
