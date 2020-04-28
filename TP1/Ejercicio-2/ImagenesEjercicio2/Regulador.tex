@@ -163,9 +163,15 @@
 		(aux6.south) to[R, l=$R_L$] ++ (0,-2) node[ground](){}
 		;
 		
+	\draw
+		(Q1.B) ++ (0.4,-0.1) node[](cacona1){}
+		(Q1.E) ++ (0,0.45) node[](cacona2){}
+		(Q3.B) ++ (0.4,-0.1) node[](cacona3){}
+		(Q3.E) ++ (0,0.45) node[](cacona4){}
+		;
 	\begin{scope}[on background layer, very thick,decoration = {markings}, mark = at position 0.05 with {\arrow{>}}] 
     	\draw[line width = 3pt, green!40, postaction = {decorate}, ->]
-			(A.out) -| (Q1.B) -| (Q1.E) -| (aux6.center) -| (A.-) 	
+			(A.out) -| (Q1.B) -| (cacona1.center) -- (cacona2.center) -- (Q1.E) -| (cacona3.center) -- (cacona4.center) -| (aux6.center) -| (A.-) 	
     	; 
     \end{scope}
 \end{circuitikz}
