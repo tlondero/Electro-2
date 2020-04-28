@@ -277,14 +277,21 @@ V_{Out-opamp}= V_o+2\cdot V_{be} = 11.65V
 \end{align}
 Obteniendo que la máxima tensión de salida en el opamp coincide con el $V^+$.\\
 Luego, dado que este es el mínimo absoluto, se dejará cierto margen de error, para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales puedan saturar alguno de los transistores, por lo cual se eligió un valor de $V_1=14 \ V$.\\
-Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del diodo elegido, tal que se encuentre polarizado correctamente, por lo que se fijó $V_2=7\ V$.
+Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_z$ del diodo elegido, tal que con el valor de resistencai $R_Z$ elegido se encuentre polarizado correctamente, por lo que se fijó $V_2=7\ V$.
+
+
 
 \subsubsection{Resistencia circuito de detección}
 \label{sec:resdet}
 Dado que la salida en regulación depende directamente de la ecuación (\ref{eq:vovz}) basta con definir un valor de $R_1$ tal que $V_o=9 \ V$ dado que la $R_1$ será un potenciómetro con el cual se variará la tensión de regulación.\\ Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  \Omega$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Análisis de cargas}
+En la búsqueda de la carga mínima, basta con una vez definida la máxima corriente y la máxima tensión de regulación, queda:
 
+\begin{equation}
+	R_{Lmin} = \frac{V_{Omax}}{I_{Omax}} = 3.6 \ \Omega
+\end{equation}
+Luego la máxima carga corresponde a $R_l = \infty$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Análisis de Potencia}
 
@@ -460,25 +467,10 @@ En la siguiente sección, se busca elaborar una fuente regulada de tensión que 
 \frac{V^- - V_Z}{R_Z} + I_Z = \frac{V_Z}{R_9}
 \end{equation}
 
-\begin{equation}
-V_{B1max} = V_{Oreg} + V_{Ra} + 1.4 \ V = 9 \ V + 1.25 \ V + 1.4 \ V = 11.65
-\end{equation}
 
-\begin{equation}
-V_{2min} = 11.65 \ V + 1.5 \ V = 13.15 \ V
-\end{equation}
 
-\begin{equation}
-	R_{Lmin} = \frac{V_{Omax}}{I_{Omax}} = 3.6 \ \Omega
-\end{equation}
 
-\begin{equation}
-	R_{Lmax} = \infty
-\end{equation}
 
-\begin{equation}
-	V_{Lmin} = R_Z \cdot \left( \frac{V_Z}{R_2} + I_z \right) + V_Z
-\end{equation}
 
 El pre-regulador cumple la función de brindar corriente \textbf{(habría que desarrollar un poco más)}. Para el caso presente, se observa que el amplificador operacional puede llegar hasta temperaturas de $125 \ ^o C$ son problema. Asumiendo una temperatura ambiente de $40 \ ^o C$, la potencia máxima disipada por operacional es de $0.7 \ W$.
 \begin{figure}[H]
