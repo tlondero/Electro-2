@@ -140,6 +140,7 @@ I_{o-Max}=  \frac{V_o \cdot R_b + V_{be}\cdot (R_b+R_c)}{R_a \cdot R_c}
 De aquí se puede ver que la corriente caerá en función de la tensión de salida hasta establecerse en una corriente fija para la carga nula denominada $I_{sc}$ la tiene un valor de.
 \begin{align}
 I_{sc} = V_{be} \cdot \frac{R_b+R_c}{R_a \cdot R_c}
+\label{eq:Isc}
 \end{align}
 Luego graficando la curva se obtiene:
 \begin{figure}[H]
@@ -179,7 +180,11 @@ En la elección del amplificador operacional, se tuvieron en cuenta diversos com
 También es notable que de todos los integrados el \textbf{OP284} es rail to rail, lo cual es de gran utilidad, si se desea obtener un valor de $V_1$ inferior, luego teniendo en cuenta el GBP, las corrientes de bias, la tension de offset, se optó por utilizar el OP284.
 \subsubsection{Transistores de Paso}
 \subsubsection{Componentes de Protección}
-Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, asi la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó 
+Para la elección de estos componentes, se tuvo en cuenta la ecuación (\ref{eq:Imaxfoldback}) para la cual dado que se cuenta con dos grados de libertad se fijó $R_a$ a un valor fijo, así la potencia disipada en corto-circuito no es de un valor muy elevado, luego se fijó  $R_c$ lo cual definió inequivocamente $R_b$, también para el cálculo de estos valores se tuvo en cuenta que la máxima corriente (2.5A) sería suministrada únicamente cuando se regule a la tensión máxima, y la pendiente de la curva de foldback fue seleccionada para que cuando baje la tensión de regulación aun tenga una corriente de salida máxima apreciable,teniendo en cuenta esto, quedan los valores
+\begin{align}
+R_a=0.56 \Omega  \ \ \ \ R_b=680\Omega \ \ \ R_c=10k\Omega \ \ \ I_{o-Max}=2.5A \ \ \ I_{sc}= 1.34A
+\end{align}
+Donde el valor de $I_{sc}$ queda fijo por la ecuación (\ref{eq:Isc}).
 \subsubsection{Diodo de Referencia}
 \subsubsection{Fuentes de Alimentación}
 
