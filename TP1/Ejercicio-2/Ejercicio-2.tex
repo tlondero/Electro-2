@@ -15,7 +15,7 @@ En la siguiente instancia se realiza una fuente de tensión regulada, la cual se
 \end{aligned}
 \end{equation}
 
-Se optó por un diseño que muestre tensión y sume corriente, siendo el diseño elegido para la fuente el presentado a continuación.
+Se optó por un diseño que realice un muestreo de tensión y suma de corriente, siendo el diseño elegido para la fuente el presentado a continuación.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.8\textwidth, page=1]{ImagenesEjercicio2/Regulador.pdf}
@@ -23,7 +23,7 @@ Se optó por un diseño que muestre tensión y sume corriente, siendo el diseño
 	\label{fig:circuitoprop}
 \end{figure}
 
-Dicho circuito puede ser separado en 5 bloques fundamentales:
+Dicho circuito es separado en 5 bloques fundamentales:
 \begin{itemize}
 	\item \textcolor{blue}{Amplificador error}
 	\item \textcolor{olive}{Transistor de paso}
@@ -37,14 +37,11 @@ Dicho circuito puede ser separado en 5 bloques fundamentales:
 
 La teoría de la realimentación negativa plantea que dado un sistema a lazo cerrado ideal, con un número impar de inversiones de fase, la ganancia de este puede aproximarse como la inversa del factor de realimentación si la ganancia de lazo en módulo es mucho mayor a la unidad, es decir
 \begin{equation}
-P.E. = \frac{A }{1+ f \cdot A} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
+P.E. = \frac{A }{1+ f \cdot A} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|} \approx \frac{1}{f}
 \end{equation}
-donde $A$ es la respuesta a lazo abierto, $f$ el factor de realimentación y $T$ es la ganancia de lazo. Se puede observar que bajo las condiciones descritas anteriormente, se tiene entonces que 
+donde $A$ es la respuesta a lazo abierto, $f$ el factor de realimentación y $T$ es la ganancia de lazo.
 
-\begin{equation}
-P.E. \approx \frac{1}{f}
-\end{equation}
-
+En el circuito realizado puede observarse un lazo de realimentación negativa el cual posee una inversión de fase producida por el amplificador operacional detallado en la Figura (\ref{fig:circuito_lazo}).
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.8\textwidth, page=4]{ImagenesEjercicio2/Regulador.pdf}
@@ -52,7 +49,7 @@ P.E. \approx \frac{1}{f}
 	\label{fig:circuito_lazo}
 \end{figure}
 
-En el circuito realizado puede observarse un lazo de realimentación negativa el cual posee una inversión de fase producida por el amplificador operacional detallado en la Figura (\ref{fig:circuito_lazo}). También es de interés observar los siguientes puntos: 
+También es de interés observar los siguientes puntos: 
 \begin{itemize}
 \item Por tierra virtual, el opamp trabaja para mantener la tensión nula en su terminal negativo.
 \item El diodo zener consume la corriente necesaria para mantener la caída de tensión sobre este fija.
@@ -67,7 +64,7 @@ En resumidas cuentas, el parámetro estabilizado del sistema es
 P.E. = \frac{V_o}{I_N} = -\frac{V_o \cdot R_2}{|V_z|} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
 \end{equation}
 
-Luego, se puede demostrar que la ganancia $f$ se puede aproximar como la razón entre el parámetro que se suma en el lazo y el parámetro que se muestrea, cuando la tensión en el nodo del terminal negativo del opamp es cero, obteniendo así
+Luego, se puede demostrar que la ganancia $f$ se puede aproximar como la razón entre el parámetro que se suma en el lazo y el que se muestrea, cuando la tensión en el nodo del terminal negativo del opamp es cero, obteniendo así
 \begin{equation}
 f \approx -\frac{1}{R_1}
 \end{equation}
@@ -125,7 +122,7 @@ De esta manera, se genera una resta de corrientes en el nodo del terminal negati
 	\label{fig:amp-prereg-det-ref}
 \end{figure}
 
-En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que, si se define a la corriente $i_1$ como la corriente suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener, la corriente $i_2$ como la corriente suministrada por la resistencia $R_2$, la cual depende de la tensión que efectivamente provee la fuente regulada, e $i_e$ como la corriente error que atraviesa el terminal negativo del operacional, se tiene que
+En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que, si se define $i_1$ como la corriente suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener, $i_2$ como la suministrada por la resistencia $R_2$, la cual depende de la tensión que efectivamente provee la fuente regulada, e $i_e$ como la corriente error que atraviesa el terminal negativo del operacional, se tiene que
 \begin{equation}
 	i_e = i_1 - i_2 = \frac{V_o}{R_1} - \frac{-V_z}{R_2}
 \end{equation}
