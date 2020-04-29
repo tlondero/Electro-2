@@ -285,9 +285,12 @@
 \begin{circuitikz}
 	\node [ground](){};	
 	\draw
-		to[I, label=$I_N$] ++ (0,2)	to[R, l=$R_{TH}$] ++ (2,0) node[](aux1){} to[R, l_=$R_1$] ++ (0,-2) node[ground](){}
+		to[I, label=$I_N$] ++ (0,2) -- ++ (2,0) node[](aux3){} to[R, l_=$R_{TH}$] ++ (0,-2) node[ground](){}
+		(aux3.center) -- ++ (2,0) node[](aux1){} to[R, l_=$R_1$] ++ (0,-2) node[ground](){}
 		(aux1.center) -- ++ (2,0) to[R, v^<=$V_1$, l_=$R_i$] ++ (0,-2) node[ground](){}
-		(aux1.center) ++ (6,0) node[](aux2){} to[V, v_=$A_{VOL} V_1$] ++ (0,-2) node[ground](){} ++ (0,2) to[R, l=$r_O$] ++ (2,0) to[R, l_=$R_L$, v^=$V_O'$] ++ (0,-2) node[ground](){}
+		(aux1.center) ++ (6,0) node[](aux2){} to[V, v_=$A_{VOL} V_1$] ++ (0,-2) node[ground](){} ++ (0,2) to[R, l=$r_O$] ++ (3,0) node[](aux4){} to[R, l_=$R_1$] ++ (0,-2) node[ground](){}
+		(aux4.center) ++ (2,0) to[R, l_=$R$] ++(0,-2) node[ground](){}
+		(aux4.center) -- ++ (4,0) to[R, l_=$R_L$, v^=$V_O'$] ++ (0,-2) node[ground](){}
 	;		
 \end{circuitikz}
 \end{page}
