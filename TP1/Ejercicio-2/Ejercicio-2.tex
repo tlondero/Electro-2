@@ -463,12 +463,17 @@ A continuación se presenta el circuito resultante del nuevo amplificador:
 
 De este, se obtiene que
 \begin{equation}
-	a = \frac{V_O'}{I_N} = - A_{VOL} \cdot \frac{R_1 R_2}{R_1 + R_2}
+	a = \frac{V_O'}{I_N} = - A_{VOL} \cdot \frac{R_1 R_2}{R_1 + R_2} \approx 9.9 \ M\Omega
 \end{equation}
 
+Además, recordando que $|T| = |a \cdot f|$, se puede obtener los valores de $Z_{oa}$ y de $Z_o$ siendo estos
+\begin{equation}
+	Z_o = \frac{Z_{oa}}{1 + |T|} = A_{VOL} \cdot \frac{R_2}{R_1 + R_2}
+\end{equation}
 
+Por último \textcolor{red}{\textbf{PONER CALCULO FINAL DE Ro}}
 
-La impedancia de salida fue simulada y graficada:
+Luego, fue simulada y graficada la variable de interés:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/zoutspice.png}
