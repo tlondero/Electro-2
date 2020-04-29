@@ -296,4 +296,83 @@
 \end{circuitikz}
 \end{page}
 
+\begin{page}
+\begin{circuitikz}
+%Amplificador error
+	\node [op amp, yscale=-1](A){};
+	\draw
+		(A.+) -- ++(-1,0) node[ground](g1){}
+		(A.down) -- ++ (0,0.5) node[ocirc, label=north:$V^{-}$](){}    
+		(A.up) -- ++ (0,-0.5) node[ocirc, label=south:$V^{+}$](){}
+		(A.-) -- ++ (0,-2.55) node[](aux1){}
+		(A.out) -- ++ (1,0) node[](aux2){}
+		;
+		
+	%Circuito de protección
+	\draw
+		(aux2.center) |- ++ (2,-2) node[npn, anchor=C, rotate = 90, xscale=-1, label=below:$T_P$](Q3){}
+		(Q3.B) -- ++(0,1.16) to[R, l_=$R_C$] ++ (-2,0) node[ground](){}
+		(Q3.E) -- ++(1.5,0) node[](aux4){} to[R, l_=$R_A$] ++ (0,2) node[](aux3){} to[R, l_=$R_B$] ++ (-2,0) -| (Q3.B)
+		(aux4.center) -- ++ (0,-1) node[](aux6){}		
+		;
+		
+	%Transistor de paso
+	\draw
+		(aux2.center) -- ++ (0,4) node[npn, anchor = B, label=right:$Q_1$](Q1){}
+		(Q1.E) -- ++ (2.15,0) node[npn, anchor = B, label=north:$Q_2$](Q2){}
+		(Q2.B) -- ++ (1.2,0) node[npn, anchor = B, label=north:$Q_3$](Q3){}
+		
+		($ (Q1.E) !.5! (Q2.B) $) to[R, l=$R_5$] ++(0,-2) |- ($ (Q3.E) !.5! (aux3) $)% -| (aux3.center)
+		(Q2.E) -| (aux3.center)
+		(Q1.C) -- ++ (0,1) node[](aux5){}
+		(Q2.C) |- (aux5.center)
+		(aux5) ++ (2,0) -| (Q3.C)
+		;
+				
+	%Circuito de detección (Realimentador)
+	\draw
+		(aux6.center) to[R, l_=$R_1$] (aux1.center)
+		;
+		
+	%Elemento de referencia
+	\draw
+		(aux1.center) to[R, l_=$R_2$] ++ (-2,0) node[](aux7){} to[R, l_=$R_Z$] ++ (-2,0) node[](aux8){}
+		(aux7.center) to[zzDo] ++ (0,-1.5) node[ground](){}
+		;
+	
+	%Fuentes
+	\draw
+		(aux8.center) to[open] ++ (0,4.5) node[](aux9){} -- ++ (1,0) node[ground](){}
+		(aux9.center) to[battery2, l_=$V^{-}$] (aux8.center)
+		(aux9.center) ++ (0,3) to[battery2, l_=$V^{+}$] ++ (0,-3) ++ (0,3) |- (aux5.center)
+
+		;	
+	
+	
+	%Carga
+	\draw
+		(aux6.center) to[R, l=$R_L$] ++ (0,-2) node[ground](){}
+		;		
+		
+	\begin{scope}[>=latex,thick,text=black]
+	\draw[color = blue]
+		(0,0) ++ (-2.5, -2) -- ++ (0,4) -- ++ (4,0) -- ++ (0,-4) -- ++ (-4,0)
+		;
+	\draw[color = red]
+		(0,0) ++ (-5.215, -5.3) -- ++ (0,3) -- ++ (4,0) -- ++ (0,-3) -- ++ (-4,0)
+		;
+		\draw[color = purple]
+		(0,0) ++ (1.5, -3.7) -- ++ (0,1.5) -- ++ (3,0) -- ++ (0,-1.5) -- ++ (-3,0)
+		;
+		\draw[color = orange]
+		(0,0) ++ (2.4, -2.1) -- ++ (0,3) -- ++ (5.8,0) -- ++ (0,-3) -- ++ (-5.8,0)
+		;
+		\draw[color = olive]
+		(0,0) ++ (2, 1) -- ++ (0,5) -- ++ (5.8,0) -- ++ (0,-5) -- ++ (-5.8,0)
+		;
+    \end{scope}		
+		
+\end{circuitikz}
+\end{page}
+
 \end{document}
