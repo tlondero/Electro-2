@@ -261,7 +261,7 @@ El valor de $R_5$ se obtiene a partir de la siguiente ecuación:
 Para un valor de $13 \ mA$ corresponderá una resistencia de $56 \ \Omega$.
 
 \subsubsection{Componentes de Protección}
-Para la elección de estos componentes, se tuvo en cuenta la Ecuación (\ref{eq:Imaxfoldback}) para la cual, dado que se cuenta con dos grados de libertad, se fijó $R_a$ así la potencia disipada en corto-circuito no es de un valor muy elevado. Luego se tomó un valor para $R_c$, lo cual definió inequívocamente $R_b$. Para el cálculo de estos valores, se tuvo en cuenta que la máxima corriente ($2.5 \ A$) es suministrada únicamente cuando se regule a la tensión máxima. También se observó la pendiente de la curva de Foldback, la cual fue seleccionada para que cuando baje la tensión de regulación, aún tenga una corriente de salida máxima apreciable. Teniendo en cuenta esto, los valores seleccionados son los siguientes:
+Para la elección de estos componentes, se tuvo en cuenta la Ecuación (\ref{eq:Imaxfoldback}) para la cual, dado que se cuenta con dos grados de libertad, se fijó $R_a$ así la potencia disipada en corto-circuito no es de un valor muy elevado. Luego se tomó un valor para $R_c$, lo cual definió inequívocamente $R_b$. Para el cálculo de estos valores, se tuvo en cuenta que la máxima corriente ($2.5 \ A$) es suministrada únicamente cuando se regule a la tensión máxima. También se observó la pendiente de la curva de Foldback, la cual fue seleccionada para que cuando baje la tensión de regulación, aún tenga una corriente de salida máxima apreciable. Por ejemplo, si se quisiese regular a $5V$, la corriente para la cual se activará la protección será la intersección entre la curva del foldback y la recta $V_o = 5V$, siendo esta corriente menor a la máxima para la máxima tensión de regulación. Teniendo en cuenta esto, los valores seleccionados son los siguientes:
 \begin{align}
 R_a=0.56 \ \Omega  \ \ \ \ R_b=680 \ \Omega \ \ \ R_c=10 \ k\Omega \ \ \ I_{o-Max}=2.5 \ A \ \ \ I_{sc}= 1.34 \ A
 \end{align}
@@ -282,7 +282,7 @@ V_{1_{min}}^{Transistor}=V_{CE_{sat}}+V_{O_{reg}}+V_{R_a}= 1.4 \ V+9 \ V +1.4 \ 
 
 Otro punto de interés es la tensión a la salida del operacional, la cual no debe ser mayor a la de alimentación del mismo. Para obtener la variable en este nodo basta con seguir el circuito, observándose que:
 \begin{align}
-V_{1_{min}}^{Operacional}= V_o+V_{Ra}+2\cdot V_{BE} = 11.8 \ V
+V_{1_{min}}^{Operacional}= V_o+V_{R_a}+2\cdot V_{BE} = 11.8 \ V
 \end{align}
 
 Luego, dado que este es el mínimo absoluto, se deja cierto margen de error para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales pueden saturar a alguno de los transistores o al operacional. De esta forma se eligió un valor de $V_1=14 \ V$.
@@ -291,23 +291,27 @@ Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_Z$, tal 
 
 \subsubsection{Resistencia circuito de detección}
 \label{sec:resdet}
-Dado que la salida en regulación depende directamente de la Ecuación (\ref{eq:vovz}), basta con definir un valor de $R_1$ tal que $V_o=9 \ V$, dado que la $R_1$ es un potenciómetro con el cual se varia la tensión de regulación. Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  \Omega$
+Dado que la salida en regulación depende directamente de la Ecuación (\ref{eq:vovz}), basta con definir un valor de $R_1$ tal que $V_o=9 \ V$, dado que la $R_1$ es un potenciómetro con el cual se varia la tensión de regulación. Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  k\Omega$
 
 \subsection{Análisis de cargas}
-En la búsqueda de la carga mínima, basta con una vez definida la máxima corriente y la máxima tensión de regulación, queda:
+La mínima carga se obtiene una vez definida la máxima corriente y la máxima tensión de regulación:
 
 \begin{equation}
-	R_{Lmin} = \frac{V_{Omax}}{I_{Omax}} = 3.6 \ \Omega
+	R_{L_{min}} = \frac{{V_{o_{max}}}|_{reg}}{I_{o_{max}}} = 3.6 \ \Omega
 \end{equation}
 
-Luego la máxima carga corresponde a $R_{LMax} = \infty$
+Luego, se obtiene que no habrá límite superior para el valor de la carga, dado que la corriente mínima es nula.
+
+\begin{equation}
+	R_{L_{max}} = \frac{{V_{o_{max}}}|_{reg}}{I_{o_{min}}} = \infty
+\end{equation}
 
 \subsection{Análisis de Potencias Máximas}
 
 \subsubsection{Amplificador Operacional}
 \label{sec:opamppot}
 
-Como ya se ha analizado en la Sección (\ref{sec:amp-error}), el amplificador operacional OP-284 cumple con la función de suministrar corriente al transistor de paso. Si bien esta corriente suministrada a la base del transistor es pequeña, el análisis en la Sección (\ref{sec:fuentes}) demuestra que la caída de potencial en el opamp es grande. Por esta razón se debe observar la potencia disipada para no quemar a este. Para el caso presente, se denota que el \href{https://www.alldatasheet.com/datasheet-pdf/pdf/49039/AD/OP284.html}{OP284} puede llegar hasta temperaturas de operación de $125 \ \degree C$. Asumiendo una temperatura ambiente de $40 \ \degree C$, y dejando un margen de seguridad de $15 \ \degree C$ en la temperatura del operacional, se calcula que la potencia máxima disipada por operacional es de $0.7 \ W$.
+Como ya se ha analizado en la Sección (\ref{sec:amp-error}), el amplificador operacional \href{https://www.alldatasheet.com/datasheet-pdf/pdf/49039/AD/OP284.html}{OP284} cumple con la función de suministrar corriente al transistor de paso. Si bien esta corriente suministrada a la base del transistor es pequeña, el análisis en la Sección (\ref{sec:fuentes}) demuestra que la caída de potencial en el opamp es grande. Por esta razón se debe observar la potencia disipada para no quemar a este. Para el caso presente, se denota que el \href{https://www.alldatasheet.com/datasheet-pdf/pdf/49039/AD/OP284.html}{OP284} puede llegar hasta temperaturas de operación de $125 \ \degree C$. Asumiendo una temperatura ambiente de $40 \ \degree C$, y dejando un margen de seguridad de $15 \ \degree C$ en la temperatura del operacional, se calcula que la potencia máxima disipada por operacional es de $0.7 \ W$.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, page=2]{ImagenesEjercicio2/Potencia.pdf}
@@ -331,9 +335,7 @@ Por lo que la potencia máxima disipada por el operacional en regulación es
 \end{equation}
 siendo este un valor muy por debajo del máximo.
 
-Por otro lado, cuando se activa la protección de Foldback, si bien la tensión es menor, el transistor de paso continua pidiendo corriente al operacional, mientras que a este se le suma el transistor de protección $T_P$. Se puede observar que, aunque la corriente $I_o$ decrezca, la corriente que pide $T_P$ es mediante su colector, por lo que no reduce en un factor de $\beta_p$ como sucedía con el transistor de paso, por lo que la corriente que se le pide al opamp es mucho mayor que en regulación, mientras que el peor caso se da cuando la carga tienda a cero.
-
-Sin embargo, la tensión a la salida de la fuente regulada disminuye, por lo que también lo hará la tensión en el amplificador operacional, contrarrestando, pero no en su mayoría, el aumento de corriente. En la Sección \ref{sec:sim-pot} se analizó la curva de potencia disipada del operacional cuando la fuente se encuentra cortocircuitada, obteniendo una potencia máxima disipada de $P_{opamp_{max}}|_{cc} = 330 \ mW$ el cual se encuentra aún por debajo de la máxima potencia que puede disipar el amplificador operacional.
+Por otro lado, cuando se activa la protección de Foldback, si bien la tensión es menor, el transistor de paso continua pidiendo corriente al operacional, mientras que a este se le suma el transistor de protección $T_P$. Se puede observar que, aunque la corriente $I_o$ decrezca, la corriente que pide $T_P$ es mediante su colector, por lo que no reduce en un factor de $\beta_p$ como sucedía con el transistor de paso, por lo que la corriente que se le pide al opamp es mucho mayor que en regulación, mientras que el peor caso se da cuando la carga tienda a cero. Sin embargo, la tensión a la salida de la fuente regulada disminuye, por lo que también lo hará la tensión en el amplificador operacional, contrarrestando, pero no en su mayoría, el aumento de corriente. En la Sección \ref{sec:sim-pot} se analizó la curva de potencia disipada del operacional cuando la fuente se encuentra cortocircuitada, obteniendo una potencia máxima disipada de $P_{opamp_{max}}|_{cc} = 330 \ mW$ el cual se encuentra aún por debajo de la máxima potencia que puede disipar el amplificador operacional.
 
 \subsubsection{Transistores}
 \begin{figure}[H]
@@ -396,7 +398,7 @@ La respuesta transitoria del sistema se asemeja a la de un sistema de segundo or
 	\label{fig:transitorioFuente}
 \end{figure}
 
-Es notable señalar, que el sobrepico del sistema alcanza $9.15 \ V$, lo cual representa un $1.6\%$ de desvío respecto de la tensión de regulación. También observar que el tiempo de establecimiento del sistema es aproximadamente $22 \ \mu s$.
+Es notable señalar, que el sobrepico del sistema alcanza $9.15 \ V$, lo cual representa un $1.6\%$ de desvío respecto de la tensión de regulación. También se observa que el tiempo de establecimiento del sistema es de aproximadamente $22 \ \mu s$.
 
 Además, se simuló el circuito siendo afectado por ruido, con una frecuencia de $10 \ kHz$ y una amplitud de $0.5 \ V$. Estos valores fueron elegidos de forma tal que fuera apreciable la variación  durante el transitorio.
 \begin{figure}[H]
@@ -444,7 +446,7 @@ La curva correspondiente al Foldback fue simulada y graficada como se ve a conti
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/curvefoldback.png}
-	\caption{Curva de Foldback.}
+	\caption{Curva de Foldback. Gráfico simulado de tensión de salida sobre corriente de salida para valores de $R_L$ entre $0.1 \ \Omega$ y $100 \ \Omega$.}
 	\label{fig:GraficoFOldbacki}
 \end{figure}
 
@@ -486,7 +488,7 @@ Se puede ver que la máxima potencia disipada corresponde a la mínima carga, si
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potzener.png}
-	\caption{Potencia sobre el zener.}
+	\caption{Potencia sobre el zener para valores de $R_L$ entre $0.1 \ \Omega$ y $100 \ \Omega$. }
 	\label{fig:potzener}
 \end{figure}
 
@@ -494,7 +496,7 @@ Se puede ver que la máxima potencia disipada corresponde a la mínima carga, si
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potbc547.png}
-	\caption{Potencia sobre el BC547C del darlington.}
+	\caption{Potencia sobre el BC547C del darlington para valores de $R_L$ entre $0.1 \ \Omega$ y $100 \ \Omega$.}
 	\label{fig:potbc547}
 \end{figure}
 
@@ -502,15 +504,15 @@ Se puede ver que la máxima potencia disipada corresponde a la mínima carga, si
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potra.png}
-	\caption{Potencia sobre la $R_a$.}
+	\caption{Potencia sobre la $R_a$ para valores de $R_L$ entre $0.1 \ \Omega$ y $100 \ \Omega$.}
 	\label{fig:potra}
 \end{figure}
 
-\item TIP31C: La potencia sobre estos transistores de potencia es de $9 \ W$, lo cual indica que un disipador debe ser utilizado para su correcto funcionamiento.
+\item TIP31C: La potencia sobre estos transistores de potencia es de $9 \ W$, lo cual indica que un disipador deberá ser utilizado como ya analizado.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/pottip31c.png}
-	\caption{Potencia sobre el TIP31C.}
+	\caption{Potencia sobre el TIP31C para valores de $R_L$ entre $0.1 \ \Omega$ y $100 \ \Omega$.}
 	\label{fig:pottip31}
 \end{figure}
 
@@ -518,7 +520,7 @@ Se puede ver que la máxima potencia disipada corresponde a la mínima carga, si
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potprot.png}
-	\caption{Potencia sobre el BC547C de la protección.}
+	\caption{Potencia sobre el BC547C de la protección para valores de $R_L$ entre $0.1 \ \Omega$ y $100 \ \Omega$.}
 	\label{fig:potbc547prot}
 \end{figure}
 
@@ -526,15 +528,15 @@ Se puede ver que la máxima potencia disipada corresponde a la mínima carga, si
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potopamp.png}
-	\caption{Potencia sobre el operacional.}
+	\caption{Potencia sobre el operacional para valores de $R_L$ entre $0.1 \ \Omega$ y $100 \ \Omega$.}
 	\label{fig:potop}
 \end{figure}
 
-\item Carga: Se observa que el crecimiento es lineal hasta la activación de la protección y luego sigue la curva del Foldback, teniendo una potencia máxima de $22.5 \ W$.
+\item Carga: Se observa que el crecimiento es lineal hasta la activación de la protección y luego sigue la curva del foldback, teniendo una potencia máxima de $22.5 \ W$.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potload.png}
-	\caption{Potencia sobre la carga.}
+	\caption{Potencia sobre la carga para valores de $R_L$ entre $0.1 \ \Omega$ y $100 \ \Omega$.}
 	\label{fig:potload}
 \end{figure}
 \end{itemize}
