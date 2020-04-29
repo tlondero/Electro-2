@@ -8,10 +8,12 @@
 \subsection{Diseño Propuesto}
 
 En la siguiente instancia se realiza una fuente de tensión regulada, la cual se ajusta a las especificaciones de:
-\begin{align*}
+\begin{equation}
+\begin{aligned}
 	0 \ V \leq V_o \leq 9 \ V \\
 	I_{o-Max}=2.5 \ A
-\end{align*}
+\end{aligned}
+\end{equation}
 
 Se optó por un diseño que muestre tensión y sume corriente, siendo el diseño elegido para la fuente el presentado a continuación.
 \begin{figure}[H]
@@ -406,14 +408,21 @@ El rendimiento es definido como:
 	\eta = \frac{P_{load}}{P_{V^-}+P_{V^+}}=\frac{I_o \cdot V_{oReg}}{P_{op}+P_{R_a}+P_{R_b}+P_{R_c}+P_{R_Z}+P_{D_z}+P_{Bc547}+P_{R_1}+P_{R_2}+2\cdot V_{ce_{TIP}}\cdot \frac{I_o}{2}+I_o \cdot V_{oReg} }
 \end{align}
 En este caso se calculó para la carga mínima al igual que para una carga que obtenga la mitad de la corriente máxima:
-\begin{align}
-	\eta_{100\%}  =63.6\%\ \ \ \ \ \wedge  \ \ \ \ \ 
+\begin{equation}
+\begin{aligned}
+	\eta_{100\%} = 63.60\% \\ 
 	\eta_{50\%} = 63.05\%
-\end{align}
+\end{aligned}
+\end{equation}
+
 Adicionalmente se simuló el rendimiento del sistema para las mismas condiciones, obteniendo un valor de:
-\begin{align}
-\eta_{100\%}= 64.44\% \ \ \ \ \ \wedge  \ \ \ \ \ \eta_{50\%}=64.36\%
-\end{align}
+\begin{equation}
+\begin{aligned}
+	\eta_{100\%} = 64.44\% \\ 
+	\eta_{50\%} = 64.36\%
+\end{aligned}
+\end{equation}
+
 \subsection{Simulaciones}
 
 \subsubsection{Respuesta en régimen transitorio de Regulación}
