@@ -8,9 +8,10 @@
 \subsection{Diseño Propuesto}
 
 En la siguiente instancia se realiza una fuente de tensión regulada, la cual se ajusta a las especificaciones de:
-\begin{align}
-0V \leq V_o \leq 9V \ \ \ \ \ \ \wedge \ \ \ \ \ \ I_{o-Max}=2.5A
-\end{align}
+\begin{align*}
+	0 \ V \leq V_o \leq 9 \ V \\
+	I_{o-Max}=2.5 \ A
+\end{align*}
 
 Se optó por un diseño que muestre tensión y sume corriente, siendo el diseño elegido para la fuente el presentado a continuación.
 \begin{figure}[H]
@@ -306,7 +307,7 @@ Luego la máxima carga corresponde a $R_{LMax} = \infty$
 \subsubsection{Amplificador Operacional}
 \label{sec:opamppot}
 
-Como ya analizado en la Sección (\ref{sec:amp-error}), el amplificador operacional OP-284 cumplirá la función de suministrar corriente al transistor de paso. Si bien esta corriente suministrada a la base del transistor es pequeña, análisis en la Sección (\ref{sec:fuentes}) demuestra que la caída de potencial en el opamp es grande. Por esta razón se debe realizar un análisis de potencia disipada para no quemar a este. Para el caso presente, se observa que el \href{https://www.alldatasheet.com/datasheet-pdf/pdf/49039/AD/OP284.html}{OP284} puede llegar hasta temperaturas de operación de $125 \degree C$. Asumiendo una temperatura ambiente de $40 \degree C$, y dejando un margen de seguridad de $15\degree C$ en la temperatura del operacional, se calcula que la potencia máxima disipada por operacional será de $0.7 \ W$.
+Como ya se ha analizado en la Sección (\ref{sec:amp-error}), el amplificador operacional OP-284 cumple con la función de suministrar corriente al transistor de paso. Si bien esta corriente suministrada a la base del transistor es pequeña, el análisis en la Sección (\ref{sec:fuentes}) demuestra que la caída de potencial en el opamp es grande. Por esta razón se debe observar la potencia disipada para no quemar a este. Para el caso presente, se denota que el \href{https://www.alldatasheet.com/datasheet-pdf/pdf/49039/AD/OP284.html}{OP284} puede llegar hasta temperaturas de operación de $125 \ \degree C$. Asumiendo una temperatura ambiente de $40 \ \degree C$, y dejando un margen de seguridad de $15 \ \degree C$ en la temperatura del operacional, se calcula que la potencia máxima disipada por operacional es de $0.7 \ W$.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, page=2]{ImagenesEjercicio2/Potencia.pdf}
@@ -314,32 +315,27 @@ Como ya analizado en la Sección (\ref{sec:amp-error}), el amplificador operacio
 	\label{fig:circuitopot}
 \end{figure}
 
-Para hallar la potencia máxima que disipará el amplificador operacional se deben considerar dos modos de funcionamiento de la fuente: en regulación, y cuando la protección se encuentra activada. Cuando la fuente se encuentra regulando, la tensión $V_0$ será constante, sin embargo, la corriente de salida será cada vez mayor, causando que el operacional deba entregar una corriente mayor a la base del transistor de paso. En este caso, y suponiendo que el transistor de protección esta totalmente apagado, se tiene que la corriente máxima que deberá entregar el opamp será
-
+Para hallar la potencia máxima que disipa el amplificador operacional se deben considerar dos modos de funcionamiento de la fuente: en regulación y cuando la protección se encuentra activada. Para la primera, la tensión $V_0$ es constante, sin embargo, la corriente de salida es cada vez mayor, causando que el operacional entregue una corriente mayor a la base del transistor de paso. En este caso, y suponiendo que el transistor de protección esta totalmente apagado, se tiene que la corriente máxima que entrega el opamp es
 \begin{equation}
-I_{opamp_{max}}|_{reg} = \frac{\frac{I_{o}}{\beta_{Q_2}}+\frac{V_{BE_{Q_2}}}{R_5}}{\beta_{Q_1}} =  \frac{\frac{2.5A}{100}+\frac{0.7V}{56\Omega}}{480} = 78uA
+	I_{opamp_{max}}|_{reg} = \frac{\frac{I_{o}}{\beta_{Q_2}}+\frac{V_{BE_{Q_2}}}{R_5}}{\beta_{Q_1}} =  \frac{\frac{2.5A}{100}+\frac{0.7V}{56\Omega}}{480} = 78uA
 \end{equation}
 
 Luego, utilizando la ley de mallas, se obtiene que
-
 \begin{equation}
-V_{opamp_{max}}|_{reg} = V_o + I_{reg_{max}} \cdot R_a + V_{BE_{Q_2}} + V_{BE_{Q_1}} = 11.8V
+	V_{opamp_{max}}|_{reg} = V_o + I_{reg_{max}} \cdot R_a + V_{BE_{Q_2}} + V_{BE_{Q_1}} = 11.8V
 \end{equation}
 
-Por lo que la potencia máxima disipada por el operacional en regulación será
-
+Por lo que la potencia máxima disipada por el operacional en regulación es
 \begin{equation}
-P_{opamp_{max}}|_{reg} = 920.4uW
+	P_{opamp_{max}}|_{reg} = 920.4uW
 \end{equation}
+siendo este un valor muy por debajo del máximo.
 
-Lo cual estará muy por debajo del máximo.
+Por otro lado, cuando se activa la protección de Foldback, si bien la tensión es menor, el transistor de paso continua pidiendo corriente al operacional, mientras que a este se le suma el transistor de protección $T_P$. Se puede observar que, aunque la corriente $I_o$ decrezca, la corriente que pide $T_P$ es mediante su colector, por lo que no reduce en un factor de $\beta_p$ como sucedía con el transistor de paso, por lo que la corriente que se le pide al opamp es mucho mayor que en regulación, mientras que el peor caso se da cuando la carga tienda a cero.
 
-Por otro lado, cuando se activa la protección de foldback, si bien será menor, el transistor de paso seguirá pidiendole corriente al operacional, mientras que el transistor de protección $Q_p$ también pedirá corriente, la cual será suministrada por el operacional. Se puede observar que aunque la corriente $I_o$ decrezca, la corriente que pedirá $Q_p$ es mediante su colector, por lo que no será reducida en un factor de $\beta_p$ como sucedía con el transistor de paso, por lo que la corriente que se le pedirá al opamp será mucho mayor que en regulación y el peor caso será cuando la carga tienda a cero.
-
-Sin embargo, la tensión a la salida de la fuente regulada disminuirá, por lo que disminuirá también la tensión en el amplificador operacional, contrarrestando, pero no en su mayoría, el aumento de corriente. En la Sección \ref{sec:sim-pot} se analizó la curva de potencia disipada del operacional cuando la fuente se encuentra cortocircuitada, obteniendo una potencia máxima disipada de $P_{opamp_{max}}|_{cc} = 330mW$ el cual se encuentra aún por debajo de la máxima potencia que puede disipar el amplificador operacional.
+Sin embargo, la tensión a la salida de la fuente regulada disminuye, por lo que también lo hará la tensión en el amplificador operacional, contrarrestando, pero no en su mayoría, el aumento de corriente. En la Sección \ref{sec:sim-pot} se analizó la curva de potencia disipada del operacional cuando la fuente se encuentra cortocircuitada, obteniendo una potencia máxima disipada de $P_{opamp_{max}}|_{cc} = 330 \ mW$ el cual se encuentra aún por debajo de la máxima potencia que puede disipar el amplificador operacional.
 
 \subsubsection{Transistores}
-
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/Potencia.pdf}
@@ -351,104 +347,109 @@ Sin embargo, la tensión a la salida de la fuente regulada disminuirá, por lo q
 \frac{T_j - T_a}{R_{\theta jc}+R_{\theta cs}+R_{\theta sa}} = P
 \end{equation}
 
-Asumiendo una temperatura ambiente de $40 \ \degree C$; una temperatura máxima de juntura en funcionamiento de $140 \ \degree C$, $20 \ \degree C$ menor a la especificada por el fabricante; la $R_{\theta jc}$ también especificada, de $3.125 \ \frac{\degree C}{W}$; el uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$, y área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \ \frac{\degree C}{W}$; y finalmente una potencia disipada de $9.6 \ W$, levemente mayor a la máxima disipada; se obtiene
-
+Asumiendo una temperatura ambiente de $40 \ \degree C$ y una temperatura máxima de juntura en funcionamiento de $140 \ \degree C$, $20 \ \degree C$ menor a la especificada por el fabricante, sabiendo que la $R_{\theta jc}$ es de $3.125 \ \frac{\degree C}{W}$, valiéndose del uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$ y un área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$, teniendo una $R_{\theta cs}$ de $1.6866 \ \frac{\degree C}{W}$ y asumiendo  una potencia disipada de $9.6 \ W$, levemente mayor a la máxima disipada, se obtiene
 \begin{equation}
 R_{\theta sa} = 4.57 \ \frac{\degree C}{W}
 \end{equation}
+
 \subsubsection{Diodos y Resistencias}
 \begin{itemize}
-\item Diodo zener:
-Se obtiene que
-\begin{align}
-P_{z}=I_{z}^2\cdot r_z+I_z \cdot V_z = 34.4mW
-\end{align}
-La máxima potencia capaz de disipar dicho diodo es de 250mW, por lo que este componente se encuentra en perfectas condiciones.
-\item $R_a$: Será 
-\begin{align}
-P_{Ra}=I_{max}^2\cdot R_a+ = 3.5W
-\end{align}
-Utilizando una $R_a$ de potencia.
-\item $R_5$:
-La potencia será 
-\begin{align}
-P_{R5}=I_{R5}^2\cdot R_5 = 9.46mW
-\end{align}
-será una resistencia de 0.25W
-\item $R_2$
-será
-\begin{align}
-P_{R2}=\frac{V_z^2}{R_2} = 57mW
-\end{align}
-\item $R_z$
-será
-\begin{align}
-P_{Rz}=\frac{(V^- - V_z)^2}{R_z} = 5.33mW
-\end{align}
+	\item Para el diodo zener se obtiene que
+	\begin{align}
+		P_{z}=I_{z}^2\cdot r_z+I_z \cdot V_z = 34.4 \ mW
+	\end{align}
+	La máxima potencia capaz de disipar dicho diodo es de $250 \ mW$, por lo que este componente se encuentra en perfectas condiciones.
 
+	\item Para $R_a$ es 
+	\begin{align}
+		P_{Ra}=I_{max}^2\cdot R_a+ = 3.5 \ W
+	\end{align}
+	Utilizando una $R_a$ de potencia.
+
+	\item Para $R_5$ es
+	\begin{align}
+		P_{R5}=I_{R5}^2\cdot R_5 = 9.46 \ mW
+	\end{align}
+	la cual es una resistencia de $0.25 \ W$
+
+	\item Para $R_2$ es
+	\begin{align}
+		P_{R2}=\frac{V_z^2}{R_2} = 57 \ mW
+	\end{align}
+
+	\item Finalmente, para $R_z$ se obtiene
+	\begin{align}
+		P_{Rz}=\frac{(V^- - V_z)^2}{R_z} = 5.33 \ mW
+	\end{align}
 \end{itemize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Rendimiento}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Simulaciones}
+
 \subsubsection{Respuesta en régimen transitorio de Regulación}
-La respuesta transitoria del sistema se asemeja a la de un sistema de segundo orden como se observa a continuación:\footnote{Todos los gráficos a continuación fueron realizados con una carga igual a la mínima que el sistema soporta}
+La respuesta transitoria del sistema se asemeja a la de un sistema de segundo orden. Cabe aclarar que los gráficos obtenidos de las simulaciones presentadas a continuación fueron realizados con una carga igual a la mínima que el sistema soporta.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/transresp.png}
 	\caption{Respuesta transitoria.}
 	\label{fig:transitorioFuente}
 \end{figure}
-Es notable señalar, que el sobrepico del sistema alcanza 9.15V, lo cual es un 1.6$\%$ de desvío respecto de la tensión de regulación, y también observar que el tiempo de establecimiento del sistema es aproximadamente $22 \ \mu s$.\\
-Además se simuló el circuito siendo afectado por ruido, con una frecuencia de 10kHz y una amplitud de 0.5V, estos valores fueron elegidos asi es apreciable la variación  durante el transitorio.
+
+Es notable señalar, que el sobrepico del sistema alcanza $9.15 \ V$, lo cual representa un $1.6\%$ de desvío respecto de la tensión de regulación. También observar que el tiempo de establecimiento del sistema es aproximadamente $22 \ \mu s$.
+
+Además, se simuló el circuito siendo afectado por ruido, con una frecuencia de $10 \ kHz$ y una amplitud de $0.5 \ V$. Estos valores fueron elegidos de forma tal que fuera apreciable la variación  durante el transitorio.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/transrespnoise.png}
 	\caption{Respuesta transitoria con ruido.}
 	\label{fig:transitorioFuentenoise}
 \end{figure}
-Si bien la imagen es realmente similar, esto se debe a la frecuencia del ruido, aun así se puede apreciar una diferencia de las pequeñas oscilaciones generedadas por el ruido en la tensión estabilizada en 9V. En cuanto a los parámetros del transitorio, el máximo sobrepico alcanzado es de 9.15V y el tiempo de establecimiento es de aproximadamente $32 \ \mu s$.
+
+La Figura (\ref{fig:transitorioFuentenoise}) es similar a la (\ref{fig:transitorioFuente}) debido a la frecuencia del ruido. Aun así se puede apreciar una diferencia de las pequeñas oscilaciones generadas por el ruido en la tensión estabilizada en $9 \ V$. En cuanto a los parámetros del transitorio, el máximo sobrepico alcanzado es de $9.15 \ V$ y el tiempo de establecimiento es de aproximadamente $32 \ \mu s$.
+
 \subsubsection{Respuesta en régimen permanente de Regulación}
-En el caso del regiment permantente se verá la capacidad de mantener al tensión regulada en la salida.
-En el caso de que la señal no tenga ruido la tensión regulada será $9 \ V$ sin ningún tipo de variación.
+En el caso del régimen permanente se ve la capacidad de mantener al tensión regulada en la salida. Dada la situación en que la señal no tenga ruido, la tensión regulada es de $9 \ V$ sin ningún tipo de variación.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/permresp.png}
 	\caption{Respuesta en régimen permanente.}
 	\label{fig:permanenteFuente}
 \end{figure}
-Lo cual es perfectamente esperable, ahora veremos como es la respuesta frente a señales con distintos tipos de contaminación.
-Para la primer prueba se vera la señal original, con la adición de una señal senoidal de $10 \ kHz$ de amplitud $0.5 \ V$.
-La salida es la siguiente:
+
+A continuación, se presenta la respuesta del sistema frente a señales con distintos tipos de contaminación.
+
+Para la primer prueba se ve la señal original, con la adición de una señal senoidal de $10 \ kHz$ de amplitud $0.5 \ V$. La salida es la siguiente:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/permrespsine.png}
 	\caption{Respuesta en régimen permanente con ruido senoidal.}
 	\label{fig:permanenteFuentesine}
 \end{figure}
-Se puede ver que el desvío respecto de los $9 \ V$ es del $0.14\%$.
-Luego se agregó adicionalmente una señal triangular de frecuencia $50 \ Hz$ y amplitud unitaria.
+
+Se puede ver que el desvío respecto de los $9 \ V$ es del $0.14\%$. Luego se agregó una señal triangular de frecuencia $50 \ Hz$ y amplitud unitaria.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/permrespsinetri.png}
 	\caption{Respuesta en régimen permanente con ruido senoidal y triangular.}
 	\label{fig:permanenteFuentesinetri}
 \end{figure}
-Es notable que incluso con estas dos fuentes de ruido, de distinta amplitud y frecuencia el sistema continúa regulando con un desvio no mayor del $0.24\%$.
+
+Es notable que incluso con estas dos fuentes de ruido, de distinta amplitud y frecuencia, el sistema continúa regulando con un desvió no mayor del $0.24\%$.
+
 \subsubsection{Respuesta en Frecuencia}
+
 \subsubsection{Curva de Foldback}
-La curva correspondiente al foldback fue simulada y graficada como se ve a continuación:
+La curva correspondiente al Foldback fue simulada y graficada como se ve a continuación:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/curvefoldback.png}
 	\caption{Curva de Foldback.}
 	\label{fig:GraficoFOldbacki}
 \end{figure}
-Se puede apreciar, que la máxima corriente es de 2.5A como fue calculado al igual que el valor de $I_{sc}$, vale la pena mencionar que a medida que se varíe la $R_1$ variará la corriente máxima de salida acorde a la ecuación (\ref{eq:Imaxfoldback})
+
+Se puede apreciar que la máxima corriente es de $2.5 \ A$ como fue calculado, al igual que el valor de $I_{sc}$. Vale la pena mencionar que a medida que varíe la $R_1$, también lo hará la corriente máxima de salida acorde a la Ecuación (\ref{eq:Imaxfoldback}).
+
 \subsubsection{Impedancia de Salida}
 La impedancia de salida fue simulada y graficada:
 \begin{figure}[H]
@@ -457,55 +458,64 @@ La impedancia de salida fue simulada y graficada:
 	\caption{Impedancia de salida.}
 	\label{fig:zout}
 \end{figure}
-Se observa que la impedancia de salida es baja para la mayor parte del espectro, no superando nunca los 220$\Omega$.
+
+Se observa que la impedancia de salida es baja para la mayor parte del espectro, sin superar los $220 \ \Omega$.
+
 \subsubsection{Potencias}
 \label{sec:sim-pot}
-En esta sección se simularon las curvas de potencias sobre los componentes al variar la carga del circuito.\\
+En esta sección se simularon las curvas de potencias sobre los componentes al variar la carga del circuito.
+
 \begin{itemize}
 \item Diodo Zener: 
-Se puede ve que la máxima potencia disipada corresponde a la mínima caraga, dicha potencia es de 37mW lo cual no es un problema para dicho diodo.
+Se puede ver que la máxima potencia disipada corresponde a la mínima carga, siendo esta de $37 \ mW$ lo cual no es un problema para dicho diodo.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potzener.png}
 	\caption{Potencia sobre el zener.}
 	\label{fig:potzener}
 \end{figure}
-\item BC547C Darlington: La máxima potencia es de 330mW lo cual no es un problema para dicho transistor, al igual que la anterior curva se observa un aumento considerable una vez que se activa el foldback, pero aun en la zona de operación tiene una pendiente.
+
+\item BC547C Darlington: La máxima potencia es de $330 \ mW$, lo cual no es un problema para dicho transistor. Al igual que la anterior curva se observa un aumento considerable una vez que se activa el Foldback, pero aun en la zona de operación tiene una pendiente.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potbc547.png}
 	\caption{Potencia sobre el BC547C del darlington.}
 	\label{fig:potbc547}
 \end{figure}
-\item $R_a$: La potencia máxima disipada corresponde a 3.5W lo cual es esperado dado que es $R_a\cdot I_{max}^2$ 
+
+\item $R_a$: La potencia máxima disipada corresponde a $3.5 \ W$, lo cual es esperado dado que es $R_a\cdot I_{max}^2$. 
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potra.png}
 	\caption{Potencia sobre la $R_a$.}
 	\label{fig:potra}
 \end{figure}
-\item TIP31C: La potencia sobre estos transistores de potencia es de 9W, lo cual indica que un disipador debe ser utilizado para su correcto funcionamiento.
+
+\item TIP31C: La potencia sobre estos transistores de potencia es de $9 \ W$, lo cual indica que un disipador debe ser utilizado para su correcto funcionamiento.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/pottip31c.png}
 	\caption{Potencia sobre el TIP31C.}
 	\label{fig:pottip31}
 \end{figure}
-\item BC547 Protección: Se debe notar que el transistor consume nada de potencia, hasta el momento en el cual se activa, alcanzando un limite de 60mW.
+
+\item BC547 Protección: Se debe notar que el transistor no consume potencia, sino hasta el momento en el cual se activa, alcanzando un limite de $60 \ mW$.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potprot.png}
 	\caption{Potencia sobre el BC547C de la protección.}
 	\label{fig:potbc547prot}
 \end{figure}
-\item Operacional: Para el operacional se observa que la máxima potencia corresponde a 330mW para la carga nula, y vale la pena mencionar que al medir la potencia en spice, tambien son consideradas las corrientes de alimentación.
+
+\item Operacional: Para este se observa que la máxima potencia corresponde a $330 \ mW$ al tener una carga nula. Vale la pena mencionar que, al medir la potencia en LTSpice, dicho programa considera las corrientes de alimentación.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potopamp.png}
 	\caption{Potencia sobre el operacional.}
 	\label{fig:potop}
 \end{figure}
-\item Carga: Se observa que el crecimiento es lineal hasta la activación de la protección y luego sigue la curva del foldback, teniendo una potencia máxima de 22.5W.
+
+\item Carga: Se observa que el crecimiento es lineal hasta la activación de la protección y luego sigue la curva del Foldback, teniendo una potencia máxima de $22.5 \ W$.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potload.png}
@@ -514,40 +524,7 @@ Se puede ve que la máxima potencia disipada corresponde a la mínima caraga, di
 \end{figure}
 \end{itemize}
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Conclusiones}
-
-
-
-
-
-
-
-
-
-
-
-En la siguiente sección, se busca elaborar una fuente regulada de tensión que cumpla con una salida que varíe entre $0 \ V$ y $9 \ V$, con una corriente de salida máxima de $2.5 \ A$. Dado que la tensión mínima debe ser nula, se implementó un regulador serie que utiliza un lazo de realimentación negativa que muestrea tensión y suma corriente, siendo así el circuito resultante el presentado a continuación.
-%\begin{figure}[H]
-%\centering
-%	\includegraphics[width=0.8\textwidth, page=1]{ImagenesEjercicio2/Regulador.pdf}
-%	\caption{Circuito regulador de tensión.}
-%	\label{fig:circuito1}
-%\end{figure}
-%
-%En la Figura (\ref{fig:circuito1}) se puede observar en distintos colores las diferentes etapas del sistema, siendo \textcolor{blue}{en azul el amplificador error}, \textcolor{olive}{en verde el transistor de paso}, \textcolor{red}{en rojo el elemento de referencia}, \textcolor{purple}{en violeta el circuito de detección} y \textcolor{orange}{en naranja el circuito de protección}.
-
-\begin{equation}
-\frac{V^- - V_Z}{R_Z} + I_Z = \frac{V_Z}{R_9}
-\end{equation}
-
-
-
-
-
 
 
 \end{document}
