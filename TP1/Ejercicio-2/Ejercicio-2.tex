@@ -15,7 +15,7 @@ En la siguiente instancia se realiza una fuente de tensión regulada, la cual se
 \end{aligned}
 \end{equation}
 
-Se optó por un diseño que muestre tensión y sume corriente, siendo el diseño elegido para la fuente el presentado a continuación.
+Se optó por un diseño que realice un muestreo de tensión y suma de corriente, siendo el diseño elegido para la fuente el presentado a continuación.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.8\textwidth, page=1]{ImagenesEjercicio2/Regulador.pdf}
@@ -23,7 +23,7 @@ Se optó por un diseño que muestre tensión y sume corriente, siendo el diseño
 	\label{fig:circuitoprop}
 \end{figure}
 
-Dicho circuito puede ser separado en 5 bloques fundamentales:
+Dicho circuito es separado en 5 bloques fundamentales:
 \begin{itemize}
 	\item \textcolor{blue}{Amplificador error}
 	\item \textcolor{olive}{Transistor de paso}
@@ -37,14 +37,11 @@ Dicho circuito puede ser separado en 5 bloques fundamentales:
 
 La teoría de la realimentación negativa plantea que dado un sistema a lazo cerrado ideal, con un número impar de inversiones de fase, la ganancia de este puede aproximarse como la inversa del factor de realimentación si la ganancia de lazo en módulo es mucho mayor a la unidad, es decir
 \begin{equation}
-P.E. = \frac{A }{1+ f \cdot A} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
+P.E. = \frac{A }{1+ f \cdot A} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|} \approx \frac{1}{f}
 \end{equation}
-donde $A$ es la respuesta a lazo abierto, $f$ el factor de realimentación y $T$ es la ganancia de lazo. Se puede observar que bajo las condiciones descritas anteriormente, se tiene entonces que 
+donde $A$ es la respuesta a lazo abierto, $f$ el factor de realimentación y $T$ es la ganancia de lazo.
 
-\begin{equation}
-P.E. \approx \frac{1}{f}
-\end{equation}
-
+En el circuito realizado puede observarse un lazo de realimentación negativa el cual posee una inversión de fase producida por el amplificador operacional detallado en la Figura (\ref{fig:circuito_lazo}).
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.8\textwidth, page=4]{ImagenesEjercicio2/Regulador.pdf}
@@ -52,7 +49,7 @@ P.E. \approx \frac{1}{f}
 	\label{fig:circuito_lazo}
 \end{figure}
 
-En el circuito realizado puede observarse un lazo de realimentación negativa el cual posee una inversión de fase producida por el amplificador operacional detallado en la Figura (\ref{fig:circuito_lazo}). También es de interés observar los siguientes puntos: 
+También es de interés observar los siguientes puntos: 
 \begin{itemize}
 \item Por tierra virtual, el opamp trabaja para mantener la tensión nula en su terminal negativo.
 \item El diodo zener consume la corriente necesaria para mantener la caída de tensión sobre este fija.
@@ -67,7 +64,7 @@ En resumidas cuentas, el parámetro estabilizado del sistema es
 P.E. = \frac{V_o}{I_N} = -\frac{V_o \cdot R_2}{|V_z|} = \frac{1}{f} \cdot \frac{|T|}{1 + |T|}
 \end{equation}
 
-Luego, se puede demostrar que la ganancia $f$ se puede aproximar como la razón entre el parámetro que se suma en el lazo y el parámetro que se muestrea, cuando la tensión en el nodo del terminal negativo del opamp es cero, obteniendo así
+Luego, se puede demostrar que la ganancia $f$ se puede aproximar como la razón entre el parámetro que se suma en el lazo y el que se muestrea, cuando la tensión en el nodo del terminal negativo del opamp es cero, obteniendo así
 \begin{equation}
 f \approx -\frac{1}{R_1}
 \end{equation}
@@ -125,7 +122,7 @@ De esta manera, se genera una resta de corrientes en el nodo del terminal negati
 	\label{fig:amp-prereg-det-ref}
 \end{figure}
 
-En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que, si se define a la corriente $i_1$ como la corriente suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener, la corriente $i_2$ como la corriente suministrada por la resistencia $R_2$, la cual depende de la tensión que efectivamente provee la fuente regulada, e $i_e$ como la corriente error que atraviesa el terminal negativo del operacional, se tiene que
+En la Sección (\ref{sec:circuito-de-deteccion}) se analizó como se genera una resta de corrientes en el nodo del terminal negativo del operacional. Se observa que, si se define $i_1$ como la corriente suministrada por la resistencia $R_1$, la cual depende de la tensión fija impuesta por el zener, $i_2$ como la suministrada por la resistencia $R_2$, la cual depende de la tensión que efectivamente provee la fuente regulada, e $i_e$ como la corriente error que atraviesa el terminal negativo del operacional, se tiene que
 \begin{equation}
 	i_e = i_1 - i_2 = \frac{V_o}{R_1} - \frac{-V_z}{R_2}
 \end{equation}
@@ -251,9 +248,9 @@ Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el ob
 \centering
 	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/hfe547b.png}
 	\label{fig:hfe}
-	\caption{Gráfico de HFE en función a la corriente de colector del BC547.}
+	\caption{Gráfico de $h_{FE}$ en función a la corriente de colector del BC547.}
 \end{figure}
-Lo que se busca es tener una corriente de colector tal que el hfe se encuentre en la zona azul, sin esta resistencia la corriente de colector probablemente se encontraría en la zona verde, lo cual no corresponde a un hfe estable.\\ 
+Lo que se busca es tener una corriente de colector tal que el $h_{FE}$ se encuentre en la zona azul, sin esta resistencia la corriente de colector probablemente se encontraría en la zona verde, lo cual no corresponde a un $h_{FE}$ estable. 
 
 El valor de $R_5$ se obtiene a partir de la siguiente ecuación:
 
@@ -293,7 +290,7 @@ Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_Z$, tal 
 
 \subsubsection{Resistencia circuito de detección}
 \label{sec:resdet}
-Dado que la salida en regulación depende directamente de la Ecuación (\ref{eq:vovz}), basta con definir un valor de $R_1$ tal que $V_o=9 \ V$, dado que la $R_1$ es un potenciómetro con el cual se varia la tensión de regulación. Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  k\Omega$
+Dado que la salida en regulación depende directamente de la Ecuación (\ref{eq:vovz}), basta con definir un valor de $R_1$ tal que $V_o=9 \ V$, dado que la $R_1$ es un potenciómetro con el cual se varia la tensión de regulación. Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  k\Omega$.
 
 \subsection{Análisis de cargas}
 La mínima carga se obtiene una vez definida la máxima corriente y la máxima tensión de regulación:
@@ -323,17 +320,17 @@ Como ya se ha analizado en la Sección (\ref{sec:amp-error}), el amplificador op
 
 Para hallar la potencia máxima que disipa el amplificador operacional se deben considerar dos modos de funcionamiento de la fuente: en regulación y cuando la protección se encuentra activada. Para la primera, la tensión $V_0$ es constante, sin embargo, la corriente de salida es cada vez mayor, causando que el operacional entregue una corriente mayor a la base del transistor de paso. En este caso, y suponiendo que el transistor de protección esta totalmente apagado, se tiene que la corriente máxima que entrega el opamp es
 \begin{equation}
-	I_{opamp_{max}}|_{reg} = \frac{\frac{I_{o}}{\beta_{Q_2}}+\frac{V_{BE_{Q_2}}}{R_5}}{\beta_{Q_1}} =  \frac{\frac{2.5A}{100}+\frac{0.7V}{56\Omega}}{480} = 78uA
+	I_{opamp_{max}}|_{reg} = \frac{\frac{I_{o}}{\beta_{Q_2}}+\frac{V_{BE_{Q_2}}}{R_5}}{\beta_{Q_1}} =  \frac{\frac{2.5A}{100}+\frac{0.7V}{56\Omega}}{480} = 78 \ \mu A
 \end{equation}
 
 Luego, utilizando la ley de mallas, se obtiene que
 \begin{equation}
-	V_{opamp_{max}}|_{reg} = V_o + I_{reg_{max}} \cdot R_a + V_{BE_{Q_2}} + V_{BE_{Q_1}} = 11.8V
+	V_{opamp_{max}}|_{reg} = V_o + I_{reg_{max}} \cdot R_a + V_{BE_{Q_2}} + V_{BE_{Q_1}} = 11.8 \ V
 \end{equation}
 
 Por lo que la potencia máxima disipada por el operacional en regulación es
 \begin{equation}
-	P_{opamp_{max}}|_{reg} = 920.4uW
+	P_{opamp_{max}}|_{reg} = 920.4 \ \mu W
 \end{equation}
 siendo este un valor muy por debajo del máximo.
 
@@ -388,14 +385,19 @@ Se puede observar que no será necesario utilizar un disipador para el transisto
 \frac{T_j - T_a}{R_{\theta jc}+R_{\theta cs}+R_{\theta sa}} = P
 \end{equation}
 
-Asumiendo una temperatura ambiente de $40 \ \degree C$; una temperatura máxima de juntura en funcionamiento de $130 \ \degree C$, $20 \ \degree C$ menor a la especificada por el fabricante; sabiendo que la $R_{\theta jc}$ es de $3.125 \ \frac{\degree C}{W}$; valiéndose del uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$, un área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \ \frac{\degree C}{W}$; y asumiendo  una potencia disipada de $9.6 \ W$, levemente mayor a la máxima disipada calculada, se obtiene
+Se tienen en cuenta las siguientes consideraciones:
+\begin{itemize}
+	\item Se asume una temperatura ambiente de $40 \ \degree C$ y una máxima de juntura en funcionamiento de $130 \ \degree C$, siendo esta $20 \ \degree C$ menor a la especificada por el fabricante.
+	\item Se sabe que la $R_{\theta jc}$ es de $3.125 \ \frac{\degree C}{W}$.
+	\item Se vale del uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$ y un área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$ para obtener una $R_{\theta cs}$ de $1.6866 \ \frac{\degree C}{W}$.
+	\item Asumiendo  una potencia disipada de $9.6 \ W$, $0.7W$ mayor a la máxima disipada calculada.
+\end{itemize}
+se obtiene que
 \begin{equation}
 R_{\theta sa} = 4.56 \ \frac{\degree C}{W}
 \end{equation}
 
-Se utilizarán dos disipadores \href{https://www.digikey.com/product-detail/en/aavid-thermal-division-of-boyd-corporation/7023B-MTG/HS410-ND/1625509}{7023B-MTG}, uno para cada QTIP41C, con una resistencia térmica de $4.40 \ \frac{\degree C}{W}$ y un precio unitario de $1.32$ U\$S.
-
-
+Luego, se utilizan dos disipadores \href{https://www.digikey.com/product-detail/en/aavid-thermal-division-of-boyd-corporation/7023B-MTG/HS410-ND/1625509}{7023B-MTG}, uno para cada QTIP41C, con una resistencia térmica de $4.40 \ \frac{\degree C}{W}$ y un precio unitario de $1.32$ U\$S.
 
 \subsubsection{Diodos y Resistencias}
 \begin{itemize}
@@ -444,6 +446,7 @@ El rendimiento es definido como:
 \begin{align}
 	\eta = \frac{P_{load}}{P_{V^-}+P_{V^+}}=\frac{I_o \cdot V_{oReg}}{P_{op}+P_{R_a}+P_{R_b}+P_{R_c}+P_{R_Z}+P_{D_z}+P_{Bc547}+P_{R_1}+P_{R_2}+2\cdot V_{ce_{TIP}}\cdot \frac{I_o}{2}+I_o \cdot V_{oReg} }
 \end{align}
+
 En este caso se calculó para la carga mínima al igual que para una carga que obtenga la mitad de la corriente máxima:
 \begin{equation}
 \begin{aligned}
