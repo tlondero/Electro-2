@@ -335,7 +335,7 @@ Por lo que la potencia máxima disipada por el operacional en regulación es
 \end{equation}
 siendo este un valor muy por debajo del máximo.
 
-Por otro lado, cuando se activa la protección de Foldback, si bien la tensión es menor, el transistor de paso continua pidiendo corriente al operacional, mientras que a este se le suma el transistor de protección $T_P$. Se puede observar que, aunque la corriente $I_o$ decrezca, la corriente que pide $T_P$ es mediante su colector, por lo que no reduce en un factor de $\beta_p$ como sucedía con el transistor de paso, por lo que la corriente que se le pide al opamp es mucho mayor que en regulación, mientras que el peor caso se da cuando la carga tienda a cero. Sin embargo, la tensión a la salida de la fuente regulada disminuye, por lo que también lo hará la tensión en el amplificador operacional, contrarrestando, pero no en su mayoría, el aumento de corriente. En la Sección \ref{sec:sim-pot} se analizó la curva de potencia disipada del operacional cuando la fuente se encuentra cortocircuitada, obteniendo una potencia máxima disipada de $P_{opamp_{max}}|_{cc} = 330 \ mW$ el cual se encuentra aún por debajo de la máxima potencia que puede disipar el amplificador operacional.
+Por otro lado, cuando se activa la protección de Foldback, si bien la tensión es menor, el transistor de paso continua pidiendo corriente al operacional, mientras que a este se le suma el transistor de protección $T_P$. Se puede observar que, aunque la corriente $I_o$ decrezca, la corriente que pide $T_P$ es mediante su colector, por lo que no reduce en un factor de $\beta_p$ como sucedía con el transistor de paso, por lo que la corriente que se le pide al opamp es mucho mayor que en regulación, mientras que el peor caso se da cuando la carga tienda a cero. Sin embargo, la tensión a la salida de la fuente regulada disminuye, por lo que también lo hará la tensión en el amplificador operacional, contrarrestando, pero no en su mayoría, el aumento de corriente. En la Sección (\ref{sec:sim-pot}) se analizó la curva de potencia disipada del operacional cuando la fuente se encuentra cortocircuitada, obteniendo una potencia máxima disipada de $P_{opamp_{max}}|_{cc} = 330 \ mW$ el cual se encuentra aún por debajo de la máxima potencia que puede disipar el amplificador operacional.
 
 \subsubsection{Transistores}
 \begin{figure}[H]
@@ -456,25 +456,31 @@ Se puede apreciar que la máxima corriente es de $2.5 \ A$ como fue calculado, a
 A continuación se presenta el circuito resultante del nuevo amplificador:
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.7\textwidth, page=9]{ImagenesEjercicio2/Regulador.pdf}
+	\includegraphics[width=\textwidth, page=9]{ImagenesEjercicio2/Regulador.pdf}
 	\caption{Circuito del nuevo amplificador.}
 	\label{fig:nuevoampi}
 \end{figure}
 
 De este, se obtiene que
 \begin{equation*}
-	a = \frac{V_O'}{I_N} = - A_{VOL} \cdot \left( R_1 // R_i // R_{TH} \right) \frac{R_1 // R_L}{R_1 // R_L + r_O} \approx - A_{VOL} \cdot \left( R_1 // R_{TH} \right)
+	a = \frac{V_O'}{I_N} = - A_{VOL} \cdot \underbrace{\left( R_1 // R_i // R_{TH} \right)}_{\approx R_1 // R_{TH}} \underbrace{\frac{R_1 // R_L // R'}{R_1 // R_L // R' + r_O}}_{\approx 1}
 \end{equation*}
+
+Sabiendo que $R_{TH} = \left( R_Z // r_Z \right) + R_2 \approx R_2$, se llega a la expresión
 \begin{equation}
-	a = - A_{VOL} \cdot \frac{R_1 R_2}{R_1 + R_2} \approx 9.9 \ M\Omega
+	a = - A_{VOL} \cdot \frac{R_1 R_2}{R_1 + R_2} \approx 9.9 \ M \Omega
 \end{equation}
 
-Además, recordando que $|T| = |a \cdot f|$, se puede obtener los valores de $Z_{oa}$ y de $Z_o$ siendo estos
+Además, recordando que $|T| = |a \cdot f|$ y que $f = -\frac{1}{R_1}$, se obtienen las expresiones de $Z_{oa}$ y de $Z_o$, siendo estos
 \begin{equation}
-	Z_o = \frac{Z_{oa}}{1 + |T|} = A_{VOL} \cdot \frac{R_2}{R_1 + R_2}
+	Z_o = \frac{Z_{oa}}{1 + |T|} = \frac{r_O // R_1 // R' // R_L}{1 + |T|} \approx \frac{R'}{1 + |T|} \approx \frac{R_A}{1 + |T|}	
 \end{equation}
 
-Por último \textcolor{red}{\textbf{PONER CALCULO FINAL DE Ro}}
+Teniendo en cuenta que $Z_O = R_L // R_{Output}$ y despejando de dicha igualdad, se obtiene la siguiente ecuación:
+\begin{equation}
+	R_{Output} = \frac{Z_o R_L}{ \underbrace{R_L - Z_o}_{\approx R_L} } \approx Z_o = 0 \ \Omega
+	\label{equ:rout}
+\end{equation}
 
 Luego, fue simulada y graficada la variable de interés:
 \begin{figure}[H]
@@ -484,7 +490,7 @@ Luego, fue simulada y graficada la variable de interés:
 	\label{fig:zout}
 \end{figure}
 
-Se observa que la impedancia de salida es baja para la mayor parte del espectro, sin superar los $220 \ \Omega$.
+Se observa que la impedancia de salida es baja para la mayor parte del espectro, sin superar los $220 \ \Omega$. Este último valor es lejano al calculado en la Ecuación (\ref{equ:rout}). Esto se debe a que el calculado es válido para frecuencias medias, zona en la cual si es semejante al obtenido en la simulación. Por otro lado, es esperable que esta aproximación se aleje de la realidad en frecuencias más elevadas.
 
 \subsubsection{Potencias}
 \label{sec:sim-pot}
