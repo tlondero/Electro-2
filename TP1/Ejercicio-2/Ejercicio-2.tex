@@ -1,4 +1,4 @@
-\input{../Informe/Header.tex}
+ \input{../Informe/Header.tex}
 
 \begin{document}
 
@@ -376,9 +376,20 @@ R_{\theta sa} = 4.57 \ \frac{\degree C}{W}
 
 	\item Para $R_2$ es
 	\begin{align}
-		P_{R2}=\frac{V_z^2}{R_2} = 57 \ mW
+		P_{R2}=\frac{V_z^2}{R_2} = 5.65 \ mW
 	\end{align}
-
+	\item La $R_1$ en regulación tendrá 
+	\begin{align}
+		P_{R1}=\frac{V_{oReg}^2}{R_1} = 8.1 \ mW
+	\end{align}
+	\item $R_b$ y $R_c$:
+	\begin{align}
+		P_{Rbc}=P_{Rb} + P_{Rc}=\frac{V_{eQ3}^2}{R_c+R_b} = 10.1 \ mW
+	\end{align}
+	\item $R_l$ La máxima potencia disipada en la carga corresponderá a:
+	\begin{align}
+		P_{load}= V_{oReg}\cdot I_{oMax}=22.5W
+	\end{align}
 	\item Finalmente, para $R_z$ se obtiene
 	\begin{align}
 		P_{Rz}=\frac{(V^- - V_z)^2}{R_z} = 5.33 \ mW
@@ -386,7 +397,10 @@ R_{\theta sa} = 4.57 \ \frac{\degree C}{W}
 \end{itemize}
 
 \subsection{Rendimiento}
-
+El rendimiento es definido como:
+\begin{align}
+\eta = \frac{P_{load}}{P_{V^-}+P_{V^+}}
+\end{align}
 \subsection{Simulaciones}
 
 \subsubsection{Respuesta en régimen transitorio de Regulación}
