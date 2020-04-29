@@ -340,7 +340,7 @@ Por otro lado, cuando se activa la protección de Foldback, si bien la tensión 
 \subsubsection{Transistores}
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/Potencia.pdf}
+	\includegraphics[width=0.8\textwidth, page=1]{ImagenesEjercicio2/Potencia.pdf}
 	\caption{Circuito térmico para el cálculo de disipador del transistor.}
 	\label{fig:circuitopottrans}
 \end{figure}
@@ -399,15 +399,16 @@ R_{\theta sa} = 4.57 \ \frac{\degree C}{W}
 \subsection{Rendimiento}
 El rendimiento es definido como:
 \begin{align}
-	\eta = \frac{P_{load}}{P_{V^-}+P_{V^+}}
+	\eta = \frac{P_{load}}{P_{V^-}+P_{V^+}}=\frac{I_o \cdot V_{oReg}}{P_{op}+P_{R_a}+P_{R_b}+P_{R_c}+P_{R_Z}+P_{D_z}+P_{Bc547}+P_{R_1}+P_{R_2}+2\cdot V_{ce_{TIP}}\cdot \frac{I_o}{2}+I_o \cdot V_{oReg} }
 \end{align}
 En este caso lo calcularemos para la carga mínima al igual que para una carga que obtenga la mitad de la corriente máxima:
 \begin{align}
-	\eta = 
+	\eta_{100\%}  =63.6\%\ \ \ \ \ \wedge  \ \ \ \ \ 
+	\eta_{50\%} = 63.05\%
 \end{align}
 Adicionalmente se simuló el rendimiento del sistema para las mismas condiciones, obteniendo un valor de:
 \begin{align}
-\eta_{100\%}= 64.44\% \ \ \ \ \ \wedge  \ \ \ \ \ \eta_{50\%}=64.37\%
+\eta_{100\%}= 64.44\% \ \ \ \ \ \wedge  \ \ \ \ \ \eta_{50\%}=64.36\%
 \end{align}
 \subsection{Simulaciones}
 
@@ -441,9 +442,7 @@ En el caso del régimen permanente se ve la capacidad de mantener al tensión re
 	\label{fig:permanenteFuente}
 \end{figure}
 
-A continuación, se presenta la respuesta del sistema frente a señales con distintos tipos de contaminación.
-
-Para la primer prueba se ve la señal original, con la adición de una señal senoidal de $10 \ kHz$ de amplitud $0.5 \ V$. La salida es la siguiente:
+A continuación, se presenta la respuesta del sistema frente a señales con distintos tipos de contaminación. Para la primer prueba se ve la señal original, con la adición de una señal senoidal de $10 \ kHz$ de amplitud $0.5 \ V$. La salida es la siguiente:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/permrespsine.png}
@@ -468,7 +467,7 @@ La curva correspondiente al Foldback fue simulada y graficada como se ve a conti
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/curvefoldback.png}
-	\caption{Curva de Foldback. Gráfico simulado de tensión de salida sobre corriente de salida para valores de $R_L$ entre $0.1 \ \Omega$ y $100 \ \Omega$.}
+	\caption{Curva de Foldback. Simulación de tensión de salida sobre corriente de salida para valores de $R_L$ entre $0.1 \ \Omega$ y $100 \ \Omega$.}
 	\label{fig:GraficoFOldbacki}
 \end{figure}
 
@@ -528,7 +527,7 @@ Se puede ver que la máxima potencia disipada corresponde a la mínima carga, si
 	\label{fig:potzener}
 \end{figure}
 
-\item BC547C Darlington: La máxima potencia es de $330 \ mW$, lo cual no es un problema para dicho transistor. Al igual que la anterior curva se observa un aumento considerable una vez que se activa el Foldback, pero aun en la zona de operación tiene una pendiente.
+\item BC547C Darlington: La máxima potencia es de $330 \ mW$, lo cual no es un problema para dicho transistor dado que su potencia máxima es de 0.625W. Al igual que la anterior curva se observa un aumento considerable una vez que se activa el Foldback, pero aun en la zona de operación tiene una pendiente.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=1\textwidth]{ImagenesEjercicio2/potbc547.png}
