@@ -456,14 +456,17 @@ Se puede apreciar que la máxima corriente es de $2.5 \ A$ como fue calculado, a
 A continuación se presenta el circuito resultante del nuevo amplificador:
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, page=9]{ImagenesEjercicio2/Regulador.pdf}
+	\includegraphics[width=0.7\textwidth, page=9]{ImagenesEjercicio2/Regulador.pdf}
 	\caption{Circuito del nuevo amplificador.}
 	\label{fig:nuevoampi}
 \end{figure}
 
 De este, se obtiene que
+\begin{equation*}
+	a = \frac{V_O'}{I_N} = - A_{VOL} \cdot \left( R_1 // R_i // R_{TH} \right) \frac{R_1 // R_L}{R_1 // R_L + r_O} \approx - A_{VOL} \cdot \left( R_1 // R_{TH} \right)
+\end{equation*}
 \begin{equation}
-	a = \frac{V_O'}{I_N} = - A_{VOL} \cdot \frac{R_1 R_2}{R_1 + R_2} \approx 9.9 \ M\Omega
+	a = - A_{VOL} \cdot \frac{R_1 R_2}{R_1 + R_2} \approx 9.9 \ M\Omega
 \end{equation}
 
 Además, recordando que $|T| = |a \cdot f|$, se puede obtener los valores de $Z_{oa}$ y de $Z_o$ siendo estos
