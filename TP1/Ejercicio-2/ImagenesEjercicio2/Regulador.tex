@@ -229,12 +229,13 @@
 \begin{circuitikz}[european voltages]
 %Elemento de deteccion
 	\draw
-		node[circ, label=south:$V_0$](begin){} to[R, l_=$R_1$, i_=$i_1$] ++ (-3,0) node[circ, label = south:$0V$](aux7){} 
+		node[circ, label=south:$V_O$](begin){} to[R, l_=$R_1$, i_=$i_1$] ++ (-3,0) node[circ, label = south:$0 \ V$](aux7){} 
 		;
 	\draw[dashed]
 		(begin) -- ++ (0,1)
 		(aux7) -- ++ (-1,0)
 		(aux7) -- ++ (0,1)
+		(begin.center) -- ++ (1,0)
 		;
 \end{circuitikz}
 \end{page}
