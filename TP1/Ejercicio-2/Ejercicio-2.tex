@@ -238,15 +238,17 @@ En la elección del amplificador operacional, se analizaron diversos componentes
 \caption{Comparación de operacionales.}
 \end{table}
 
-Es notable que de todos los integrados el \textbf{OP284} es rail to rail, lo cual es de gran utilidad si se desea obtener un valor de $V_1$ inferior. Además, se tuvo en cuenta el GBP, las corrientes de bias, la tension de offset, para optar utilizar el OP284.
+Es notable que de todos los integrados el OP284 es rail to rail, lo cual es de gran utilidad si se desea obtener un valor de $V_1$ inferior. Además, se tuvo en cuenta el GBP, las corrientes de bias, la tension de offset, para optar utilizar el OP284.
 
 \subsubsection{Transistores de Paso}
 
-Para la sección de transistor de paso, se eligió utilizar los transistores \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/532914/FAIRCHILD/TIP31C.html}{QTIP41C} que son transistores de potencia, al igual que un \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/2895/MOTOROLA/BC547C.html}{BC547C}, utilizando los TIP41C como el transistor que pasará la mayoría de la corriente y el BC547 como el que recibe la corriente del opamp.
-Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor se encuentren con un hfe estable,esto se puede observar claramente en la datasheet del BC547C del HFE en función de la corriente de colector:
+Para la sección de transistor de paso, se eligió utilizar los transistores \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/532914/FAIRCHILD/TIP31C.html}{QTIP41C} que son transistores de potencia, al igual que un \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/2895/MOTOROLA/BC547C.html}{BC547C}, utilizando los TIP41C como el transistor por el cual pasará la mayoría de la corriente y el BC547 como el que recibe la corriente del opamp.
+Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor posea un hfe estable. Esto se puede observar claramente en el gráfico de GFE en función de la corriente de colector del datasheet del BC547C, mostrado en la Figura (\ref{fig:hfe}).
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/hfe547b.png}
+	\label{fig:hfe}
+	\caption{Gráfico de HFE en función a la corriente de colector del BC547.}
 \end{figure}
 Lo que se busca es tener una corriente de colector tal que el hfe se encuentre en la zona azul, sin esta resistencia la corriente de colector probablemente se encontraría en la zona verde, lo cual no corresponde a un hfe estable.\\ 
 
@@ -266,24 +268,23 @@ Donde el valor de $I_{sc}$ queda fijado por la Ecuación (\ref{eq:Isc}).
 
 \subsubsection{Diodo de Referencia}
 El diodo zener elegido es el \href{https://d1d2qsbl8m0m72.cloudfront.net/en/products/databook/datasheet/discrete/diode/zener/bzx84b6v2lt116-e.pdf}{BZX84B6V2L},
-debido a la estabilidad que cuenta para la $V_Z$ y su reducida corriente de mantenimiento.
+debido a su reducida corriente de mantenimiento de $5 \ mA$.
 
 Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_Z =5.5 \ mA$, sabiendo que $V_Z=6.2 \ V$ y utilizando la Ecuación (\ref{eq:referencia}). De esta forma se llega a un valor $R_Z=120 \ \Omega$, siendo adicionalmente el valor de $V_2$ definido en la Sección (\ref{sec:fuentes}), mientras que el valor de $R_2$ es discutido en la Sección (\ref{sec:resdet}).
 
 \subsubsection{Fuentes de Alimentación}
 \label{sec:fuentes}
-En cuanto a la elección de la fuente de alimentación, se buscó el $V_{1min}$ tal que el sistema regule. Para esto simplemente se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
+En cuanto a la elección de la fuente de alimentación, se buscó el $V_{1_{min}}$ tal que el sistema regule. Para esto, se pidió que el transistor de paso no se encuentre saturado en regulación, en otras palabras:
 \begin{align}
-V_{1min}=V_{CEsat}+V_{Oreg}+V_{Ra}= 1.4 \ V+9 \ V +1.25 \ V \ =11.65 \ V
+V_{1_{min}}^{Transistor}=V_{CE_{sat}}+V_{O_{reg}}+V_{R_a}= 1.4 \ V+9 \ V +1.4 \ V \ =11.8 \ V
 \end{align}
 
 Otro punto de interés es la tensión a la salida del operacional, la cual no debe ser mayor a la de alimentación del mismo. Para obtener la variable en este nodo basta con seguir el circuito, observándose que:
 \begin{align}
-V_{Out-opamp}= V_o+2\cdot V_{be} = 11.65 \ V
+V_{1_{min}}^{Operacional}= V_o+V_{Ra}+2\cdot V_{BE} = 11.8 \ V
 \end{align}
-obteniendo que la máxima tensión de salida en el opamp coincide con el $V^+$.
 
-Luego, dado que este es el mínimo absoluto, se deja cierto margen de error para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales pueden saturar alguno de los transistores. De esta forma se eligió un valor de $V_1=14 \ V$.
+Luego, dado que este es el mínimo absoluto, se deja cierto margen de error para la tensión de saturación del transistor, al igual que para variaciones en la tensión de linea, las cuales pueden saturar a alguno de los transistores o al operacional. De esta forma se eligió un valor de $V_1=14 \ V$.
 
 Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_Z$, tal que con el valor de resistencia $R_Z$ se encuentre polarizado correctamente. Es así que se obtuvo $V_2=7 \ V$.
 
