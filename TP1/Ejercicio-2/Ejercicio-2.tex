@@ -290,8 +290,12 @@ Finalmente para $V_2$ se fijó un valor que sea levemente mayor a la $V_Z$, tal 
 
 \subsubsection{Resistencia circuito de detección}
 \label{sec:resdet}
-Dado que la salida en regulación depende directamente de la Ecuación (\ref{eq:vovz}), basta con definir un valor de $R_1$ tal que $V_o=9 \ V$, dado que la $R_1$ es un potenciómetro con el cual se varia la tensión de regulación. Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.8  \  k\Omega$.
-
+Dado que la salida en regulación depende directamente de la Ecuación (\ref{eq:vovz}), basta con definir un valor de $R_1$ tal que $V_o=9 \ V$, dado que la $R_1$ es un potenciómetro con el cual se varia la tensión de regulación. Así queda definido: $R_1= 10 \ k\Omega$ (potenciómetro) y $R_2=6.6  \  k\Omega$.
+También se observó que en el caso de que la resistencia $R_2$ varíe un 5$\%$ respecto a su valor nominal, subiendo su resistencia se tendría que:
+\begin{align}
+V_{oReg} = \frac{R_1}{R_2}\cdot V_z =\frac{10000}{7140}\cdot 6.2V=8.68 
+\end{align}
+Y así no se llegaría a una regulación de 9V girando el potenciómetro a su máxima resistencia, se puede resolver este problema al utilizar dos resistencias en serie para $R_2$ teniendo un valor total de $R_2=R_{2a}+R_{2b}=1k\Omega + 5k6\Omega = 6k6\Omega$ y así permitiendo la regulación en el peor caso.
 \subsection{Análisis de cargas}
 La mínima carga se obtiene una vez definida la máxima corriente y la máxima tensión de regulación:
 
@@ -412,9 +416,9 @@ Luego, se utilizan dos disipadores \href{https://www.digikey.com/product-detail/
 	\end{align}
 	la cual es una resistencia de $0.25 \ W$
 
-	\item Para $R_2$ es
+	\item Para $R_{2a}$ y $R_{2b}$ es
 	\begin{align}
-		P_{R2}=\frac{V_z^2}{R_2} = 5.65 \ mW
+		P_{R2a}+P_{R2b}=P_{R2}=\frac{V_z^2}{R_2} = 5.65 \ mW
 	\end{align}
 	\item La $R_1$ en regulación tendrá 
 	\begin{align}
