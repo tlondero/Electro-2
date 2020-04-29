@@ -338,32 +338,26 @@ Por otro lado, cuando se activa la protección de Foldback, si bien la tensión 
 
 \subsubsection{Transistores}
 
-La máxima potencia que deberán disipar los transistores QTIP41C se obtendrá en regulación cuando la corriente de colector de estos sea la mitad de la máxima corriente de salida
-
+La máxima potencia que deben disipar los transistores QTIP41C se obtiene en regulación, cuando la corriente de colector de estos es la mitad de la máxima corriente de salida
 \begin{equation}
 P_{QTIP41C_{max}}|_{reg} = V_{CE}\cdot \frac{I_{o_{max}}|_{reg}}{2}
 \end{equation}
 
 Se puede obtener  $V_{CE}$ utilizando la ley de mallas
-
 \begin{equation}
 V_{CE} = V^+ - V_o - I_o\cdot R_a = 3.6V
 \end{equation}
 
-Luego, se tendrá que $P_{QTIP41C_{max}}|_{reg} = 4.5W$.
-
-De misma forma se podrá calcular la máxima potencia disipada por el transistor BC547C. Circulando la malla de salida se obtiene
-
+Luego, se tiene que $P_{QTIP41C_{max}}|_{reg} = 4.5 \ W$. De misma forma se puede calcular la máxima potencia disipada por el transistor BC547C. Circulando la malla de salida se obtiene
 \begin{equation}
-V_{CE} = V^+ - V_o - I_{o_{max}}|_{reg} \cdot R_a - V_{BE_{Q_2}} = 2.9V
+V_{CE} = V^+ - V_o - I_{o_{max}}|_{reg} \cdot R_a - V_{BE_{Q_2}} = 2.9 \ V
 \end{equation}
 
 \begin{equation}
-P_{BC547C_{max}}|_{reg} = V_{CE} \cdot \left(\frac{I_{o_{max}}|_{reg}}{\beta_{Q_2}} + \frac{V_{BE_{BC547C}}}{R_5} \right) = 110mW
+P_{BC547C_{max}}|_{reg} = V_{CE} \cdot \left(\frac{I_{o_{max}}|_{reg}}{\beta_{Q_2}} + \frac{V_{BE_{BC547C}}}{R_5} \right) = 110 \ mW
 \end{equation}
 
-Luego, la máxima potencia disipada en corto circuito será cuando la fuente entregue una corriente igual a $I_{SC}$ de $1.34A$ y la tensión a la salida sea $0V$. Circulando las mismas mallas y repitiendo los mismos cálculos anteriores, se tiene que
-
+Luego, la máxima potencia disipada en corto circuito se da cuando la fuente entregue una corriente igual a $I_{SC}$ de $1.34A$ y la tensión a la salida es de $0 \ V$. Circulando las mismas mallas y repitiendo los mismos cálculos anteriores, se obtiene que
 \begin{equation}
 P_{QTIP41C_{max}}|_{reg} = V_{CE}\cdot \frac{I_{o_{max}}|_{reg}}{2} = 8.9W
 \end{equation}
@@ -372,8 +366,7 @@ P_{QTIP41C_{max}}|_{reg} = V_{CE}\cdot \frac{I_{o_{max}}|_{reg}}{2} = 8.9W
 P_{BC547C_{max}}|_{reg} = V_{CE} \cdot \left(\frac{I_{o_{max}}|_{reg}}{\beta_{Q_2}} + \frac{V_{BE_{BC547C}}}{R_5} \right) = 325mW
 \end{equation}
 
-Se puede observar que no será necesario utilizar un disipador para el transistor BC547C, dado que estos pueden disipar naturalmente hasta 600mW. Sí será necesario el cálculo del disipador para los transistores QTIP41C, realizado a continuación.
-
+Se puede observar que no es necesario utilizar un disipador para el transistor BC547C, dado que estos pueden disipar naturalmente hasta $600 \ mW$. Por el contrario, sí es necesario el cálculo del disipador para los transistores QTIP41C, realizado a continuación.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.8\textwidth, page=1]{ImagenesEjercicio2/Potencia.pdf}
@@ -385,7 +378,7 @@ Se puede observar que no será necesario utilizar un disipador para el transisto
 \frac{T_j - T_a}{R_{\theta jc}+R_{\theta cs}+R_{\theta sa}} = P
 \end{equation}
 
-Se tienen en cuenta las siguientes consideraciones:
+Es así que se tienen en cuenta las siguientes consideraciones:
 \begin{itemize}
 	\item Se asume una temperatura ambiente de $40 \ \degree C$ y una máxima de juntura en funcionamiento de $130 \ \degree C$, siendo esta $20 \ \degree C$ menor a la especificada por el fabricante.
 	\item Se sabe que la $R_{\theta jc}$ es de $3.125 \ \frac{\degree C}{W}$.
