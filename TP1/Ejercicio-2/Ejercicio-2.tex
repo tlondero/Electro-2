@@ -340,6 +340,43 @@ siendo este un valor muy por debajo del máximo.
 Por otro lado, cuando se activa la protección de Foldback, si bien la tensión es menor, el transistor de paso continua pidiendo corriente al operacional, mientras que a este se le suma el transistor de protección $T_P$. Se puede observar que, aunque la corriente $I_o$ decrezca, la corriente que pide $T_P$ es mediante su colector, por lo que no reduce en un factor de $\beta_p$ como sucedía con el transistor de paso, por lo que la corriente que se le pide al opamp es mucho mayor que en regulación, mientras que el peor caso se da cuando la carga tienda a cero. Sin embargo, la tensión a la salida de la fuente regulada disminuye, por lo que también lo hará la tensión en el amplificador operacional, contrarrestando, pero no en su mayoría, el aumento de corriente. En la Sección (\ref{sec:sim-pot}) se analizó la curva de potencia disipada del operacional cuando la fuente se encuentra cortocircuitada, obteniendo una potencia máxima disipada de $P_{opamp_{max}}|_{cc} = 330 \ mW$ el cual se encuentra aún por debajo de la máxima potencia que puede disipar el amplificador operacional.
 
 \subsubsection{Transistores}
+
+La máxima potencia que deberán disipar los transistores QTIP41C se obtendrá en regulación cuando la corriente de colector de estos sea la mitad de la máxima corriente de salida
+
+\begin{equation}
+P_{QTIP41C_{max}}|_{reg} = V_{CE}\cdot \frac{I_{o_{max}}|_{reg}}{2}
+\end{equation}
+
+Se puede obtener  $V_{CE}$ utilizando la ley de mallas
+
+\begin{equation}
+V_{CE} = V^+ - V_o - I_o\cdot R_a = 3.6V
+\end{equation}
+
+Luego, se tendrá que $P_{QTIP41C_{max}}|_{reg} = 4.5W$.
+
+De misma forma se podrá calcular la máxima potencia disipada por el transistor BC547C. Circulando la malla de salida se obtiene
+
+\begin{equation}
+V_{CE} = V^+ - V_o - I_{o_{max}}|_{reg} \cdot R_a - V_{BE_{Q_2}} = 2.9V
+\end{equation}
+
+\begin{equation}
+P_{BC547C_{max}}|_{reg} = V_{CE} \cdot \left(\frac{I_{o_{max}}|_{reg}}{\beta_{Q_2}} + \frac{V_{BE_{BC547C}}}{R_5} \right) = 110mW
+\end{equation}
+
+Luego, la máxima potencia disipada en corto circuito será cuando la fuente entregue una corriente igual a $I_{SC}$ de $1.34A$ y la tensión a la salida sea $0V$. Circulando las mismas mallas y repitiendo los mismos cálculos anteriores, se tiene que
+
+\begin{equation}
+P_{QTIP41C_{max}}|_{reg} = V_{CE}\cdot \frac{I_{o_{max}}|_{reg}}{2} = 8.9W
+\end{equation}
+
+\begin{equation}
+P_{BC547C_{max}}|_{reg} = V_{CE} \cdot \left(\frac{I_{o_{max}}|_{reg}}{\beta_{Q_2}} + \frac{V_{BE_{BC547C}}}{R_5} \right) = 325mW
+\end{equation}
+
+Se puede observar que no será necesario utilizar un disipador para el transistor BC547C, dado que estos pueden disipar naturalmente hasta 600mW. Sí será necesario el cálculo del disipador para los transistores QTIP41C, realizado a continuación.
+
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.8\textwidth, page=1]{ImagenesEjercicio2/Potencia.pdf}
@@ -351,7 +388,7 @@ Por otro lado, cuando se activa la protección de Foldback, si bien la tensión 
 \frac{T_j - T_a}{R_{\theta jc}+R_{\theta cs}+R_{\theta sa}} = P
 \end{equation}
 
-Asumiendo una temperatura ambiente de $40 \ \degree C$; una temperatura máxima de juntura en funcionamiento de $130 \ \degree C$, $20 \ \degree C$ menor a la especificada por el fabricante; sabiendo que la $R_{\theta jc}$ es de $3.125 \ \frac{\degree C}{W}$; valiéndose del uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$, un área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \ \frac{\degree C}{W}$; y asumiendo  una potencia disipada de $9.6 \ W$, levemente mayor a la máxima disipada calculada a continuación, se obtiene
+Asumiendo una temperatura ambiente de $40 \ \degree C$; una temperatura máxima de juntura en funcionamiento de $130 \ \degree C$, $20 \ \degree C$ menor a la especificada por el fabricante; sabiendo que la $R_{\theta jc}$ es de $3.125 \ \frac{\degree C}{W}$; valiéndose del uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$, un área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \ \frac{\degree C}{W}$; y asumiendo  una potencia disipada de $9.6 \ W$, levemente mayor a la máxima disipada calculada, se obtiene
 \begin{equation}
 R_{\theta sa} = 4.56 \ \frac{\degree C}{W}
 \end{equation}
