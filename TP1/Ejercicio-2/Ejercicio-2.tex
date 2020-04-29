@@ -349,10 +349,14 @@ Por otro lado, cuando se activa la protección de Foldback, si bien la tensión 
 \frac{T_j - T_a}{R_{\theta jc}+R_{\theta cs}+R_{\theta sa}} = P
 \end{equation}
 
-Asumiendo una temperatura ambiente de $40 \ \degree C$ y una temperatura máxima de juntura en funcionamiento de $140 \ \degree C$, $20 \ \degree C$ menor a la especificada por el fabricante, sabiendo que la $R_{\theta jc}$ es de $3.125 \ \frac{\degree C}{W}$, valiéndose del uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$ y un área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$, teniendo una $R_{\theta cs}$ de $1.6866 \ \frac{\degree C}{W}$ y asumiendo  una potencia disipada de $9.6 \ W$, levemente mayor a la máxima disipada, se obtiene
+Asumiendo una temperatura ambiente de $40 \ \degree C$; una temperatura máxima de juntura en funcionamiento de $130 \ \degree C$, $20 \ \degree C$ menor a la especificada por el fabricante; sabiendo que la $R_{\theta jc}$ es de $3.125 \ \frac{\degree C}{W}$; valiéndose del uso de una grasa siliconada de 0.002 pulgadas de espesor con una resistencia térmica de $204 \ \frac{\degree C \cdot inch}{W}$, un área estándar de un empaquetado de TO-220 de $0.41\cdot 0.59 \ inch^2$, obteniendo una $R_{\theta cs}$ de $1.6866 \ \frac{\degree C}{W}$; y asumiendo  una potencia disipada de $9.6 \ W$, levemente mayor a la máxima disipada calculada a continuación, se obtiene
 \begin{equation}
-R_{\theta sa} = 4.57 \ \frac{\degree C}{W}
+R_{\theta sa} = 4.56 \ \frac{\degree C}{W}
 \end{equation}
+
+Se utilizarán dos disipadores \href{https://www.digikey.com/product-detail/en/aavid-thermal-division-of-boyd-corporation/7023B-MTG/HS410-ND/1625509}{7023B-MTG}, uno para cada QTIP41C, con una resistencia térmica de $4.40 \ \frac{\degree C}{W}$ y un precio unitario de $1.32$ U\$S.
+
+
 
 \subsubsection{Diodos y Resistencias}
 \begin{itemize}
