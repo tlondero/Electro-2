@@ -1,10 +1,3 @@
-% \input{../Informe/Header.tex}
-%
-%\begin{document}
-
-\tableofcontents
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Diseño Propuesto}
 
 En la siguiente instancia se realiza una fuente de tensión regulada, la cual se ajusta a las especificaciones de:
@@ -243,7 +236,7 @@ Se optó por un opamp que tenga la capacidad de proveer una gran corriente de sa
 \subsubsection{Transistores de Paso}
 
 Para la sección de transistor de paso, se eligió utilizar los transistores \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/532914/FAIRCHILD/TIP31C.html}{QTIP41C} que son transistores de potencia, al igual que un \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/2895/MOTOROLA/BC547C.html}{BC547C}, utilizando los TIP41C como el transistor por el cual pasará la mayoría de la corriente y el BC547 como el que recibe la corriente del opamp.
-Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor posea un hfe estable. Esto se puede observar claramente en el gráfico de GFE en función de la corriente de colector del datasheet del BC547C, mostrado en la Figura (\ref{fig:hfe}).
+Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor posea un hfe estable. Esto se puede observar claramente en el gráfico de $h_{FE}$ en función de la corriente de colector del datasheet del BC547C, mostrado en la Figura (\ref{fig:hfe}).
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/hfe547b.png}
@@ -532,15 +525,15 @@ A continuación se presenta el circuito resultante del nuevo amplificador:
 
 De este, se obtiene que
 \begin{equation*}
-	a = \frac{V_O'}{I_N} = - A_{VOL} \cdot \underbrace{\left( R_1 // R_i // R_{TH} \right)}_{\approx R_1 // R_{TH}} \underbrace{\frac{R_1 // R_L // R'}{R_1 // R_L // R' + r_O}}_{\approx 1}
+	A = \frac{V_O'}{I_N} = - A_{VOL} \cdot \underbrace{\left( R_1 // R_i // R_{TH} \right)}_{\approx R_1 // R_{TH}} \underbrace{\frac{R_1 // R_L // R'}{R_1 // R_L // R' + r_O}}_{\approx 1}
 \end{equation*}
 
 Sabiendo que $R_{TH} = \left( R_Z // r_Z \right) + R_2 \approx R_2$, se llega a la expresión
 \begin{equation}
-	a = - A_{VOL} \cdot \frac{R_1 R_2}{R_1 + R_2} \approx 9.9 \ M \Omega
+	A = - A_{VOL} \cdot \frac{R_1 R_2}{R_1 + R_2} \approx 9.9 \ M \Omega
 \end{equation}
 
-Además, recordando que $|T| = |a \cdot f|$ y que $f = -\frac{1}{R_1}$, se obtienen las expresiones de $Z_{oa}$ y de $Z_o$, siendo estos
+Además, recordando que $|T| = |A \cdot f|$ y que $f = -\frac{1}{R_1}$, se obtienen las expresiones de $Z_{oa}$ y de $Z_o$, siendo estos
 \begin{equation}
 	Z_o = \frac{Z_{oa}}{1 + |T|} = \frac{r_O // R_1 // R' // R_L}{1 + |T|} \approx \frac{R'}{1 + |T|} \approx \frac{R_A}{1 + |T|}	
 \end{equation}
@@ -625,6 +618,3 @@ Se puede ver que la máxima potencia disipada corresponde a la mínima carga, si
 \end{itemize}
 
 \subsection{Conclusiones}
-
-%
-%\end{document}
