@@ -25,7 +25,7 @@ El primer diseño que se propuso fue el siguiente:
 \end{figure}
 
 La \textbf{tensión de referencia} le permite al amplificador de error saber cuando debe compensar su salida ante variaciones en la tensión de salida. 
-En este caso se decidió que la tensión de referencia fuese de $V_{ref} = 4V$ dado que era posible utilizar una combinación de valores comerciales de resistencias tal que:
+En este caso se decidió que la tensión de referencia fuese de $V_{ref} = 4\ V$ dado que era posible utilizar una combinación de valores comerciales de resistencias tal que:
 \begin{equation}
 	V_{ref}  = V_{o} \cdot \frac{R_B}{R_A + R_B}
 \end{equation} 
@@ -44,7 +44,8 @@ Para diseñar el Pre-Regulador se tuvo en cuenta la ganancia de corriente del tr
 	\caption{Curva de la ganancia de corriente $\beta$. $V_{ce}=2.52$}
 	\label{fig:betatpasofv}
 \end{figure}
-Cuando la carga sea mínima el transistor de paso experimentara el mayor flujo de corriente. En este caso ese valor es de unos 205 $mA$ aproximadamente. Remitiéndonos al gráfico vemos que la ganancia de corriente se ubica por encima de 80. 
+
+Cuando la carga es mínima, el transistor de paso experimenta el mayor flujo de corriente. En este caso ese valor es de unos $205\ mA$ aproximadamente. Volviendo a la Figura (\ref{fig:betatpasofv}), se ves que la ganancia de corriente se ubica por encima de $80$. 
 Por lo tanto podemos obtener la siguiente expresión para el calculo de $R_2$. Debemos tener en cuenta que esto ocurre cuando el transistor \textbf{Q2} se encuentra en corte.
 
 \begin{equation}
@@ -56,7 +57,9 @@ R_{2} = \frac{10 - 10 \Omega \cdot 205mA - (5V + 0.580 +0.7)  }{200mA} \cdot 80
 \begin{equation}
 R_{2} = 652 \Omega
 \end{equation}
-El valor de resistencia obtenido es un valor \textbf{no} comercial. Podríamos ir por el valor más próximo, 680 $\Omega$ pero este valor no cumple con las especificaciones. Por lo tanto optamos por el valor comercial menor más próximo 560 $\Omega$.
+
+El valor de resistencia obtenido es un valor \textbf{no} comercial. Se podría ir por el valor más próximo, $680 \ \Omega$ pero este valor no cumple con las especificaciones. Por lo tanto se opta por el valor comercial menor más próximo, es decir $560 \ \Omega$.
+
 \subsubsection{Circuito de Protección}
 La resistencia de protección se calculo teniendo en cuenta que la corriente de emisor del transistor de paso incluía la corriente necesaria para la polarización del diodo Zener. 
 \begin{equation}
@@ -68,7 +71,7 @@ El \textbf{elemento de referencia} en este caso se escogió como la combinación
 	V_{ref} = V_{zener} + V_{be_{ON}}
 \end{equation}
 
-Para poder obtener la característica de salida podemos optar por usar la directiva de spice \textit{.step param} o bien podemos simular una carga variable mediante el uso de una fuente de corriente. El ultimo método nos ofrece una mayor velocidad de simulación y gráficos de mayor calidad.
+Para poder obtener la característica de salida, se puede optar por usar la directiva de spice \textit{.step param}, o bien simular una carga variable mediante el uso de una fuente de corriente. El ultimo método ofrece una mayor velocidad de simulación y gráficos de mayor calidad.
 
 \begin{figure}[H]
 	\centering
@@ -77,53 +80,50 @@ Para poder obtener la característica de salida podemos optar por usar la direct
 	\label{fig:caracteristicadesalidacongrillafv}
 \end{figure}
 
-Este gráfico nos indica que el circuito ofrece una buena regulación de tensión dentro del rango de corriente requerido. Sin embargo notamos algo inesperado, a partir de los $200mA$ no tenemos una caída abrupta de la tensión sino más bien una caída suave hacia 0. Estudiaremos esto en más detalle en la próxima sección.
+Este gráfico indica que el circuito ofrece una buena regulación de tensión dentro del rango de corriente requerido. Sin embargo se nota algo inesperado, a partir de los $200 \ mA$ no hay una caída abrupta de la tensión, sino más bien una caída suave hacia 0. Se estudia esto en más detalle en la próxima sección.
 
 \subsection{Segunda iteración de diseño}
-Utilizar la menor cantidad de componentes ofrece varios beneficios como por ejemplo, menos efectos de las tolerancias, mayor aprovechamiento del espacio y mayor sencillez de diseño.
-A continuación presentamos el diseño resultante:
+Utilizar la menor cantidad de componentes ofrece varios beneficios como por ejemplo, menos efectos de las tolerancias, mayor aprovechamiento del espacio y mayor sencillez de diseño. A continuación se presenta el diseño resultante:
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\linewidth]{ImagenesEjercicio1/ImagenCircuitoFLcasiPelada.PNG}
 	\caption{Fuente de tensión regulada con optimización}
 	\label{fig:imagencircuitofl}
 \end{figure}
-En esta oportunidad se realizaron 2 cambios importantes. En primer lugar se decidio cambiar el diodo Zener utilizado, en esta ocasión $V_z$ = $4.3V$ para que junto con la tensión $V_{be}$.
+
+En esta oportunidad se realizaron 2 cambios importantes. En primer lugar se decidió cambiar el diodo Zener utilizado, en esta ocasión $V_z$ = $4.3V$ para que junto con la tensión $V_{be}$.
 Ahora el nuevo voltaje de referencia es:
 \begin{equation}
 	V_{ref} = V_{be_{ON}} + V_{zener}
 \end{equation}
 \begin{equation}
-	V_{ref} = 5V
+	V_{ref} = 5\ V
 \end{equation}
-Este nuevo resultado implica que ya no es necesario utilizar un realimentador del tipo divisor resistivo ¡Podemos usar un cable! Eso implica el ahorro de 2 resistencias y el consumo de potencia (aunque pequeño) que 
 
-No obstante, es posible hacerle una mejora más y mucho más importante en términos de consumo. Las siguientes observaciones nos abrirán camino hacia esta nueva mejora.
+Este nuevo resultado implica que ya no es necesario utilizar un realimentador del tipo divisor resistivo. Por lo tanto, es posible usar un cable. Eso implica el ahorro de 2 resistencias y el consumo de potencia (aunque pequeño) que, no obstante, es posible hacerle una mejora más, y mucho más importante en términos de consumo. Las siguientes observaciones abrirán camino hacia esta nueva mejora.
 
-Comenzamos por estudiar la resistencia de polarización $R_{pz}$ que deberíamos colocar para el correcto funcionamiento del diodo.
+Se comienza por estudiar la resistencia de polarización $R_{pz}$ que se debe colocar para el correcto funcionamiento del diodo.
 \begin{equation}
-	R_{pz} = \frac{5\Omega-4.3\Omega}{5mA}
+	R_{pz} = \frac{5 \ \Omega-4.3 \ \Omega}{5 \ mA}
 \end{equation}
 \begin{equation}
-R_{pz} = 140 \Omega
+R_{pz} = 140 \ \Omega
 \end{equation}
-El valor comercial más cercano en el cual aun se cumplen con las especificaciones es de $120\Omega$.
+El valor comercial más cercano en el cual aun se cumplen con las especificaciones es de $120 \ \Omega$.
 Pero ¿Es posible evitar colocarla? La respuesta es afirmativa.
 Es sabido que la resistencia $R_{pz}$ sirve para asegurarse que el diodo Zener
 permanezca polarizado (mantenga una tensión de referencia constante) hasta 
 que la protección se active. Al simular la respuesta de la tensión de 
-salida con la $R_{pz}$ incluido nos damos cuenta que se excede de las especificaciones 
+salida con la $R_{pz}$ incluido se denota que se excede de las especificaciones 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{ImagenesEjercicio1/ConRpz}
 	\caption{Característica de salida utilizando resistencia de polarización $R_{pz}$ = $120\Omega$}
 	\label{fig:conrpz}
 \end{figure}
-
- y eso es debido a que el Zener hace mantener una respuesta constante
-al permanecer polarizado. A partir de los 209mA ya no estamos dentro del rango especificado
-(5V $\pm$ 3\%). Entonces si quitamos la $R_{pz}$, lo que pasará es que el diodo Zener dejará de estar polarizado
-al mismo tiempo que el amplificador de error entra en corte poco antes de que la protección actúe
+y eso es debido a que el Zener hace mantener una respuesta constante
+al permanecer polarizado. A partir de los $209 \ mA$, ya no esta dentro del rango especificado
+(5 V $\pm$ 3\%). Entonces si se quita la $R_{pz}$, lo que pasará es que el diodo Zener dejará de estar polarizado al mismo tiempo que el amplificador de error entra en corte poco antes de que la protección actúe
 decaiga más la tensión de salida (debido a que el Zener se empieza a despolarizar desde antes).
 
 \begin{figure}[H]
@@ -135,9 +135,9 @@ decaiga más la tensión de salida (debido a que el Zener se empieza a despolari
 
 Y así se concluye que el circuito cumple las especificaciones teniendo al diodo Zener polarizado a través
 de la corriente de colector del transistor que amplifica el error.
-El circuito cumple las especificaciones hasta los 202mA
+El circuito cumple las especificaciones hasta los 202 mA
 
-En este caso obtenemos una característica de salida similar a la anteriormente obtenida.
+En este caso se obtiene una característica de salida similar a la anteriormente obtenida.
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{ImagenesEjercicio1/CaracteristicaDeSalidaConGrillaFL}
@@ -155,7 +155,7 @@ Finalmente el circuito resultante
 
 
 \subsubsection{Corriente constante vs Limitación de Corriente}
-La incógnita restante que queda por resolver es ¿Por qué no obtenemos una respuesta abrupta a los 200 mA?
+La incógnita restante que queda por resolver es ¿Por qué no se obtiene una respuesta abrupta a los 200 mA?
 Es decir algo de esta forma:
 \begin{figure}[H]
 	\centering
@@ -190,7 +190,7 @@ La respuesta subyace en que el circuito planteado, tanto en la etapa 1 como en l
 	\caption{Diagrama en bloques de un sistema con realimentación negativa}
 	\label{fig:feedback}
 \end{figure}
-Por lo tanto podemos concluir que en el presente diseño el lazo de realimentación que mantiene estable la corriente no tiene una gran ganancia de lazo y por ende no controla de manera muy precisa la corriente de salida.
+Por lo tanto se puede concluir que en el presente diseño el lazo de realimentación que mantiene estable la corriente no tiene una gran ganancia de lazo y por ende no controla de manera muy precisa la corriente de salida.
 
 \subsubsection{Inmunidad al ruido de linea}
 Se sometió a la fuente a una prueba para verificar su estabilidad mediante a pequeños cambios en su tensión de entrada. 
