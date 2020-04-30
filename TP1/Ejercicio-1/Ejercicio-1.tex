@@ -202,6 +202,16 @@ Se sometió a la fuente a una prueba para verificar su estabilidad mediante a pe
 	\label{fig:inmunidadruidodelinea}
 \end{figure}
 
+\subsubsection{Impedancia de entrada}
+Dado que el objetivo es diseñar una fuente de tensión, se busca que la impedancia de entrada sea los más pequeña posible con el fin de entregar la mayor potencia posible a la carga. A continuación se simulo la impedancia de entrada.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{ImagenesEjercicio1/ImpedanciaDeEntrada}
+	\caption{}
+	\label{fig:impedanciadeentrada}
+\end{figure}
+
+La impedancia de salida para DC es de unos 15 $\Omega$.
 \subsubsection{Rendimiento y potencia}
 Se relevaron los datos de máxima disipación de potencia a partir de las hojas de datos de los fabricantes.
 
@@ -231,3 +241,7 @@ H = 8 \cdot \frac{0.473 \cdot 0.487}{2\cdot 0.625W+2W+0.35W+2\cdot0.25W}
 \begin{equation}
 	H = 44.9\%
 \end{equation}
+
+\subsubsection{Conclusiones y mejoras a futuro}
+Comenzando con el análisis de un diseño clásico se ha podido optimizarlo a las requerimientos pedidos. Se comenzó  utilizando un total de 9 componentes y se consiguió reducir ese número a 6, es decir más de un 30 \% en ahorro de componentes. La impedancia de entrada se acerca a las 2 decenas de Ohm lo cual no representa inconvenientes cuando las cargas no son comparables con la misma. Sin embargo, podemos esperar un mayor consumo de potencia al utilizar impedancias más pequeñas. Para obtener una mejor performance se debería obtener una menor impedancia de entrada.
+
