@@ -225,20 +225,20 @@ En la elección del amplificador operacional, se analizaron diversos componentes
 \hspace*{-0.5cm}
 \begin{tabular}{ccccccccc}
 \hline
-\textbf{Amplificador Operacional} & \textbf{GBP [Mhz]} & $\mathbf{SR [\frac{V}{\mu s}]}$ & $\mathbf{Z_{in} [\Omega]}$ & $\mathbf{Z_{out}[\Omega]}$ & $\mathbf{I_{bias}[A]}$ & $\mathbf{I_{off}[A]}$ & $\mathbf{V_{off}[mV]}$ & \textbf{THD} \\ \hline
-\href{http://www.ti.com/lit/ds/symlink/tl082-n.pdf}{TL082}                   & 3                  & 13                              & 1T                         & -                          & 30p                 & 5p                    & 3                      & 0.003$\%$    \\
-\href{http://www.ti.com/lit/ds/symlink/lm324-n.pdf}{LM324}                    & 1                  & 0.3                             & -                          & -                          & 45n                  & 5n                     & 2                      & -            \\
-\href{http://www.ti.com/lit/ds/symlink/lm833.pdf}{LM833}                    & 10                 & 5                               & -                          & 37                         & 300n                & 10n                   & 0.3                    & 0.002$\%$    \\
-\href{http://www.ti.com/lit/ds/symlink/lf356-mil.pdf}{LF356}                    & 2.5                & 12                              & 1T                         & -                          & 20p                 & 50p                   & 3                      & -            \\
-\href{https://www.alldatasheet.com/datasheet-pdf/pdf/49039/AD/OP284.html}{OP284}                    & 4.25                & 4                              & -                         & 210 & 60n                 & 2n                   & 125m                      & $\leq 0.005\%$           \\
-\href{http://www.ti.com/lit/ds/symlink/lm741.pdf}{LM741}                    & 1.5                & 0.5                             & 2M                         & 75                         & 80n                 & 20n                   & 2                      & -            \\
-\href{http://www.ti.com/lit/ds/slos070d/slos070d.pdf}{NE5534}                   & 10                 & 13                              & 100k                       & 0.3                        & 500n                & 20n                   & 0.5                    & -           \\
+\textbf{Amplificador Operacional} & \textbf{GBP [Mhz]} & $\mathbf{SR [\frac{V}{\mu s}]}$ & $\mathbf{Z_{in} [\Omega]}$ & $\mathbf{Z_{out}[\Omega]}$ & $\mathbf{I_{bias}[A]}$ & $\mathbf{I_{off}[A]}$ & $\mathbf{V_{off}[V]}$ & \textbf{$I_{oSC}$ [mA]} \\ \hline
+\href{http://www.ti.com/lit/ds/symlink/tl082-n.pdf}{TL082}                   & 3                  & 13                              & 1T                         & -                          & 30p                 & 5p                    & 3m                      & -    \\
+\href{http://www.ti.com/lit/ds/symlink/lm324-n.pdf}{LM324}                    & 1                  & 0.3                             & -                          & -                          & 45n                  & 5n                     & 2m                      & 40            \\
+\href{http://www.ti.com/lit/ds/symlink/lm833.pdf}{LM833}                    & 10                 & 5                               & -                          & 37                         & 300n                & 10n                   & 0.3m                    & 29    \\
+\href{http://www.ti.com/lit/ds/symlink/lf356-mil.pdf}{LF356}                    & 2.5                & 12                              & 1T                         & -                          & 20p                 & 50p                   & 3m                      & -            \\
+\href{https://www.alldatasheet.com/datasheet-pdf/pdf/49039/AD/OP284.html}{OP284}                    & 4.25                & 4                              & -                         & 210 & 60n                 & 2n                   & 125$\mu$                      & 40           \\
+\href{http://www.ti.com/lit/ds/symlink/lm741.pdf}{LM741}                    & 1.5                & 0.5                             & 2M                         & 75                         & 80n                 & 20n                   & 2m                      & 25            \\
+\href{http://www.ti.com/lit/ds/slos070d/slos070d.pdf}{NE5534}                   & 10                 & 13                              & 100k                       & 0.3                        & 500n                & 20n                   & 0.5m                    & 38           \\
 \hline
 \end{tabular}
 \caption{Comparación de operacionales.}
 \end{table}
 
-Es notable que de todos los integrados el OP284 es rail to rail, lo cual es de gran utilidad si se desea obtener un valor de $V_1$ inferior. Además, se tuvo en cuenta el GBP, las corrientes de bias, la tension de offset, para optar utilizar el OP284.
+Se optó por un opamp que tenga la capacidad de proveer una gran corriente de salida, ya que es primordial que se encuentre bien polarizado el transisor de paso. Es por ello que solo quedan el LM324, el OP284 y el NE5534. Adicionalmente se buscó una baja tensión de offset, descartando así al LM324. Finalmente, dado que, a diferencia del NE5535, el OP284 es rail to rail, lo que permite obtener una tensión $V_{1min}$ menor, se optó por utilizar este último.
 
 \subsubsection{Transistores de Paso}
 
