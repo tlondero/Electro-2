@@ -1,20 +1,19 @@
 \subsubsection{Consideraciones de diseño}
-Se diseño una fuente de tensión regulada con limitación de corriente enfocados en alcanzar la menor disipación de potencia posible y utilizando la mínima cantidad de componentes necesaria para su funcionamiento.
-Los requerimientos de la misma son los siguientes:
-\\ 
+Se diseñó una fuente de tensión regulada con limitación de corriente enfocados en alcanzar la menor disipación de potencia posible, utilizando la mínima cantidad de componentes necesaria para su funcionamiento. Los requerimientos de la misma son los siguientes:
+
 \textbf{Corriente de salida:}
 \begin{equation}
-	I = [0mA, 200mA]
+	I = [0\ mA, 200\ mA]
 \end{equation}
-\\
+
 \textbf{Tensión de salida:}
 \begin{equation}
 V_{o} = 5 \pm 3\%
 \end{equation}
 
-Otro punto de interés es el de minimizar la cantidad de componentes utilizados. Por lo tanto se decidió utilizar una protección del tipo lineal en vez de foldback.
+Dado que se busca minimizar la cantidad de componentes utilizados, se decidió utilizar una protección del tipo lineal en vez de foldback.
 
-A continuación se explicará brevemente el primer diseño propuesto para luego dar lugar a una explicación más detallada sobre un versión optimizada de la fuente.
+A continuación se explica brevemente el primer diseño propuesto para luego dar lugar a una explicación más detallada sobre un versión optimizada de la fuente.
 
 \subsubsection{Primer diseño propuesto}
 El primer diseño que se propuso fue el siguiente:
