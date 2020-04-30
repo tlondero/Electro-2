@@ -18,7 +18,7 @@ V_{o} = 5 \pm 3\%
 
 Otro punto de interés es el de minimizar la cantidad de componentes utilizados. Por lo tanto se decidió utilizar una protección del tipo lineal en vez de foldback.
 
-A continuación se explicara brevemente el primer diseño propuesto para luego dar lugar a una explicación más detallada sobre un versión optimizada de la fuente.
+A continuación se explicará brevemente el primer diseño propuesto para luego dar lugar a una explicación más detallada sobre un versión optimizada de la fuente.
 
 \subsubsection{Primer diseño propuesto}
 El primer diseño que se propuso fue el siguiente:
@@ -53,15 +53,15 @@ Cuando la carga sea mínima el transistor de paso experimentara el mayor flujo d
 Por lo tanto podemos obtener la siguiente expresión para el calculo de $R_2$. Debemos tener en cuenta que esto ocurre cuando el transistor \textbf{Q2} se encuentra en corte.
 
 \begin{equation}
-R_{2} = \frac{V_{gen}-R_{g}\cdot I_{o_{max}} - (V_o - V_{be_{Q3}} - V_{be_{Q1}}  )}{I_o} \cdot \beta
+R_{2} = \frac{V_{gen}-R_{g}\cdot I_{o_{max}} - (V_o + V_{be_{Q3}} + V_{be_{Q1}}  )}{I_o} \cdot \beta
 \end{equation}
 \begin{equation}
-R_{2} = \frac{10 - 10 \Omega \cdot 205mA - (5V - 0.580 -0.7)  }{200mA} \cdot 80
+R_{2} = \frac{10 - 10 \Omega \cdot 205mA - (5V + 0.580 +0.7)  }{200mA} \cdot 80
 \end{equation}
 \begin{equation}
-R_{2} = 668 \Omega
+R_{2} = 652 \Omega
 \end{equation}
-El valor de resistencia obtenido es un valor \textbf{no} comercial. Podríamos ir por el valor más próximo, 680 $\Omega$ pero este valor no cumple con las especificaciones. Por lo tanto optamos por el valor comercial menor más próximo 560 $\Omega$
+El valor de resistencia obtenido es un valor \textbf{no} comercial. Podríamos ir por el valor más próximo, 680 $\Omega$ pero este valor no cumple con las especificaciones. Por lo tanto optamos por el valor comercial menor más próximo 560 $\Omega$.
 \subsubsection{Circuito de Protección}
 La resistencia de protección se calculo teniendo en cuenta que la corriente de emisor del transistor de paso incluía la corriente necesaria para la polarización del diodo Zener. 
 \begin{equation}
@@ -73,7 +73,7 @@ El \textbf{elemento de referencia} en este caso se escogió como la combinación
 	V_{ref} = V_{zener} + V_{be_{ON}}
 \end{equation}
 
-Para poder obtener la recta de carga podemos optar por usar la directiva de spice \textit{.step param} o bien podemos simular una carga variable mediante el uso de una fuente de corriente. El ultimo método nos ofrece una mayor velocidad de simulación y gráficos de mayor calidad.
+Para poder obtener la característica de salida podemos optar por usar la directiva de spice \textit{.step param} o bien podemos simular una carga variable mediante el uso de una fuente de corriente. El ultimo método nos ofrece una mayor velocidad de simulación y gráficos de mayor calidad.
 
 \begin{figure}[H]
 	\centering
@@ -89,8 +89,8 @@ Utilizar la menor cantidad de componentes ofrece varios beneficios como por ejem
 A continuación presentamos el diseño resultante:
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\linewidth]{ImagenesEjercicio1/ImagenCircuitoFL}
-	\caption{}
+	\includegraphics[width=0.7\linewidth]{ImagenesEjercicio1/ImagenCircuitoFLcasiPelada.PNG}
+	\caption{Fuente de tensión regulada con optimización}
 	\label{fig:imagencircuitofl}
 \end{figure}
 En esta oportunidad se realizaron 2 cambios importantes. En primer lugar se decidio cambiar el diodo Zener utilizado, en esta ocasión $V_z$ = $4.3V$ para que junto con la tensión $V_{be}$.
@@ -138,7 +138,7 @@ decaiga más la tensión de salida (debido a que el Zener se empieza a despolari
 	\label{fig:sinrpz3curvas}
 \end{figure}
 
-Y así se concluye que el circuito cumple las especificaciones teniéndo al diodo Zener polarizado a través
+Y así se concluye que el circuito cumple las especificaciones teniendo al diodo Zener polarizado a través
 de la corriente de colector del transistor que amplifica el error.
 El circuito cumple las especificaciones hasta los 202mA
 
@@ -148,7 +148,16 @@ En este caso obtenemos una característica de salida similar a la anteriormente 
 	\includegraphics[width=\linewidth]{ImagenesEjercicio1/CaracteristicaDeSalidaConGrillaFL}
 	\caption{}
 	\label{fig:caracteristicadesalidacongrillafl}
+\end{figure} 
+Finalmente el circuito resultante
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{ImagenesEjercicio1/ImagenCircuitoFL}
+	\caption{Diseño final}
+	\label{fig:imagencircuitofl}
 \end{figure}
+
+
 
 \subsubsection{Corriente constante vs Limitación de Corriente}
 La incógnita restante que queda por resolver es ¿Por qué no obtenemos una respuesta abrupta a los 200 mA?
