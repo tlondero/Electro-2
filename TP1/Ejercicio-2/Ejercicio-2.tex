@@ -261,7 +261,7 @@ Donde el valor de $I_{sc}$ queda fijado por la Ecuación (\ref{eq:Isc}).
 
 \subsubsection{Diodo de Referencia}
 El diodo zener elegido es el \href{https://d1d2qsbl8m0m72.cloudfront.net/en/products/databook/datasheet/discrete/diode/zener/bzx84b6v2lt116-e.pdf}{BZX84B6V2L},
-debido a su reducida corriente de mantenimiento de $5 \ mA$.
+debido a su reducida corriente de mantenimiento de $5 \ mA$ y reducida resistencia dinámica, de $10\Omega$ a $5mA$, lo cual brinda una mayor estabilidad de la tensión de zener frente a variaciones en la corriente.
 
 Es primordial que el diodo se encuentre bien polarizado para proveer una referencia estable, para ello se fijó una corriente de zener de $I_Z =5.5 \ mA$, sabiendo que $V_Z=6.2 \ V$ y utilizando la Ecuación (\ref{eq:referencia}). De esta forma se llega a un valor $R_Z=120 \ \Omega$, siendo adicionalmente el valor de $V_2$ definido en la Sección (\ref{sec:fuentes}), mientras que el valor de $R_2$ es discutido en la Sección (\ref{sec:resdet}).
 
@@ -356,11 +356,11 @@ P_{BC547C_{max}}|_{reg} = V_{CE} \cdot \left(\frac{I_{o_{max}}|_{reg}}{\beta_{Q_
 
 Luego, la máxima potencia disipada en corto circuito se da cuando la fuente entregue una corriente igual a $I_{SC}$ de $1.34A$ y la tensión a la salida es de $0 \ V$. Circulando las mismas mallas y repitiendo los mismos cálculos anteriores, se obtiene que
 \begin{equation}
-P_{QTIP41C_{max}}|_{reg} = V_{CE}\cdot \frac{I_{o_{max}}|_{reg}}{2} = 8.9W
+P_{QTIP41C_{max}}|_{cc} = V_{CE}\cdot \frac{I_{SC}}{2} = 8.9W
 \end{equation}
 
 \begin{equation}
-P_{BC547C_{max}}|_{reg} = V_{CE} \cdot \left(\frac{I_{o_{max}}|_{reg}}{\beta_{Q_2}} + \frac{V_{BE_{BC547C}}}{R_5} \right) = 325mW
+P_{BC547C_{max}}|_{cc} = V_{CE} \cdot \left(\frac{I_{SC}}{\beta_{Q_2}} + \frac{V_{BE_{BC547C}}}{R_5} \right) = 325mW
 \end{equation}
 
 Se puede observar que no es necesario utilizar un disipador para el transistor BC547C, dado que estos pueden disipar naturalmente hasta $600 \ mW$. Por el contrario, sí es necesario el cálculo del disipador para los transistores QTIP41C, realizado a continuación.
@@ -617,4 +617,7 @@ Se puede ver que la máxima potencia disipada corresponde a la mínima carga, si
 \end{figure}
 \end{itemize}
 
-\subsection{Conclusiones}
+\subsection{Mejoras a Futuro}
+
+Una posible mejora que se le puede realizar a la fuente regulada, es
+la de elegir un valor menor para la tensión de zener, dado que la tensión negativa de alimentación depende de esta tensión de zener. Sin embargo, es de notar que también es vital la alimentación negativa del operacional y debe ser investigado de misma manera.
