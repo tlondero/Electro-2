@@ -97,36 +97,60 @@ En esta oportunidad se realizaron 2 cambios importantes. En primer lugar se deci
 Ahora el nuevo voltaje de referencia es:
 \begin{equation}
 	V_{ref} = V_{be_{ON}} + V_{zener}
+\end{equation}
+\begin{equation}
 	V_{ref} = 5V
 \end{equation}
-Este nuevo resultado implica que ya no es necesario utilizar un realimentador del tipo divisor resistivo ¡Podemos usar un cable! Eso implica el ahorro de 2 resistencias y el consumo de potencia (aunque pequeño) que conllevan.
-
-
-TOBIAS COMPLETA ACA !!
+Este nuevo resultado implica que ya no es necesario utilizar un realimentador del tipo divisor resistivo ¡Podemos usar un cable! Eso implica el ahorro de 2 resistencias y el consumo de potencia (aunque pequeño) que 
 
 No obstante, es posible hacerle una mejora más y mucho más importante en términos de consumo. Las siguientes observaciones nos abrirán camino hacia esta nueva mejora.
 
 Comenzamos por estudiar la resistencia de polarización $R_{pz}$ que deberíamos colocar para el correcto funcionamiento del diodo.
 \begin{equation}
-	R_{pz} = \frac{5\Omega-4.3\Omega}{7mA}
+	R_{pz} = \frac{5\Omega-4.3\Omega}{5mA}
 \end{equation}
+\begin{equation}
+R_{pz} = 140 \Omega
+\end{equation}
+El valor comercial más cercano en el cual aun se cumplen con las especificaciones es de $120\Omega$.
+Pero ¿Es posible evitar colocarla? La respuesta es afirmativa.
+Es sabido que la resistencia $R_{pz}$ sirve para asegurarse que el diodo Zener
+permanezca polarizado (mantenga una tensión de referencia constante) hasta 
+que la protección se active. Al simular la respuesta de la tensión de 
+salida con la $R_{pz}$ incluido nos damos cuenta que se excede de las especificaciones 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{ImagenesEjercicio1/ConRpz}
+	\caption{Característica de salida utilizando resistencia de polarización $R_{pz}$ = $120\Omega$}
+	\label{fig:conrpz}
+\end{figure}
 
+ y eso es debido a que el Zener hace mantener una respuesta constante
+al permanecer polarizado. A partir de los 209mA ya no estamos dentro del rango especificado
+(5V $\pm$ 3\%). Entonces si quitamos la $R_{pz}$, lo que pasará es que el diodo Zener dejará de estar polarizado
+al mismo tiempo que el amplificador de error entra en corte poco antes de que la protección actúe
+decaiga más la tensión de salida (debido a que el Zener se empieza a despolarizar desde antes).
 
-Por lo tanto disipa xx mW.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{ImagenesEjercicio1/SinRpz3curvas}
+	\caption{En \textcolor{green}{verde} la curva caracteristica de salida. En \textcolor{blue}{azul} la tensión sobre el diodo Zener. En \textcolor{red}{rojo} la corriente sobre el diodo Zener}
+	\label{fig:sinrpz3curvas}
+\end{figure}
 
-Pero, ¿Es posible evitar colocarla? La respuesta es afirmativa pero antes debemos modificar
-
-
-HASTA ACÁ!!
+Y así se concluye que el circuito cumple las especificaciones teniéndo al diodo Zener polarizado a través
+de la corriente de colector del transistor que amplifica el error.
+El circuito cumple las especificaciones hasta los 202mA
 
 En este caso obtenemos una característica de salida similar a la anteriormente obtenida.
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\linewidth]{ImagenesEjercicio1/CaracteristicaDeSalidaConGrillaFL}
+	\includegraphics[width=\linewidth]{ImagenesEjercicio1/CaracteristicaDeSalidaConGrillaFL}
 	\caption{}
 	\label{fig:caracteristicadesalidacongrillafl}
 \end{figure}
 
+\subsubsection{Corriente constante vs Limitación de Corriente}
 La incógnita restante que queda por resolver es ¿Por qué no obtenemos una respuesta abrupta a los 200 mA?
 Es decir algo de esta forma:
 \begin{figure}[H]
@@ -135,7 +159,7 @@ Es decir algo de esta forma:
 	\caption{Característica de salida de una fuente de tensión constante con control de corriente máxima}
 	\label{fig:cvcc}
 \end{figure}
-
+En la figura \ref{cvcc} se aprecia como la tensión es regulada hasta llegar a un cierto limite de corriente. A partir de ese punto, la fuente comienza a actuar como una fuente de corriente constante.
 
 Cuando en realidad obtenemos:
 \begin{figure}[H]
@@ -150,20 +174,60 @@ Cuando en realidad obtenemos:
 		\includegraphics[width=0.9\textwidth]{ImagenesEjercicio1/CaracteristicaDeSalidaConGrillaFL2.png} % second figure itself
 		\caption{Característica de Salida simulada}
 	\end{minipage}
+\caption*{Las imagenes fueron obtenidas \href{https://ia600205.us.archive.org/22/items/DC_Power_Supply_Handbook_Agilent_Technologies_Application_Note_90B/DC_Power_Supply_Handbook_Agilent_Technologies_Application_Note_90B.pdf}{DC Power Supply Handbook by Agilent Technologies}
+}
 \end{figure}
 
-Las imagenes fueron obtenidas \href{https://ia600205.us.archive.org/22/items/DC_Power_Supply_Handbook_Agilent_Technologies_Application_Note_90B/DC_Power_Supply_Handbook_Agilent_Technologies_Application_Note_90B.pdf}{DC Power Supply Handbook by Agilent Technologies}
+La respuesta subyace en que el circuito planteado, tanto en la etapa 1 como en la 2 del diseño, son circuitos que ofrecen limitación de la corriente máxima y no corriente constante una vez alcanzada la corriente en la que ya no se garantiza regulación de tensión. Para conseguir tal comportamiento es necesario contar con 2 circuitos  realimentados independientes. El primero de ellos sera el regulador de tensión y el segundo un regulador de corriente que deberá empezar a actuar cuando la carga utilizada exija más corriente de la permitida. En esa instancia la fuente comenzara a regular corriente. Se sabe, debido a la teoría de la realimentación negativa que para poder conseguir un buen circuito realimentado, la ganancia del amplificador debe ser varios ordenes de magnitud más grande que la ganancia del realimentador. 
 
-%Explicar lo de la rodilla
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{ImagenesEjercicio1/Feedback}
+	\caption{Diagrama en bloques de un sistema con realimentación negativa}
+	\label{fig:feedback}
+\end{figure}
+Por lo tanto podemos concluir que en el presente diseño el lazo de realimentación que mantiene estable la corriente no tiene una gran ganancia de lazo y por ende no controla de manera muy precisa la corriente de salida.
 
-%Subir las imagenes que estan en Discord 
-%Y las cosas escritas desde el comentario de Joaco
-%Usar el azul
+\subsubsection{Inmunidad al ruido de linea}
+Se sometió a la fuente a una prueba para verificar su estabilidad mediante a pequeños cambios en su tensión de entrada. 
 
-%El Zener sigue polarizado porque 
-%Cuando el circuito deja de regular sigue consumiendo potencia en el viejo.
-%V max: 
-%V min: 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{ImagenesEjercicio1/InmunidadRuidoDeLinea}
+	\caption{Señal de 10V DC + sinusoide de 50Hz 0.5$V_{p}$}
+	\label{fig:inmunidadruidodelinea}
+\end{figure}
+
+\subsubsection{Rendimiento y potencia}
+Se relevaron los datos de máxima disipación de potencia a partir de las hojas de datos de los fabricantes.
+
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{@{}lrlll@{}}
+		\toprule
+		\multicolumn{1}{c}{\textbf{Componente}} & \multicolumn{1}{c}{\textbf{Maxima disipación de potencia}} &  &  &  \\ \midrule
+		BC547        & 0.625W &  &  &  \\
+		TIP31C       & 2W     &  &  &  \\
+		BZX84C4V3    & 0.35W  &  &  &  \\ 
+		Resistencias & 0.25W  &  &  &  \\ \bottomrule
+	\end{tabular}
+	\caption{Disipación máxima por componente}
+	\label{tab:acqCap}
+\end{table}
+
+
+Y los rendimientos
+$$\eta_{100mA} = 0.473$$
+
+$$\eta_{200mA} = 0.487$$
+\begin{equation}
+H = 8 \cdot \frac{0.473 \cdot 0.487}{2\cdot 0.625W+2W+0.35W+2\cdot0.25W}
+\end{equation}
+\begin{equation}
+	H = 44.9\%
+\end{equation}
+
 
 
 
