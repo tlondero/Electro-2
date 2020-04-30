@@ -1,0 +1,38 @@
+\documentclass{article}
+
+
+
+\usepackage{circuitikz}
+\def\coord(#1){coordinate(#1)}
+\def\coord(#1){node[circle, red, draw, inner sep=1pt,pin={[red, overlay, inner
+		sep=0.5pt, font=\tiny, pin distance=0.1cm, pin edge={red, overlay
+			,}]45:#1}](#1){}}
+\begin{document}
+\begin{center}
+	\begin{circuitikz}[american voltages]
+		\draw
+		node[ground]{}(0,0) 
+		to [V ,v=$V_s$, invert] (0,3)
+		to [R, l=$R_{s}$, i=$I_g$] (2,3)
+		node[R](RR){}
+		\coord(RR);
+		
+		\draw (RR) -- ++(2,0)  node[npn, anchor=C, rotate = 90, label=Q1]{}[];
+		\draw (RR) to [R,l=$R_z$] ++(1,-1);
+		
+		
+		
+%		(0,0) to [short, *-] (6,0)
+%		to [V, l_=$\mathrm{j}{\omega}_m \underline{\psi}^s_R$] (6,2) 
+%		to [R, l_=$R_R$] (6,4) 
+%		to [short, i_=$\underline{i}^s_R$] (5,4) 
+%		(0,0) to [open, v^>=$\underline{u}^s_s$] (0,4) 
+%		to [short, *- ,i=$\underline{i}^s_s$] (1,4) 
+%		to [R, l=$R_s$] (3,4)
+%		to [L, l=$L_{\sigma}$] (5,4) 
+%		to [short, i_=$\underline{i}^s_M$] (5,3) 
+%		to [L, l_=$L_M$] (5,0); 
+	\end{circuitikz}
+\end{center}
+
+\end{document}
