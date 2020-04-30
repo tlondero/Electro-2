@@ -7,8 +7,9 @@
 \begin{circuitikz}[european voltages]
 
 	%Amplificador error
-	\node[color = blue] [op amp, yscale=-1](A){};
-	\draw[color = blue]
+	%\node[color = blue] [op amp, yscale=-1](A){};
+	\node [op amp, yscale=-1](A){};	
+	\draw%[color = blue]
 		(A.+) -- ++(-1,0) node[ground](g1){}
 		(A.down) -- ++ (0,0.5) node[ocirc, label=north:$V^{-}$](){}    
 		(A.up) -- ++ (0,-0.5) node[ocirc, label=south:$V^{+}$](){}
@@ -17,15 +18,15 @@
 		;
 		
 	%Circuito de protección
-	\draw[color = orange]
-		(aux2.south) |- ++ (2,-2) node[npn, anchor=C, rotate = 90, xscale=-1, label=below:$T_P$](Q3){}
+	\draw%[color = orange]
+		(aux2.south) |- ++ (2,-2) node[npn, anchor=C, rotate = 90, xscale=-1, label=north:$T_P$](Q3){}
 		(Q3.B) -- ++(0,1.16) to[R, l_=$R_C$] ++ (-2,0) node[ground](){}
 		(Q3.E) -- ++(1.5,0) node[](aux4){} to[R, l_=$R_A$] ++ (0,2) node[](aux3){} to[R, l_=$R_B$] ++ (-2,0) -| (Q3.B)
 		(aux4.center) -- ++ (0,-1) node[ocirc](aux6){}		
 		;
 		
 	%Transistor de paso
-	\draw[color = olive]
+	\draw%[color = olive]
 		(aux2.north) -- ++ (0,4) node[npn, anchor = B, label=right:$Q_1$](Q1){}
 		(Q1.E) -- ++ (2.15,0) node[npn, anchor = B, label=north:$Q_2$](Q2){}
 		(Q2.B) -- ++ (1.2,0) node[npn, anchor = B, label=north:$Q_3$](Q3){}
@@ -38,12 +39,12 @@
 		;
 				
 	%Circuito de detección (Realimentador)
-	\draw[color = purple]
+	\draw%[color = purple]
 		(aux6.west) to[R, l_=$R_1$] (aux1.east)
 		;
 		
 	%Elemento de referencia
-	\draw[color = red]
+	\draw%[color = red]
 		(aux1.west) to[R, l_=$R_2$] ++ (-2,0) node[](aux7){} to[R, l_=$R_Z$] ++ (-2,0) node[ocirc](aux8){}
 		(aux7.center) to[zzDo] ++ (0,-1.5) node[ground](){}
 		;
@@ -53,14 +54,58 @@
 		(aux8.north) to[open] ++ (0,4.5) node[](aux9){} -- ++ (1,0) node[ground](){}
 		(aux9.center) to[battery2, l_=$V^{-}$] (aux8.north)
 		(aux9.center) ++ (0,3) to[battery2, l_=$V^{+}$] ++ (0,-3) ++ (0,3) |- (aux5.west)
-
 		;	
+		
+	%Carga
+	\draw%[color = brown]
+		(aux6.south) to[R, l=$R_L$] ++ (0,-2) node[ground](){}
+		;
+		
+%%%%%%%%%%%%%%%%%
+%	RECUADROS	%
+%%%%%%%%%%%%%%%%%
+
+	%Amplificador error
+	\draw[color = blue, dashed, rounded corners=8pt, line width=0.75pt]	
+		(aux2) ++ (-0.25,1.75) node[](webex11){}
+		(aux1) ++ (-1.5,1.35) node[](webex12){}
+		(webex11.center) rectangle (webex12.center)
+	;
+
+	%Elemento de referencia
+	\draw[color = red, dashed, rounded corners=8pt, line width=0.75pt]	
+		(aux8) ++ (0.25,-2.5) node[](webex1){}
+		(aux1) ++ (-0.25,1) node[](webex2){}
+		(webex1.center) rectangle (webex2.center)
+	;
 	
+	%Circuito de detección (Realimentador)
+	\draw[color = purple, dashed, rounded corners=8pt, line width=0.75pt]	
+		(aux1) ++ (3,0.75) node[](webex5){}
+		(aux6) ++ (-3,-0.5) node[](webex6){}
+		(webex5.center) rectangle (webex6.center)
+	;
+	
+	%Transistor de paso
+	\draw[color = olive, dashed, rounded corners=8pt, line width=0.75pt]	
+		(aux2) ++ (0.3,1) node[](webex9){}
+		(aux5) ++ (5.1,0.5) node[](webex10){}
+		(webex9.center) rectangle (webex10.center)
+	;
+	
+	%Circuito de protección
+	\draw[color = orange, dashed, rounded corners=8pt, line width=0.75pt]	
+		(aux2) ++ (0.3,0.75) node[](webex7){}
+		(aux6) ++ (1,0.85) node[](webex8){}
+		(webex8.center) rectangle (webex7.center)
+	;
 	
 	%Carga
-	\draw[color = brown]
-		(aux6.south) to[R, l=$R_L$] ++ (0,-2) node[ground](){}
-		;		
+	\draw[color = brown, dashed, rounded corners=8pt, line width=0.75pt]	
+		(aux6) ++ (-0.5,-0.25) node[](webex3){}
+		(aux6) ++ (1,-3) node[](webex4){}
+		(webex3.center) rectangle (webex4.center)
+	;
 \end{circuitikz}
 \end{page}
 
@@ -229,12 +274,13 @@
 \begin{circuitikz}[european voltages]
 %Elemento de deteccion
 	\draw
-		node[circ, label=south:$V_0$](begin){} to[R, l_=$R_1$, i_=$i_1$] ++ (-3,0) node[circ, label = south:$0V$](aux7){} 
+		node[circ, label=south:$V_O$](begin){} to[R, l_=$R_1$, i_=$i_1$] ++ (-3,0) node[circ, label = south:$0 \ V$](aux7){} 
 		;
 	\draw[dashed]
 		(begin) -- ++ (0,1)
 		(aux7) -- ++ (-1,0)
 		(aux7) -- ++ (0,1)
+		(begin.center) -- ++ (1,0)
 		;
 \end{circuitikz}
 \end{page}
@@ -285,10 +331,92 @@
 \begin{circuitikz}
 	\node [ground](){};	
 	\draw
-		to[I, label=$I_N$] ++ (0,2)	to[R, l=$R_{TH}$] ++ (2,0) node[](aux1){} to[R, l_=$R_1$] ++ (0,-2) node[ground](){}
+		to[I, label=$I_N$] ++ (0,2) -- ++ (2,0) node[](aux3){} to[R, l_=$R_{TH}$] ++ (0,-2) node[ground](){}
+		(aux3.center) -- ++ (2,0) node[](aux1){} to[R, l_=$R_1$] ++ (0,-2) node[ground](){}
 		(aux1.center) -- ++ (2,0) to[R, v^<=$V_1$, l_=$R_i$] ++ (0,-2) node[ground](){}
-		(aux1.center) ++ (6,0) node[](aux2){} to[V, v_=$A_{VOL} V_1$] ++ (0,-2) node[ground](){} ++ (0,2) to[R, l=$r_O$] ++ (2,0) to[R, l_=$R_L$, v^=$V_O'$] ++ (0,-2) node[ground](){}
+		(aux1.center) ++ (6,0) node[](aux2){} to[V, v_=$A_{VOL} V_1$] ++ (0,-2) node[ground](){} ++ (0,2) to[R, l=$r_O$] ++ (3,0) node[](aux4){} to[R, l_=$R_1$] ++ (0,-2) node[ground](){}
+		(aux4.center) ++ (2,0) to[R, l_=$R'$] ++(0,-2) node[ground](){}
+		(aux4.center) -- ++ (4,0) to[R, l_=$R_L$, v^=$V_O'$] ++ (0,-2) node[ground](){}
 	;		
+\end{circuitikz}
+\end{page}
+
+\begin{page}
+\begin{circuitikz}
+%Amplificador error
+	\node [op amp, yscale=-1](A){};
+	\draw
+		(A.+) -- ++(-1,0) node[ground](g1){}
+		(A.down) -- ++ (0,0.5) node[ocirc, label=north:$V^{-}$](){}    
+		(A.up) -- ++ (0,-0.5) node[ocirc, label=south:$V^{+}$](){}
+		(A.-) -- ++ (0,-2.55) node[](aux1){}
+		(A.out) -- ++ (1,0) node[](aux2){}
+		;
+		
+	%Circuito de protección
+	\draw
+		(aux2.center) |- ++ (2,-2) node[npn, anchor=C, rotate = 90, xscale=-1, label=below:$T_P$](Q3){}
+		(Q3.B) -- ++(0,1.16) to[R, l_=$R_C$] ++ (-2,0) node[ground](){}
+		(Q3.E) -- ++(1.5,0) node[](aux4){} to[R, l_=$R_A$] ++ (0,2) node[](aux3){} to[R, l_=$R_B$] ++ (-2,0) -| (Q3.B)
+		(aux4.center) -- ++ (0,-1) node[](aux6){}		
+		;
+		
+	%Transistor de paso
+	\draw
+		(aux2.center) -- ++ (0,4) node[npn, anchor = B, label=right:$Q_1$](Q1){}
+		(Q1.E) -- ++ (2.15,0) node[npn, anchor = B, label=north:$Q_2$](Q2){}
+		(Q2.B) -- ++ (1.2,0) node[npn, anchor = B, label=north:$Q_3$](Q3){}
+		
+		($ (Q1.E) !.5! (Q2.B) $) to[R, l=$R_5$] ++(0,-2) |- ($ (Q3.E) !.5! (aux3) $)% -| (aux3.center)
+		(Q2.E) -| (aux3.center)
+		(Q1.C) -- ++ (0,1) node[](aux5){}
+		(Q2.C) |- (aux5.center)
+		(aux5) ++ (2,0) -| (Q3.C)
+		;
+				
+	%Circuito de detección (Realimentador)
+	\draw
+		(aux6.center) to[R, l_=$R_1$] (aux1.center)
+		;
+		
+	%Elemento de referencia
+	\draw
+		(aux1.center) to[R, l_=$R_2$] ++ (-2,0) node[](aux7){} to[R, l_=$R_Z$] ++ (-2,0) node[](aux8){}
+		(aux7.center) to[zzDo] ++ (0,-1.5) node[ground](){}
+		;
+	
+	%Fuentes
+	\draw
+		(aux8.center) to[open] ++ (0,4.5) node[](aux9){} -- ++ (1,0) node[ground](){}
+		(aux9.center) to[battery2, l_=$V^{-}$] (aux8.center)
+		(aux9.center) ++ (0,3) to[battery2, l_=$V^{+}$] ++ (0,-3) ++ (0,3) |- (aux5.center)
+
+		;	
+	
+	
+	%Carga
+	\draw
+		(aux6.center) to[R, l=$R_L$] ++ (0,-2) node[ground](){}
+		;		
+		
+	\begin{scope}[>=latex,thick,text=black]
+	\draw[color = blue]
+		(0,0) ++ (-2.5, -2) -- ++ (0,4) -- ++ (4,0) -- ++ (0,-4) -- ++ (-4,0)
+		;
+	\draw[color = red]
+		(0,0) ++ (-5.215, -5.3) -- ++ (0,3) -- ++ (4,0) -- ++ (0,-3) -- ++ (-4,0)
+		;
+		\draw[color = purple]
+		(0,0) ++ (1.5, -3.7) -- ++ (0,1.5) -- ++ (3,0) -- ++ (0,-1.5) -- ++ (-3,0)
+		;
+		\draw[color = orange]
+		(0,0) ++ (2.4, -2.1) -- ++ (0,3) -- ++ (5.8,0) -- ++ (0,-3) -- ++ (-5.8,0)
+		;
+		\draw[color = olive]
+		(0,0) ++ (2, 1) -- ++ (0,5) -- ++ (5.8,0) -- ++ (0,-5) -- ++ (-5.8,0)
+		;
+    \end{scope}		
+		
 \end{circuitikz}
 \end{page}
 
