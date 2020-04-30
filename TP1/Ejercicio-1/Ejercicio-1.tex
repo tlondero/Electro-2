@@ -3,7 +3,7 @@
 \begin{document}
 	
 \subsubsection{Consideraciones de diseño}
-Se diseño una fuente de tensión regulada con limitación de corriente enfocados en alcanzar la menor disipación de potencia posible. 
+Se diseño una fuente de tensión regulada con limitación de corriente enfocados en alcanzar la menor disipación de potencia posible y utilizando la mínima cantidad de componentes necesaria para su funcionamiento.
 Los requerimientos de la misma son los siguientes:
 \\ 
 \textbf{Corriente de salida:}
@@ -120,9 +120,45 @@ Pero, ¿Es posible evitar colocarla? La respuesta es afirmativa pero antes debem
 HASTA ACÁ!!
 
 En este caso obtenemos una característica de salida similar a la anteriormente obtenida.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\linewidth]{ImagenesEjercicio1/CaracteristicaDeSalidaConGrillaFL}
+	\caption{}
+	\label{fig:caracteristicadesalidacongrillafl}
+\end{figure}
+
+La incógnita restante que queda por resolver es ¿Por qué no obtenemos una respuesta abrupta a los 200 mA?
+Es decir algo de esta forma:
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.7]{ImagenesEjercicio1/CVCC}
+	\caption{Característica de salida de una fuente de tensión constante con control de corriente máxima}
+	\label{fig:cvcc}
+\end{figure}
 
 
+Cuando en realidad obtenemos:
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{ImagenesEjercicio1/CVCL.PNG} % first figure itself
+		\caption{Modelo de regulador de tensión con limitador de corriente}
+	\end{minipage}\hfill
+	\begin{minipage}{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{ImagenesEjercicio1/CaracteristicaDeSalidaConGrillaFL2.png} % second figure itself
+		\caption{Característica de Salida simulada}
+	\end{minipage}
+\end{figure}
 
+Las imagenes fueron obtenidas \href{https://ia600205.us.archive.org/22/items/DC_Power_Supply_Handbook_Agilent_Technologies_Application_Note_90B/DC_Power_Supply_Handbook_Agilent_Technologies_Application_Note_90B.pdf}{DC Power Supply Handbook by Agilent Technologies}
+
+%Explicar lo de la rodilla
+
+%Subir las imagenes que estan en Discord 
+%Y las cosas escritas desde el comentario de Joaco
+%Usar el azul
 
 %El Zener sigue polarizado porque 
 %Cuando el circuito deja de regular sigue consumiendo potencia en el viejo.
