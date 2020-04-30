@@ -236,7 +236,7 @@ Se optó por un opamp que tenga la capacidad de proveer una gran corriente de sa
 \subsubsection{Transistores de Paso}
 
 Para la sección de transistor de paso, se eligió utilizar los transistores \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/532914/FAIRCHILD/TIP31C.html}{QTIP41C} que son transistores de potencia, al igual que un \href{https://pdf1.alldatasheet.com/datasheet-pdf/view/2895/MOTOROLA/BC547C.html}{BC547C}, utilizando los TIP41C como el transistor por el cual pasará la mayoría de la corriente y el BC547 como el que recibe la corriente del opamp.
-Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor posea un hfe estable. Esto se puede observar claramente en el gráfico de GFE en función de la corriente de colector del datasheet del BC547C, mostrado en la Figura (\ref{fig:hfe}).
+Adicionalmente se le agrega una resistencia $R_5$ al emisor del BC547C con el objetivo de que en el analisis incremental el transistor posea un hfe estable. Esto se puede observar claramente en el gráfico de $h_{FE}$ en función de la corriente de colector del datasheet del BC547C, mostrado en la Figura (\ref{fig:hfe}).
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth, page=1]{ImagenesEjercicio2/hfe547b.png}
