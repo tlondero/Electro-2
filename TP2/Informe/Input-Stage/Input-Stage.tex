@@ -12,9 +12,10 @@ La distorsión puede ser provocada o provenir de distintas fuentes. Los amplific
 
 Es muy importante reflejar que esta etapa debe la que posee la mínima distorsión, por sobre las demás, ya que las señales que maneja son pequeñas, dándose el aumento de estas en la etapa de amplificación.    
 
+%, trim = {0 0 0 20},clip
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 20},clip]{ImagenesInput-Stage/thd1.PNG}
+	\includegraphics[width=0.8\textwidth]{ImagenesInput-Stage/thd1.PNG}
 	\caption{Comparación de THD en función de la frecuencia.}
 	\label{fig:thd1}
 \end{figure}
@@ -22,8 +23,8 @@ Es muy importante reflejar que esta etapa debe la que posee la mínima distorsi�
 Si bien, seleccionando adecuadamente las resistencias del circuito se puede balancear el par, quedan pendientes ciertos parámetros. Las corrientes de colectores deben ser lo más similares posibles. Debe existir una precisión del $1\%$ o mejor para poder optimizar la linealidad del la etapa, y de esta forma, reducir la distorsión en altas frecuencias.
 \begin{figure}[H]
 \centering
-	\includegraphics[width=0.8\textwidth, trim = {0 0 0 20},clip]{ImagenesInput-Stage/thd2.PNG}
-	\caption{THD en función de la frecuencia al variar el balance de la corriente del colector. Número de curva y distorsión especificadas en la Tabla (\ref{tab:thd2}).}
+	\includegraphics[width=0.8\textwidth]{ImagenesInput-Stage/thd2.PNG}
+	\caption{THD en función de la amplitud al variar el balance de la corriente del colector. Número de curva y distorsión especificadas en la Tabla (\ref{tab:thd2}).}
 	\label{fig:thd2}
 \end{figure}
 
