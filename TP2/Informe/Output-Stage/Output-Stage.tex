@@ -4,4 +4,26 @@
 
 \subsection{Introducción}
 
+La etapa de salida de un amplificador de audio se encarga de entregar la corriente necesaria a la carga para conseguir la característica de potencia buscada en el amplificador; sin así distorsionar demasiado a la señal, para preservar el THD para la cual se trabajo tanto para disminuir en las etapas anteriores.
+
+Por un lado, se puede utilizar tecnología FET, los cuales no poseen una reducción del "beta" frente a grandes corrientes y por ende una mayor linealidad, a un costo de duplicar el precio de cada dispositivo activo. La otra alternativa, mucho más popular, es usar tecnología BJT. Luego existen varias clases de etapa de salidas distintas, entre ellas A, con una alta linealidad pero muy baja eficiencia; clase B, la cual soluciona el problema de la eficiencia, al costo de la distorsión por crossover; la clase AB, un compromiso entre ambas; variaciones de la popular clase AB, como la clase G, y muchas más.
+En el amplificador de audio diseñado se utilizará clase AB al ser una consideración de diseño.
+
+Dentro de la clase AB existen muchas topologías distintas cada una con sus respectivas ventajas y desventajas. Una de ellas es la topología EF (emitter-follower) compuesta por dos emisores comunes en cascada. En esta configuración, un transistor funciona como \textit{driver}, generalmente situado en un punto Q muy estable. Este transistor proporciona la corriente de base al siguiente, por el cual fluye la corriente que se le entrega a la carga. Dentro de esta topología existen tres tipos mostrados en la Figura (\ref{fig:ef}). En el tipo 1 los resistores de emisor se conectan a la salida. Estos resistores colocan al driver en un punto Q estable. El tipo 2 posee la ventaja de ahorrarse un resistor, colocando uno solo entre los emisores de los transistores. Además, los transistores nunca se polarizarán en inversa al pasar de un semiciclo al otro. En el tipo 3, se conectan los resistores a los rieles de alimentación, lo cual puede mejorar el apagado de altas frecuencias.
+
+Otra configuración involucra los pares Sziklai, Quasi-Darlington o también llamado par de realimentación, dado que ahora el driver se coloca de manera tal que este compare la tensión a la salida con la entrada, lo cual aumenta la linealidad. Además, como el Vbe del transistor de salida se encuentra dentro del lazo de realimentación, se observa una estabilidad térmica mayor.
+
+Una topología la cual en el pasado era casi obligatoria por la falta de transistores PNP de potencia complementarios a los NPN. En esta configuración solamente se reemplaza por un par Quasi-Darlington a los transistores PNP. Esta topología presenta una alinealidad mucho mayor y no será utilizada, aunque existen varios arreglos a la simetría, como por ejemplo utilizando un diodo de Baxandall.
+
+Naturalmente surge al analizar estas etapas de salida la idea de colocar tres transistores en cascada, o más. De ahí surge la topología Triple EF. Esta configuración presenta mayor linealidad a alta potencias, un punto Q más estables para los transistores \textit{pre-drivers}, los que proporcionan la corriente a los drivers, debido a que estos manejarán una corriente menor y disiparán menor potencia. Además, al poseer una ganancia de corriente mayor, la etapa de ganancia deberá proporcionar corrientes menores. En la Figura (\ref{triples}) se observan distintas configuraciones Triple EF posibles.
+
+189
+
+\subsubsection{Topología Utilizada}
+
+
+\subsubsection{Generador de Bias}
+
+\subsubsection{Fuente de corriente}
+
 \end{document}
