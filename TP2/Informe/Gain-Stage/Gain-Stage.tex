@@ -5,16 +5,16 @@
 \subsection{Introducción}
 La etapa de amplificación de tensión (o VAS) a menudo es considerada como la etapa mas crítica de un amplificador de potencia , dado que no solo provee la ganancia de tensión sino que también debe manejar todo el rango de la tensión de salida. Esto indicaría que puede jugar un rol significativo en la distorsión armónica de la señal, sin embargo un VAS bien diseñado contribuye relativamente poco a la distorsión total, y incluso si se tomasen pasos extra para intentar linealizar aun mas la salida, estas contribuciones comparadas con las hechas en una etapa de entrada, son completamente despreciables.\\
 
-El primer diseño que se pensó fue un emisor común que se observa a continuación:
+El primer diseño que se pensó fue un emisor común que se observa a continuación que si bien  cuenta con varios problemas estos van  a ser sorteados en las siguientes lineas.:
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.7\textwidth]{ImagenesGain-Stage/ec1.png}
 	\caption{Primer diseño Emisor Común}
 	\label{fig:ec1}
 \end{figure}
-El siguiente problema que se afrontó fue el de limitar la ganancia de altas frecuencias.
-Si bien la ganancia de tensión claramente depende de la linealidad de $\beta$, el cual en transistores reales suelen tener una gran dispersión. Utilizando uno de los principios de la ingeniera que dice,
- ``Lo que no puede ser controlado, debe ser irrelevante'', se introduce una linea de realimentación negativa utilizando $C_{dom}$ el cual limita la ganancia de altas frecuencia y así asegurar la estabilidad.
+
+El primer problema que se afrontó fue el de limitar la ganancia de altas frecuencias.
+Para esto se introduce una linea de realimentación negativa utilizando $C_{dom}$ el cual limita la ganancia de altas frecuencia y así asegurar la estabilidad.
  \begin{figure}[H]
 \centering
 	\includegraphics[width=0.7\textwidth]{ImagenesGain-Stage/ec2.png}
@@ -25,7 +25,7 @@ Es importante que la ganancia a lazo abierto del VAS sea alta, así este puede s
 \begin{align}
 A_{vs}=\frac{-R_D}{R_E}
 \end{align}
-Por lo que si se quiere subir la ganancia puede subirse el valor de $R_C$, pero esto dado una ic determinada por la  malla de entrada, provocara que caiga mas tensión sobre la resistencia $R_C$ y menos en la juntura CE, asi reduciendo la transconductancia y devolviendote al comienzo en terminos de ganancia de tension. Una manera de asegurar una gran ganancia es utilizar una carga activa con una fuente de corriente, así suministrando la corriente necesaria, y mostrando una alta imepdancia. \\
+Por lo que si se quiere subir la ganancia puede subirse el valor de $R_C$, pero esto dado una ic determinada por la  malla de entrada, provocara que caiga mas tensión sobre la resistencia $R_C$ y asi consuma un valor de potencia mucho mas elevado. Una manera de asegurar una gran ganancia es utilizar una carga activa con una fuente de corriente, así suministrando la corriente necesaria, y mostrando una alta imepdancia. \\
 Ademas se optó por utilizar un acople por fuente de corriente en vez de uno capacitivo con la idea de no introducir singularidades no deseadas en el circuito.
  \begin{figure}[H]
 \centering
