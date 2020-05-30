@@ -24,7 +24,7 @@ Si bien, seleccionando adecuadamente las resistencias del circuito se puede bala
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth]{ImagenesInput-Stage/thd2.PNG}
-	\caption{THD en función de la amplitud al variar el balance de la corriente del colector. Número de curva y distorsión especificadas en la Tabla (\ref{tab:thd2}).}
+	\caption{THD en función de la entrada (en $dBu$, nivel de referencia $0.7746 \ V$) al variar el balance de la corriente del colector . Número de curva y distorsión especificadas en la Tabla (\ref{tab:thd2}).}
 	\label{fig:thd2}
 \end{figure}
 
@@ -55,11 +55,22 @@ La transconductancia aumenta con la corriente de colector. Elevar este último p
 
 La corriente de mantenimiento a la entrada es uno de los parámetros que define el máximo slew rate (SR). Otro factor importante que lo limita es el polo dominante proveniente del capacitor de Miller. Este último es solucionado por los requerimientos que se deben cumplir para conseguir la estabilidad. Por otro lado, aumentar la corriente de colector puede aumentar el factor de SR sin afectar la estabilidad, siempre y cuando, la transconductancia se mantenga en el valor deseado. 
 
-A pesar de ello, existen límites para esta corriente. El aumento de las corrietnes de bias, como la caida de tensión a través de las resistencias son algunos ejemplos. El factor más limitante es la potencia disipada a lo largo de esta etapa, ya que no siempre deja margen para incrementar la $I_C$. 
+A pesar de ello, existen límites para esta corriente. El aumento de las corrientes de bias, como la caída de tensión a través de las resistencias son algunos ejemplos. El factor más limitante es la potencia disipada a lo largo de esta etapa, ya que no siempre deja margen para incrementar la $I_C$. 
 
+%Se colocó un buffer a ambas salidas del par diferencial. De esta forma se garantiza que las impedancias vistas a la salida de la etapa de entrada son pequeñas y se consigue una mejor adaptación de cargas.
 
-\textbf{buffer a la salida del par diferencial para que las resistencias del amp dif sean más pequeñas}
+\subsection{Ruido}
+El ruido existente en la etapa de entrada surge de los componentes activos y las resistencias que se presentan en la entrada. Las condiciones de operación de los transistores se encuentran limitadas por los factores de SR y linealidad. Por otro lado, ya que el ruido es una función que dependen de $I_C$, bastan con ajustar dicho parámetro para poder reducir el ruido. 
 
-\textbf{ganancia baja}
+Además de reducir las resistencias existentes en la etapa de entrada para así reducir el ruido térmico existente, es posible realizar el mismo efecto haciendo lo mismo con la resistencia observada a la salida del lazo de realimentación negativa. Este último paso es más delicado ya que puede generar grandes cambios en el sistema. 
+
+%Noise performance is, however, closely bound up with source impedance, and we need to define this before device selection.
+
+\subsection{Limitación en banda}
+Se sabe que  existen etapas que acumulan cambios de la fase, siendo estas las altas frecuencias, las cuales tienden a ser más inestables y generar oscilaciones. Es así que se puede llegar a dañar los dispositivos a la salida del sistema por sobrecalentamiento, entre otros motivos. Esto es causado por la distorsión del amplificador y el incremento de la ganancia de lazo abierto. Limitar en banda esta ganancia evita que la señal del realimentador.
+
+Se busca eliminar este problema limitando en banda la salida de la etapa que se está tratando. Se colocan filtros pasa bajos y pasa altos tanto a la entrada de la etapa de entrada, limitando así las frecuencias entrantes.
+%Una ventaja que se presenta en este diseño es la posibilidad de colocar un control de volumen en esta instancia, implementando un filtro Sallen Key y colocando un potenciometro en la resistencia HAY QUE PONER BIEN EL CIRCUITO % $R_{90}$ (o 4R_{91}$) (capo, fijate cuales están en el spice no sé)
+%ya que la frecuencia de. 
 
 \end{document}
