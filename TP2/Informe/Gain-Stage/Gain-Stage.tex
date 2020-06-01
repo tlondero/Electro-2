@@ -3,9 +3,9 @@
 \begin{document}
 
 \subsection{Introducción}
-La etapa de amplificación de tensión (o VAS) a menudo es considerada como la etapa mas crítica de un amplificador de potencia , dado que no solo provee la ganancia de tensión sino que también debe manejar todo el rango de la tensión de salida. Esto indicaría que puede jugar un rol significativo en la distorsión armónica de la señal, sin embargo un VAS bien diseñado contribuye relativamente poco a la distorsión total, y incluso si se tomasen pasos extra para intentar linealizar aun mas la salida, estas contribuciones comparadas con las hechas en una etapa de entrada, son completamente despreciables.\\
+La etapa de amplificación de tensión (o VAS) a menudo es considerada como la etapa más crítica de un amplificador de potencia , dado que no solo provee la ganancia de tensión sino que también debe manejar todo el rango de la tensión de salida. Esto indicaría que puede jugar un rol significativo en la distorsión armónica de la señal, sin embargo un VAS bien diseñado contribuye relativamente poco a la distorsión total, e incluso si se tomasen pasos extra para intentar linealizar aún más la salida, estas contribuciones comparadas con las hechas en una etapa de entrada, son completamente despreciables.\\
 
-El primer diseño que se pensó fue un emisor común que se observa a continuación que si bien  cuenta con varios problemas estos van  a ser sorteados en las siguientes lineas.:
+El primer diseño que se pensó fue un emisor común que se observa a continuación que si bien  cuenta con varios problemas estos van  a ser sorteados en las siguientes lineas.
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.7\textwidth]{ImagenesGain-Stage/ec1.png}
@@ -14,7 +14,7 @@ El primer diseño que se pensó fue un emisor común que se observa a continuaci
 \end{figure}
 
 El primer problema que se afrontó fue el de limitar la ganancia de altas frecuencias.
-Para esto se introduce una linea de realimentación negativa utilizando $C_{dom}$ el cual limita la ganancia de altas frecuencia y así asegurar la estabilidad.
+Para esto se introduce una linea de realimentación negativa utilizando $C_{dom}$ el cual limita la ganancia de altas frecuencia y así asegura mayor estabilidad.
  \begin{figure}[H]
 \centering
 	\includegraphics[width=0.7\textwidth]{ImagenesGain-Stage/ec2.png}
@@ -22,13 +22,13 @@ Para esto se introduce una linea de realimentación negativa utilizando $C_{dom}
 	\label{fig:ec2}
 \end{figure}
 En cuanto al cálculo de $C_{in}$ o $C_{out}$ se buscó que la impedancia para frecuencias medias sea despreciable frente a la impedancia vista desde el colector o la base.\\
-Para el caso de $C_{Dom}$ se eligió un valor tal que las altas frecuencias vean una impedancia baja comparada con la entrada del emisor comun, cosa de que ``ignore'' la etapa de ganancia.\\
+Para el caso de $C_{Dom}$ se eligió un valor tal que las altas frecuencias vean un camino de baja impedancia comparado con la entrada del emisor común. De esta manera, las frecuencias altas no serán amplificadas.\\
 Es importante que la ganancia a lazo abierto del VAS sea alta, así este puede ser linealizado. Si se intenta aumentar la ganancia del emisor común, se sabe que la ganancia de este está descripto por la ecuación:
 \begin{align}
 A_{vs}=\frac{-R_D}{R_E}
 \end{align}
-Por lo que si se quiere subir la ganancia puede subirse el valor de $R_C$, pero esto dado una ic determinada por la  malla de entrada, provocara que caiga mas tensión sobre la resistencia $R_C$ y asi consuma un valor de potencia mucho mas elevado. Una manera de asegurar una gran ganancia es utilizar una carga activa con una fuente de corriente, así suministrando la corriente necesaria, y mostrando una alta imepdancia. \\
-Ademas se optó por utilizar un acople por fuente de corriente en vez de uno capacitivo con la idea de no introducir singularidades no deseadas en el circuito.
+Por lo que si se quiere subir la ganancia puede subirse el valor de $R_C$, pero esto dado una $I_c$ determinada por la  malla de entrada, provocará que caiga más tensión sobre la resistencia $R_C$ y así consuma un valor de potencia mucho más elevado. Una manera de asegurar una gran ganancia es utilizar una carga activa con una fuente de corriente, así suministrando la corriente necesaria, y mostrando una alta impedancia. \\
+Además, se optó por utilizar un acople por fuente de corriente en vez de uno capacitivo con la idea de no introducir singularidades no deseadas en el circuito.
  \begin{figure}[H]
 \centering
 	\includegraphics[width=0.7\textwidth]{ImagenesGain-Stage/ec3.png}
@@ -48,7 +48,7 @@ R_E=\frac{I_{Rb}\cdot R_{B2}-2V_{be}}{I_c}=120\Omega
 \begin{align}
 R_{B1}= \frac{V_{cc}+V_{ee}-I_{Rb}\cdot R_{B2}}{I_{Rb}}
 \end{align}
-Luego para la fuente compensada, se tomo un valor de $R_p$ para asegurar la estabilidad de polarización de los diodos zener, poniendo una corriente de 5mA, y la resistencia Rcc, tal que suministre los 10mA al colector del transistor.
+Luego para la fuente compensada, se tomo un valor de $R_p$ para asegurar la estabilidad de polarización de los diodos zener, poniendo una corriente de $5 \ mA$, y la resistencia $R_{cc}$, tal que suministre los $10 \ mA$ al colector del transistor.
 \begin{align}
 R_p = \frac{V_{cc}-2V_{be}}{I_z}=3k3\Omega
 \end{align}
@@ -59,16 +59,16 @@ También se obtiene el parámetro de la impedancia de salida de la fuente compen
 \begin{align}
 R_{of} = (R_cc // hie^*)+(1+hfe^* )\cdot rce
 \end{align}
-En cuanto a la compensación por corriente se opto por el transistor LSK489B  debido a que puede manejar el rango de tensiones de la salida y puede proveer una corriente suficiente, en cuanto a la  elección de la resistencia del Jfet, se consideraron los parametros $V_p \ , \ I_{dss}$.
+En cuanto a la compensación por corriente se optó por el transistor LSK489B  debido a que puede manejar el rango de tensiones de la salida y puede proveer una corriente suficiente, en cuanto a la  elección de la resistencia del Jfet, se consideraron los parametros $V_p \ , \ I_{dss}$.
 \begin{align}
 I_D=-\frac{V_{GS}}{R_j}
 \end{align}
-El valor de la corriente de drain que se necesitará será la corriente la cual se fugaría del VAS hacia la etapa de salida al no estar presente el capacitor, la cual es de un valor de 4.2mA
+El valor de la corriente de drain que se necesitará será la corriente la cual se fugaría del VAS hacia la etapa de salida al no estar presente el capacitor, la cual es de un valor de $4.2 \ mA$.
 \begin{align}
 I_D= I_{DSS} \cdot \left(1-\frac{V_{GS}}{V_P} \right)^2
 \end{align}
-De aquí se obtiene $R_j = 100\Omega$\\
-Como última consideración se optó por poner 3 etapas amplificadoras como la de la figura (\ref{fig:ec1}) previo al diseño (\ref{fig:ec3}) con la intención de aumentar la ganancia del bloque A tal valga la aproximación del parámetro estabilizante  a $\frac{1}{\beta}$ 
+De aquí se obtiene $R_j = 100 \ \Omega$.\\
+Como última consideración se optó por poner 3 etapas amplificadoras como la de la Figura (\ref{fig:ec1}) previo al diseño de la Figura (\ref{fig:ec3}) con la intención de aumentar la ganancia del bloque A tal  que valga que $\alpha \cdot \beta \gg 1$ dado que $\beta$ será de un valor muy pequeño para lograr llegar a disipar como máximo $1 \ kW$ sobre la carga.
 %\begin{align}
 %\end{align}
 \end{document}
