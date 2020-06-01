@@ -21,6 +21,8 @@ Para esto se introduce una linea de realimentación negativa utilizando $C_{dom}
 	\caption{Segundo diseño Emisor Común}
 	\label{fig:ec2}
 \end{figure}
+En cuanto al cálculo de $C_{in}$ o $C_{out}$ se buscó que la impedancia para frecuencias medias sea despreciable frente a la impedancia vista desde el colector o la base.\\
+Para el caso de $C_{Dom}$ se eligió un valor tal que las altas frecuencias vean una impedancia baja comparada con la entrada del emisor comun, cosa de que ``ignore'' la etapa de ganancia.\\
 Es importante que la ganancia a lazo abierto del VAS sea alta, así este puede ser linealizado. Si se intenta aumentar la ganancia del emisor común, se sabe que la ganancia de este está descripto por la ecuación:
 \begin{align}
 A_{vs}=\frac{-R_D}{R_E}
@@ -33,6 +35,7 @@ Ademas se optó por utilizar un acople por fuente de corriente en vez de uno cap
 	\caption{Tercer diseño Emisor Común}
 	\label{fig:ec3}
 \end{figure}
+
 Para la fuente de corriente de la carga activa se optó por utilizar una fuente compensada. Mientras que para el acomple se utilizó una fuente implementada con JFET, debido a que en esa zona el circuito tiene la máxima variación de tensión, lo cual si se hubiese implementado con una fuente con BJT podría tener problemas de Saturación / Corte.\\
 El transistor se le impuso una tensión de VCE de $\frac{V_{cc}+V_{ee}}{2}$ al igual que un valor de corriente Ic = 10mA, al igual que optar por una resistencia de emisor baja.\\
 Los valores utilizados para el circuito responden a las siguientes ecuaciones:
@@ -64,7 +67,8 @@ El valor de la corriente de drain que se necesitará será la corriente la cual 
 \begin{align}
 I_D= I_{DSS} \cdot \left(1-\frac{V_{GS}}{V_P} \right)^2
 \end{align}
-De aquí se obtiene $R_j = 100\Omega$
+De aquí se obtiene $R_j = 100\Omega$\\
+Como última consideración se optó por poner 3 etapas amplificadoras como la de la figura (\ref{fig:ec1}) previo al diseño (\ref{fig:ec3}) con la intención de aumentar la ganancia del bloque A tal valga la aproximación del parámetro estabilizante  a $\frac{1}{\beta}$ 
 %\begin{align}
 %\end{align}
 \end{document}
