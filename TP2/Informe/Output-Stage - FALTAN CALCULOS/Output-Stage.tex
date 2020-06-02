@@ -95,6 +95,12 @@ R_{diod} = \frac{0.7 \ V}{20 \ mA} = 3k3 \ \Omega
 
 \subsubsection{Resistor sumidero de corriente}
 
-Por esta resistencia fluirá la resta de corrientes entre la proporcionada por la fuente de corriente compensada descrita anteriormente y la fuente de corriente JFET, la cual cumple la función de acople entre el VAS y la etapa de salida, y de ajuste de continua en la carga. Se tiene luego que 
+Por esta resistencia fluirá la resta de corrientes entre la proporcionada por la fuente de corriente compensada descrita anteriormente y la fuente de corriente JFET, la cual cumple la función de acople entre el VAS y la etapa de salida, y de ajuste de continua en la carga. Se tiene luego que $7 \ mA - 5 \ mA = 2 \ mA$. Luego,
+
+\begin{equation}
+R = \frac{V_{output_{max}}}{I_R} = \frac{45 \ V}{2 \ mA} = 22.5 \ k\Omega 
+\end{equation} 
+
+Sin embargo, se comprobó empíricamente mediante simulaciones que un valor de $R = 25 \ k\Omega$ decrece la distorsión armónica sin comprometer mucho el funcionamiento.
 
 \end{document}
