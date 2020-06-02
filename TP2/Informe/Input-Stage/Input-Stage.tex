@@ -1,7 +1,3 @@
-\input{../Informe/Header.tex}
-
-\begin{document}
-
 \subsection{Introducción}
 
 La etapa de entrada de un amplificador cumple con la función de restar a la entrada la señal proveniente de la realimentación, para así obtener la señal deseada de error, a partir de la cual se confecciona la salida del sistema.
@@ -11,8 +7,6 @@ La etapa de entrada de un amplificador cumple con la función de restar a la ent
 La distorsión puede ser provocada o provenir de distintas fuentes. Los amplificadores que se valen del uso de pares diferenciales como entrada se caracterizan por poseer un bajo offset de continua, dado a la cancelación de los voltages de $V_{BE}$. Pero mucho más notorio e importante es que la corriente de mantenimiento no atraviesa la red de realimentación. Finalmente, una ventaja también a destacar es que posee una linealidad superior a las entradas basadas en un solo transistor. Se puede observar la comparación de distorsión entre una etapa diferencial frente a una individual en la Figura (\ref{fig:thd1}).
 
 Es muy importante reflejar que esta etapa debe la que posee la mínima distorsión, por sobre las demás, ya que las señales que maneja son pequeñas, dándose el aumento de estas en la etapa de amplificación.    
-
-%, trim = {0 0 0 20},clip
 \begin{figure}[H]
 \centering
 	\includegraphics[width=0.6\textwidth]{ImagenesInput-Stage/thd1.PNG}
@@ -57,14 +51,10 @@ La corriente de mantenimiento a la entrada es uno de los parámetros que define 
 
 A pesar de ello, existen límites para esta corriente. El aumento de las corrientes de bias, como la caída de tensión a través de las resistencias son algunos ejemplos. El factor más limitante es la potencia disipada a lo largo de esta etapa, ya que no siempre deja margen para incrementar la $I_C$. 
 
-%Se colocó un buffer a ambas salidas del par diferencial. De esta forma se garantiza que las impedancias vistas a la salida de la etapa de entrada son pequeñas y se consigue una mejor adaptación de cargas.
-
 \subsection{Ruido}
 El ruido existente en la etapa de entrada surge de los componentes activos y las resistencias que se presentan en la entrada. Las condiciones de operación de los transistores se encuentran limitadas por los factores de SR y linealidad. Por otro lado, ya que el ruido es una función que dependen de $I_C$, bastan con ajustar dicho parámetro para poder reducir el ruido. 
 
-Además de reducir las resistencias existentes en la etapa de entrada para así reducir el ruido térmico existente, es posible realizar el mismo efecto haciendo lo mismo con la resistencia observada a la salida del lazo de realimentación negativa. Este último paso es más delicado ya que puede generar grandes cambios en el sistema. 
-
-%Noise performance is, however, closely bound up with source impedance, and we need to define this before device selection.
+Además de reducir las resistencias existentes en la etapa de entrada para así reducir el ruido térmico existente, es posible realizar el mismo efecto haciendo lo mismo con la resistencia observada a la salida del lazo de realimentación negativa. Este último paso es más delicado ya que puede generar grandes cambios en el sistema.
 
 \subsection{Limitación en banda}
 Se sabe que  existen etapas que acumulan cambios de la fase, siendo estas las altas frecuencias, las cuales tienden a ser más inestables y generar oscilaciones. Es así que se puede llegar a dañar los dispositivos a la salida del sistema por sobrecalentamiento, entre otros motivos. Esto es causado por la distorsión del amplificador y el incremento de la ganancia de lazo abierto. Limitar en banda esta ganancia evita que la señal del realimentador.
@@ -95,8 +85,5 @@ $\mathbf{I_O}$ & $\mathbf{R}$  & $\mathbf{R_C}$ & $\mathbf{R_E}$ \\	\hline
 $-9.12 \ mA$   & $68 \ \Omega$ & $2 \ k\Omega$  & $1 \ k\Omega$ \\
 \hline
 \end{tabular}
-\caption{Parametros de la etapa de entrada.}
+\caption{Parámetros de la etapa de entrada.}
 \end{table}
-
-
-\end{document}
