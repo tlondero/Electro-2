@@ -47,7 +47,7 @@ Si bien, seleccionando adecuadamente las resistencias del circuito se puede bala
 \label{tab:thd2}
 \end{table}
 
-Una opción valida (e implementada en este diseño) se basa en el uso de resistencias en los emisores para ajustar dicho parámetro. Es importante recordar que dichos elementos no deben ser lo suficientemente grandes como para que afecte el ruido térmico\footnote{D. Self, Audio Power Amplifier Design Handbook, 5ta ed. Kidlington: Elsevier Science, 2014.}.
+Una opción valida (e implementada en este diseño) se basa en el uso de una fuente de corriente compensada para polarizar el par. Además, se emplean resistencias en los emisores para ajustar dicho parámetro. Es importante recordar que dichos elementos no deben ser lo suficientemente grandes como para que afecte el ruido térmico\footnote{D. Self, Audio Power Amplifier Design Handbook, 5ta ed. Kidlington: Elsevier Science, 2014.}.  
 
 \subsection{Linealidad y corriente de colector}
 
@@ -69,6 +69,34 @@ Además de reducir las resistencias existentes en la etapa de entrada para así 
 \subsection{Limitación en banda}
 Se sabe que  existen etapas que acumulan cambios de la fase, siendo estas las altas frecuencias, las cuales tienden a ser más inestables y generar oscilaciones. Es así que se puede llegar a dañar los dispositivos a la salida del sistema por sobrecalentamiento, entre otros motivos. Esto es causado por la distorsión del amplificador y el incremento de la ganancia de lazo abierto. Limitar en banda esta ganancia evita que la señal del realimentador.
 
-%Se busca eliminar este problema limitando en banda la salida de la etapa que se está tratando. Se colocan filtros pasa bajos y pasa altos tanto a la entrada de la etapa de entrada, limitando así las frecuencias entrantes.
+\subsection{Calculo de componentes}
+Para poder seleccionar los elementos y parámetros que componen la etapa de entrada, se comenzó recorriendo la malla del par. Fijando las caídas de tensión $V_{CE} = 10 \ V$ , se obtiene:
+\begin{equation}
+	15 \ V - \frac{I_O}{2} R_C - 10 \ V - 10 \ V - 0.7 \ V + 15 \ V = 0
+\end{equation}
+
+Ya que see polariza ambos transistores por una fuente de corriente compensada, se obtiene para esa configuración la siguiente ecuación:
+\begin{equation}
+	-15 \ V - 2V_{D} + V_{BE} + 15 \ V = I_O R 
+\end{equation}
+
+Además, se coloca un preset en los emisores del par para poder ajustar la corriente que circula, en caso de ser necesario. Dado esto último, la ganancia del par diferencial con el preset viene dada por la expresión:
+\begin{equation}
+	\Delta V_D = \frac{h_{fe} R_D}{2 h_{ie} + h_{fe} R_V} = \frac{R_D}{2 \frac{V_T}{I_C} + R_V}
+\end{equation}
+
+Sabiendo que la resistencia del colector se encuentra en paralelo con una resistencia de $390 \ \Omega$, y mediante el uso de las ecuaciones previamente mencionadas, se obtienen los siguientes valores de interés:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\hline
+$\mathbf{I_O}$ & $\mathbf{R}$  & $\mathbf{R_C}$ & $\mathbf{R_E}$ \\	\hline
+$-9.12 \ mA$   & $68 \ \Omega$ & $2 \ k\Omega$  & $1 \ k\Omega$ \\
+\hline
+\end{tabular}
+\caption{Parametros de la etapa de entrada.}
+\end{table}
+
 
 \end{document}

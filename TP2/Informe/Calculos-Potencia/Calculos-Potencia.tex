@@ -4,4 +4,17 @@
 
 \subsection{Introducción}
 
+\subsection{Simulación de  rendimiento}
+El rendimiento esta definido como:
+\begin{align}
+\eta = \frac{P_{RL}}{P_{vcc}+P_{vee}}
+\end{align}
+Teniendo en cuenta que la potencia para las señales senoidales se toma la potencia eficaz, siendo esta:
+\begin{align}
+P_{R}=V_{R-RMS}\cdot I_{R-RMS} =\frac{\hat{V_{R}}}{\sqrt{2}} \cdot \frac{\hat{I_{R}}}{\sqrt{2}}
+\end{align}
+Finalmente fue simulado el rendimiento obteniendo los siguientes valores:
+\begin{align}
+\eta=\frac{1083 / 2 W}{ 2\cdot 18 W + 2 \cdot 690 /2}\approx 74.5 \%
+\end{align}
 \end{document}
