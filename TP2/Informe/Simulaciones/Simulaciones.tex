@@ -91,6 +91,22 @@ Finalmente se obtuvo el Bode del sistema como se observa a continuación:
 	\caption{Bode del sistema.}
 	\label{fig:bode}
 \end{figure}
-Donde se puede apreciar una caida de 3dB respecto a la banda pasante tanto en 20Hz como en 20KHz
+Donde se puede apreciar una caida de 3dB respecto a la banda pasante tanto en 20Hz como en 20KHz.\\
+También se simuló la impedancia tanto de entrada como de salida.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{ImagenesSimulaciones/Zin.png}
+	\caption{Impedancia de entrada del sistema.}
+	\label{fig:zin}
+\end{figure}
+Se puede notar que la impedancia de entrada en la banda audible es de 50K$\Omega$
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{ImagenesSimulaciones/Zout.png}
+	\caption{Impedancia de salida del sistema.}
+	\label{fig:zout}
+\end{figure}
+La impedancia de salida es un valor cercano del orden de las decenas de  m$\Omega$, idealmente sería de 8 $\Omega$ para que haya máxima transferencia de Potencia.
+Como también se midió la THD en la simulación obteniendo un valor de 0.400742$\%$ cuando se disipa la máxima potencia.
 %%Bode
 \end{document}
