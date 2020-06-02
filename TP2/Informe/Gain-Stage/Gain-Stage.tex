@@ -65,8 +65,10 @@ El valor de la corriente de drain que se necesitará será la corriente la cual 
 \begin{align}
 I_D= I_{DSS} \cdot \left(1-\frac{V_{GS}}{V_P} \right)^2
 \end{align}
+
 De aquí se obtiene $R_j \approx 65 \ \Omega$.\\
-Esta resistencia es de especial importancia dado que controla el nivel de continua sobre la carga, por lo que se optó por utilizar un trimmer para poder compensar el circuito para el caso de que haya variación en los componentes.
+La fuente de corriente de acople posee además una segunda característica. Esta permite no solo regular el nivel de continua de reposo a la salida de cada clase AB, sino también el nivel de continua de reposo sobre la carga. Basta que ambas salidas en reposo sean iguales para que la continua de reposo sobre la carga sea nula, sin embargo, si no se compensa correctamente con esta fuente el nivel de continua en reposo a la salida de cada clase AB, se consumirá una gran potencia lo que disminuirá considerablemente el rendimiento del amplificador, por más que los parlantes no se dañen debido a la simetría del circuito.
+
 Como última consideración se optó por poner 3 etapas amplificadoras como la de la Figura (\ref{fig:ec1}) previo al diseño de la Figura (\ref{fig:ec3}) con la intención de aumentar la ganancia del bloque A tal  que valga que $\alpha \cdot \beta \gg 1$ dado que $\beta$ será de un valor muy pequeño para lograr llegar a disipar como máximo $1 \ kW$ sobre la carga.
 
 
