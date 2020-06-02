@@ -4,7 +4,7 @@
 
 \subsection{Introducción}
 
-La etapa de salida de un amplificador de audio se encarga de entregar la corriente necesaria a la carga para conseguir la característica de potencia buscada en el amplificador; sin así distorsionar demasiado a la señal, para preservar el THD para la cual se trabajó tanto para disminuir en las etapas anteriores.
+La etapa de salida de un amplificador de audio se encarga de entregar la corriente necesaria a la carga para conseguir la característica de potencia buscada en el amplificador; sin así distorsionar demasiado a la señal, para preservar el THD para el cual se trabajó tanto para disminuir en las etapas anteriores.
 
 Por un lado, se puede utilizar tecnología FET, sin embargo, estos presentan muy pocas ventajas frente a desventajas con otras tecnologías. Una alternativa aún utilizada son las válvulas, que quedan descartadas al no ser relevante en este trabajo. Otra alternativa, mucho más popular, es usar tecnología BJT, la cual será nuestra opción. 
 
@@ -34,7 +34,7 @@ Otra configuración involucra los pares Sziklai, Quasi-Darlington o también lla
 
 Una topología la cual en el pasado era casi obligatoria por la falta de transistores PNP de potencia complementarios a los NPN, es la casi complementaria. En esta configuración solamente se reemplaza por un par Quasi-Darlington a los transistores PNP. Esta topología presenta una linealidad mucho menor y no será utilizada, aunque existen varios arreglos a la simetría, como por ejemplo utilizando un diodo de Baxandall.
 
-Naturalmente surge al analizar estas etapas de salida la idea de colocar tres transistores en cascada, o más. De ahí surge la topología basada en triples, como la Triple EF. Esta configuración presenta mayor linealidad a alta potencias, un punto Q más estable para los transistores \textit{pre-drivers}, los que proporcionan la corriente a los drivers, debido a que estos manejarán una corriente menor y disiparán menor potencia. Además, al poseer una ganancia de corriente mayor, la etapa de ganancia de tensión deberá proporcionar corrientes menores. En la Figura (\ref{triples}) se observan distintas configuraciones triples posibles.
+Naturalmente surge al analizar estas etapas de salida la idea de colocar tres transistores en cascada, o más. De ahí surge la topología basada en triples, como la Triple EF. Esta configuración presenta mayor linealidad a alta potencias, un punto Q más estable para los transistores \textit{pre-drivers}, los que proporcionan la corriente a los drivers, debido a que estos manejarán una corriente menor y disiparán menor potencia. Además, al poseer una ganancia de corriente mayor, la etapa de ganancia de tensión deberá proporcionar corrientes menores. En la Figura (\ref{fig:triples}) se observan distintas configuraciones triples posibles.
 
 %, trim = {0 0 0 20},clip
 \begin{figure}[H]
@@ -45,7 +45,7 @@ Naturalmente surge al analizar estas etapas de salida la idea de colocar tres tr
 \end{figure}
 
 \subsubsection{Topología Utilizada}
-Debido a la alta potencia que se deberá disipar sobre la carga, que al ser de tan solo $8 \ \Omega$ provoca corrientes muy grandes, se decidió utilizar una topología basadas en triples como las de la Figura (\ref{fig:triples}). Esto permite, como ya descrito antes, utilizar transistores de baja potencia como pre-drivers que tanto permanezcan a una temperatura estable como posean una pequeña excursión en corriente, lo que aumenta la linealidad de la etapa de salida. Luego, el transistor driver y de salida serán de potencia. Se utilizará una configuración con pares de realimentación para aumentar aún más la linealidad.
+Debido a la alta potencia que se deberá disipar sobre la carga, que al ser de tan solo $8 \ \Omega$ provoca corrientes muy grandes, se decidió utilizar una topología basadas en triples detallado en la Figura (\ref{fig:triples}). Esto permite, como ya descrito antes, utilizar transistores de baja potencia como pre-drivers que tanto permanezcan a una temperatura estable como posean una pequeña excursión en corriente, lo que aumenta la linealidad de la etapa de salida. Luego, el transistor driver y de salida serán de potencia. Se utilizará una configuración con pares de realimentación para aumentar aún más la linealidad.
 
  %, trim = {0 0 0 20},clip
 \begin{figure}[H]
@@ -60,7 +60,7 @@ Como la potencia disipada será muy alta, se decidió utilizar además una técn
 
 \subsubsection{Generador de Bias}
 
-Para el generador de bias se utilizó inicialmente un multiplicador de Vbe compuesto por dos resistencias y un transistor. Sin embargo, resultados experimentales demostraron que este generador de bias fallaba en mantener una tensión constante de bias frente a las grandes variaciones de corriente que egresaban de la etapa de salida. Debido a esto, se utilizó un par de realimentación compensado en vez del transistor, lo cual aumenta el beta total, logrando generar una tensión de bias con una fluctuación alrededor de cien veces menor.
+Para el generador de bias se utilizó inicialmente un multiplicador de Vbe compuesto por dos resistencias y un transistor. Sin embargo, resultados experimentales demostraron que este generador de bias fallaba en mantener una tensión constante de bias frente a las grandes variaciones de corriente que egresaban de la etapa de salida. Debido a esto, se utilizó un par de realimentación compensado en vez del transistor, lo cual aumenta el beta total, logrando generar una tensión de bias con una fluctuación alrededor de diez veces menor.
 
  %, trim = {0 0 0 20},clip
 \begin{figure}[H]
@@ -70,8 +70,31 @@ Para el generador de bias se utilizó inicialmente un multiplicador de Vbe compu
 	\label{fig:bias}
 \end{figure}
 
+La corriente que fluye por las resistencias $R_1$ y $R_2$ está gobernada por tanto la caída de $V_{be}$ como por el valor de $R_2$. Imponiendo una corriente de $2 \ mA$ para estas resistencias, se tiene que
+
+\begin{equation}
+I_R = \frac{0.6 \ V}{2 \ mA} = 300 \ \Omega
+\end{equation}
+
+Luego, dado que se encuentran seis caídas de $V_{be}$, lo cual equivale a $4.2 \ V$, se decidió para poder ajustar el nivel de corriente de reposo de los transistores de salida, tomar ese valor como central y con un trimmer brindar una excursión bilateral frente este valor central. Si el trimmer se coloca en la posición de menor resistencia, habrá una gran distorsión de crossover, mientras que si se coloca en la posición de mayor resistencia habrá una gran corriente de reposo. Teniendo esto en cuenta, se tiene que $R_2 = R_{2-fija} + R_{2-trimmer}$. $R_{2-fija} = 1.5 \ k\Omega$ y $R_{2-trimmer} = 500 \ \Omega$ nominales. Esto hará que
+
+\begin{equation}
+3.6 \ V < V_{bias} < 4.6 \ V
+\end{equation} 
+
 \subsubsection{Fuente de corriente}
 
-Finalmente, se utilizó una fuente de corriente compensada simple en vez de una resistencia para no limitar por corriente a la máxima potencia sin recorte a la salida. Esta fuente de corriente será la que provea de corriente a tanto el generador de Bias como a los transistores pre-driver de salida.
+Finalmente, se utilizó una fuente de corriente compensada simple en vez de una resistencia para no limitar por corriente a la máxima potencia sin recorte a la salida. Esta fuente de corriente será la que provea de corriente a tanto el generador de Bias como a los transistores pre-driver de salida. Para el valor de la fuente de corriente se decidió utilizar $7 \ mA$ dado que eso brinda suficiente margen entre la corriente de base del transistor pre-driver ($\approx 1 \ mA$) y el generador de bias. Se cedieron alrededor de $6 \ mA$ al generador de bias para no solo dejar una buena corriente de colector en los transistores, sino también dejar una corriente sobre las resistencias para que valga la aproximación de divisor resistivo. Se obtuvo entonces que la resistencia que fija la corriente de la compensada es
+\begin{equation}
+R_{curr} = \frac{0.7 \ V}{7 \ mA} = 100 \ \Omega
+\end{equation}
+Finalmente para polarizar correctamente los diodos, como se colocaron cuatro transistores en paralelo a estos, se impuso una corriete mayor a la habitual, de $20 \ mA$. Obteniendo así
+\begin{equation}
+R_{diod} = \frac{0.7 \ V}{20 \ mA} = 3k3 \ \Omega
+\end{equation}
+
+\subsubsection{Resistor sumidero de corriente}
+
+Por esta resistencia fluirá la resta de corrientes entre la proporcionada por la fuente de corriente compensada descrita anteriormente y la fuente de corriente JFET, la cual cumple la función de acople entre el VAS y la etapa de salida, y de ajuste de continua en la carga. Se tiene luego que 
 
 \end{document}
