@@ -1,0 +1,29 @@
+\input{Header-Stda.tex}
+
+\begin{document}
+
+\begin{page}
+\begin{circuitikz}[european voltages]
+
+	\node[](begin){};
+	\draw
+		(begin.center) -- ++ (0,1) node[vcc]{$+15 \ V$}
+		(begin.center) -- (-2,0) to[R, l=$R_{105}$] ++(0,-2) node[npn, anchor = C, label=right:$Q_{65}$](q65){}
+		(begin.center) -- (2,0) to[R, l_=$R_{106}$] ++(0,-2) node[npn, anchor = C, xscale = -1, label=left:$Q_{66}$](q66){}	
+		
+		(q65.B) -- ++ (-1,0) node[ocirc, label=above:$+ In$](){}
+		(q66.B) -- ++ (1,0) node[ocirc, label=above:$- In$](){}
+		
+		(q65.E) -- ++ (0,-2) to[R, l=$R_{107}$] ++ (2,0) node[](aux1){}
+		(q66.E) -- ++ (0,-2) to[R, l_=$R_{108}$] ++ (-2,0)
+		
+		(aux1.center) -- ++ (0,-2) node[npn, anchor = C, xscale=-1, label=left:$Q_{9}$](q9){}
+		(q9.E) to[R, l_=$R_{30}$] ++ (0,-2) -- ++(1,0) node[](aux2){}
+		(q9.B) -| ++ (1,-0.25) to[D, l=$D_{19}$] ++(0,-1) to[D, l=$D_{20}$] ++(0,-1) |- (aux2.center) -- ++ (0,-1) node[vee]{$-15 \ V$}
+		(q9.B) ++ (1,0) to[R, l=$R_{31}$] ++ (0,2) node[vcc, label=right:$+15 \ V$]{}
+	;	
+
+\end{circuitikz}
+\end{page}
+			
+\end{document}
