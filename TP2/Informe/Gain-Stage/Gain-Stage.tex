@@ -1,8 +1,10 @@
-
+%\input{../Informe/Header.tex}
+%
+%\begin{document}
 
 \subsection{Introducción}
 La etapa de amplificación de tensión (o VAS) a menudo es considerada como la etapa más crítica de un amplificador de potencia , dado que no solo provee la ganancia de tensión sino que también debe manejar todo el rango de la tensión de salida. Esto indicaría que puede jugar un rol significativo en la distorsión armónica de la señal, sin embargo un VAS bien diseñado contribuye relativamente poco a la distorsión total, e incluso si se tomasen pasos extra para intentar linealizar aún más la salida, estas contribuciones comparadas con las hechas en una etapa de entrada, son completamente despreciables.\\
-
+\subsection{Diseños propuestos}
 El primer diseño que se pensó fue un emisor común que se observa a continuación que si bien  cuenta con varios problemas estos van  a ser sorteados en las siguientes lineas.
 \begin{figure}[H]
 \centering
@@ -67,8 +69,18 @@ I_D= I_{DSS} \cdot \left(1-\frac{V_{GS}}{V_P} \right)^2
 De aquí se obtiene $R_j \approx 65 \ \Omega$.\\
 La fuente de corriente de acople posee además una segunda característica. Esta permite no solo regular el nivel de continua de reposo a la salida de cada clase AB, sino también el nivel de continua de reposo sobre la carga. Basta que ambas salidas en reposo sean iguales para que la continua de reposo sobre la carga sea nula, sin embargo, si no se compensa correctamente con esta fuente el nivel de continua en reposo a la salida de cada clase AB, se consumirá una gran potencia lo que disminuirá considerablemente el rendimiento del amplificador, por más que los parlantes no se dañen debido a la simetría del circuito.
 
-Como última consideración se optó por poner 3 etapas amplificadoras como la de la Figura (\ref{fig:ec1}) previo al diseño de la Figura (\ref{fig:ec3}) con la intención de aumentar la ganancia del bloque A tal  que valga que $\alpha \cdot \beta \gg 1$ dado que $\beta$ será de un valor muy pequeño para lograr llegar a disipar como máximo $1 \ kW$ sobre la carga.
+Como última consideración se optó por poner 3 etapas amplificadoras como la de la Figura (\ref{fig:ec1}) previo al diseño de la Figura (\ref{fig:ec3}) con la intención de aumentar la ganancia del bloque A tal  que valga que $\alpha \cdot \beta \gg 1$ dado que $\beta$ será de un valor muy pequeño para lograr llegar a disipar como máximo $1.5 \ kW$ sobre la carga.
+Con esto dicho la tension sobre los $V_{ce}$ serán:\\
+Para el transisitor con carga activa:
+\begin{align}
+V_{ce-ec-rms}= V_{ce-cc}+\frac{ \hat{V_o}}{\sqrt{2}}\approx 
+\end{align}
+Para la carga activa será:
+\begin{align}
+V_{ce-load-rms}= V_{cc}-I_C-\frac{\hat{V_{ce-ec}}}{\sqrt{2}}\approx
+\end{align}
 
 
 %\begin{align}
 %\end{align}
+%\end{document}
