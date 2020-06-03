@@ -61,6 +61,14 @@ Además de reducir las resistencias existentes en la etapa de entrada para así 
 Se sabe que  existen etapas que acumulan cambios de la fase, siendo estas las altas frecuencias, las cuales tienden a ser más inestables y generar oscilaciones. Es así que se puede llegar a dañar los dispositivos a la salida del sistema por sobrecalentamiento, entre otros motivos. Esto es causado por la distorsión del amplificador y el incremento de la ganancia de lazo abierto. Limitar en banda esta ganancia evita que la señal del realimentador.
 
 \subsection{Calculo de componentes}
+La disposición establecida para la etapa de entrada es la siguiente:
+\begin{figure}[H]
+\centering
+	\includegraphics[width=0.5\textwidth, page=1]{ImagenesInput-Stage/Input.pdf}
+	\caption{Etapa de entrada.}
+	\label{fig:input}
+\end{figure}
+
 Para poder seleccionar los elementos y parámetros que componen la etapa de entrada, ya que se polariza ambos transistores por una fuente de corriente compensada, se comenzó por dicha fuente, para así obtener la siguiente ecuación:
 \begin{equation}
 	-15 \ V - 2V_{D} + V_{BE} + 15 \ V = I_O R_{30} 
