@@ -63,8 +63,7 @@ Como la potencia disipada será muy alta, se decidió utilizar además una técn
 	\label{fig:output}
 \end{figure}
 
-Las resistencias de emisor de los transistores se seleccionaron de acuerdo al libro Audio Power Amplfier Design Handbook de Douglas Self con un valor de $390 \ \Omega$ para los transistores pre-driver, $180 \ \Omega$ para los transistores driver y $0.1 \ \Omega$ para los transistores de salida.  Luego, se utilizaron los transistores $MJ21194$ y $MJ21193$ debido a su uso en amplificadores de audio comerciales de alta potencia y los transistores $2N5550$ y $2N5401$ para los pre-drivers, que, si bien disipan mucho menos que los demas transistores, poseen una gran caída de tensión $V_{CE}$.
-
+Las resistencias de emisor de los transistores se seleccionaron de acuerdo al libro Audio Power Amplfier Design Handbook de Douglas Self con un valor de $390 \ \Omega$ para los transistores pre-driver, $180 \ \Omega$ para los transistores driver y $0.1 \ \Omega$ para los transistores de salida.  Luego, se utilizaron los transistores \href{https://www.onsemi.com/pub/Collateral/MJ21193-D.PDF}{MJ21194} y \href{https://www.onsemi.com/pub/Collateral/MJ21193-D.PDF}{MJ21193} debido a su uso en amplificadores de audio comerciales de alta potencia y los transistores \href{https://www.onsemi.com/pub/Collateral/2N5550-D.PDF}{2N5550} y \href{https://www.onsemi.com/pub/Collateral/2N5401-D.PDF}{2N5401} para los pre-drivers, que, si bien disipan mucho menos que los demás transistores, poseen una gran caída de tensión $V_{CE}$.
 
 \subsection{Generador de Bias}
 
@@ -92,13 +91,13 @@ Luego, dado que se encuentran seis caídas de $V_{be}$, lo cual equivale a $4.2 
 
 \subsection{Fuente de corriente}
 
-Finalmente, se utilizó una fuente de corriente compensada simple en vez de una resistencia para no limitar por corriente a la máxima potencia sin recorte a la salida. Esta fuente de corriente será la que provea de corriente a tanto el generador de Bias como a los transistores pre-driver de salida. Para el valor de la fuente de corriente se decidió utilizar $7 \ mA$ dado que eso brinda suficiente margen entre la corriente de base del transistor pre-driver ($\approx 1 \ mA$) y el generador de bias. Se cedieron alrededor de $6 \ mA$ al generador de bias para no solo dejar una buena corriente de colector en los transistores, sino también dejar una corriente sobre las resistencias para que valga la aproximación de divisor resistivo. Se obtuvo entonces que la resistencia que fija la corriente de la compensada es
+Finalmente, se utilizó una fuente de corriente compensada simple en vez de una resistencia para no limitar por corriente a la máxima potencia sin recorte a la salida. Esta fuente de corriente será la que provea de corriente a tanto el generador de Bias como a los transistores pre-driver de salida. Para el valor de la fuente de corriente se decidió utilizar $7 \ mA$ dado que eso brinda suficiente margen entre la corriente de base del transistor pre-driver (aproximadamente $1 \ mA$) y el generador de bias. Se cedieron alrededor de $6 \ mA$ al generador de bias para no solo dejar una buena corriente de colector en los transistores, sino también dejar una corriente sobre las resistencias para que valga la aproximación de divisor resistivo. Se obtuvo entonces que la resistencia que fija la corriente de la compensada es
 \begin{equation}
 R_{curr} = \frac{0.7 \ V}{7 \ mA} = 100 \ \Omega
 \end{equation}
 Finalmente para polarizar correctamente los diodos, como se colocaron cuatro transistores en paralelo a estos, se impuso una corriente mayor a la habitual, de $20 \ mA$. Obteniendo así
 \begin{equation}
-R_{diod} = \frac{0.7 \ V}{20 \ mA} = 3k3 \ \Omega
+R_{diod} = \frac{0.7 \ V}{20 \ mA} = 3.3 \ k\Omega
 \end{equation}
 
 \subsection{Resistor sumidero de corriente}
