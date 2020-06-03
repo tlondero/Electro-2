@@ -1,6 +1,3 @@
-\input{../Informe/Header.tex}
-
-\begin{document}
 
 \subsection{Introducción}
 
@@ -45,7 +42,7 @@ Naturalmente surge al analizar estas etapas de salida la idea de colocar tres tr
 \end{figure}
 
 \subsubsection{Topología Utilizada}
-Debido a la alta potencia que se deberá disipar sobre la carga, que al ser de tan solo $8 \ \Omega$ provoca corrientes muy grandes, se decidió utilizar una topología basadas en triples detallado en la Figura (\ref{fig:triples}). Esto permite, como ya descrito antes, utilizar transistores de baja potencia como pre-drivers que tanto permanezcan a una temperatura estable como posean una pequeña excursión en corriente, lo que aumenta la linealidad de la etapa de salida. Luego, el transistor driver y de salida serán de potencia. Se utilizará una configuración con pares de realimentación para aumentar aún más la linealidad.
+Debido a la alta potencia que se deberá disipar sobre la carga, que al ser de tan solo $8 \ \Omega$ provoca corrientes muy grandes, se decidió utilizar una topología basadas en triples detallado en la Figura (\ref{fig:triples}). Esto permite, como ya descrito antes, utilizar transistores de media potencia como pre-drivers que tanto permanezcan a una temperatura estable como posean una pequeña excursión en corriente, lo que aumenta la linealidad de la etapa de salida. Luego, el transistor driver y de salida serán de potencia. Se utilizará una configuración con pares de realimentación para aumentar aún más la linealidad.
 
  %, trim = {0 0 0 20},clip
 \begin{figure}[H]
@@ -56,10 +53,17 @@ Debido a la alta potencia que se deberá disipar sobre la carga, que al ser de t
 \end{figure}
 
 Por otro lado, se utilizaron dos etapas de salida idénticas pero en contra-fase con la carga entre la salida de ambas. Esto permite (debido a que el amplificador diseñado será para una carga mono y no estéreo) duplicar la tensión sobre la carga y así cuadriplicar la potencia disipada sobre esta.
-Como la potencia disipada será muy alta, se decidió utilizar además una técnica muy frecuentemente empleada en amplificadores de audio comerciales, la cual consiste en colocar varios transistores de salida en paralelo, pudiendo haber incluso quince de ellos. El número de transistores en paralelo se decidirá en la sección de potencia.
+Como la potencia disipada será muy alta, se decidió utilizar además una técnica muy frecuentemente empleada en amplificadores de audio comerciales, la cual consiste en colocar varios transistores de salida en paralelo, encontrando en amplificadores profesionales hasta incluso doce de ellos o más. El cálculo del número de pares de transistores en paralelo se detallará en la sección de potencia y serán de 6 pares por lado.
 
+ %, trim = {0 0 0 20},clip
+\begin{figure}[H]
+ \hspace{-1cm}
+	\includegraphics[width=1.1\textwidth]{TEX2.pdf}
+	\caption{Circuito diseñado para la etapa de salida. (Imagen vectorizada)}
+	\label{fig:output}
+\end{figure}
 
-
+Las resistencias de emisor de los transistores se seleccionaron de acuerdo al libro Audio Power Amplfier Design Handbook de Douglas Self con un valor de $390 \ \Omega$ para los transistores pre-driver, $180 \ \Omega$ para los transistores driver y $0.1 \ \Omega$ para los transistores de salida.  Luego, se utilizaron los transistores $MJ21194$ y $MJ21193$ debido a su uso en amplificadores de audio comerciales de alta potencia y los transistores $2N5550$ y $2N5401$ para los pre-drivers, que, si bien disipan mucho menos que los demas transistores, poseen una gran caída de tensión $V_{CE}$.
 
 
 \subsubsection{Generador de Bias}
@@ -80,10 +84,10 @@ La corriente que fluye por las resistencias $R_1$ y $R_2$ está gobernada por ta
 I_R = \frac{0.6 \ V}{2 \ mA} = 300 \ \Omega
 \end{equation}
 
-Luego, dado que se encuentran seis caídas de $V_{be}$, lo cual equivale a $4.2 \ V$, se decidió para poder ajustar el nivel de corriente de reposo de los transistores de salida, tomar ese valor como central y con un trimmer brindar una excursión bilateral frente este valor central. Si el trimmer se coloca en la posición de menor resistencia, habrá una gran distorsión de crossover, mientras que si se coloca en la posición de mayor resistencia habrá una gran corriente de reposo. Teniendo esto en cuenta, se tiene que $R_2 = R_{2-fija} + R_{2-trimmer}$. $R_{2-fija} = 1.5 \ k\Omega$ y $R_{2-trimmer} = 500 \ \Omega$ nominales. Esto hará que
+Luego, dado que se encuentran seis caídas de $V_{be}$, lo cual equivale a $4.2 \ V$, se decidió para poder ajustar el nivel de corriente de reposo de los transistores de salida, tomar ese valor como central y con un trimmer brindar una excursión bilateral frente este valor central. Si el trimmer se coloca en la posición de menor resistencia, habrá una gran distorsión de crossover, mientras que si se coloca en la posición de mayor resistencia habrá una gran corriente de reposo. Teniendo esto en cuenta, y las recomendaciones del libro de Douglas Self, de utilizar un $V_{bias}$ de $3.9 \ V$ para la configuración Triple EF, se tiene que $R_2 = R_{2-fija} + R_{2-trimmer}$. $R_{2-fija} = 1.5 \ k\Omega$ y $R_{2-trimmer} = 500 \ \Omega$ nominales. Esto hará que
 
 \begin{equation}
-3.6 \ V < V_{bias} < 4.6 \ V
+3.6 \ V < V_{bias} = V_{be}\cdot \frac{R_a + R_b}{R_b} < 4.6 \ V
 \end{equation} 
 
 \subsubsection{Fuente de corriente}
@@ -106,5 +110,3 @@ R = \frac{V_{output_{max}}}{I_R} = \frac{45 \ V}{2 \ mA} = 22.5 \ k\Omega
 \end{equation} 
 
 Sin embargo, se comprobó empíricamente mediante simulaciones que un valor de $R = 25 \ k\Omega$ decrece la distorsión armónica sin comprometer mucho el funcionamiento.
-
-\end{document}
