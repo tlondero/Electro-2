@@ -41,7 +41,7 @@ Naturalmente surge al analizar estas etapas de salida la idea de colocar tres tr
 	\label{fig:triples}
 \end{figure}
 
-\subsubsection{Topología Utilizada}
+\subsection{Topología Utilizada}
 Debido a la alta potencia que se deberá disipar sobre la carga, que al ser de tan solo $8 \ \Omega$ provoca corrientes muy grandes, se decidió utilizar una topología basadas en triples detallado en la Figura (\ref{fig:triples}). Esto permite, como ya descrito antes, utilizar transistores de media potencia como pre-drivers que tanto permanezcan a una temperatura estable como posean una pequeña excursión en corriente, lo que aumenta la linealidad de la etapa de salida. Luego, el transistor driver y de salida serán de potencia. Se utilizará una configuración con pares de realimentación para aumentar aún más la linealidad.
 
  %, trim = {0 0 0 20},clip
@@ -66,7 +66,7 @@ Como la potencia disipada será muy alta, se decidió utilizar además una técn
 Las resistencias de emisor de los transistores se seleccionaron de acuerdo al libro Audio Power Amplfier Design Handbook de Douglas Self con un valor de $390 \ \Omega$ para los transistores pre-driver, $180 \ \Omega$ para los transistores driver y $0.1 \ \Omega$ para los transistores de salida.  Luego, se utilizaron los transistores $MJ21194$ y $MJ21193$ debido a su uso en amplificadores de audio comerciales de alta potencia y los transistores $2N5550$ y $2N5401$ para los pre-drivers, que, si bien disipan mucho menos que los demas transistores, poseen una gran caída de tensión $V_{CE}$.
 
 
-\subsubsection{Generador de Bias}
+\subsection{Generador de Bias}
 
 Para el generador de bias se utilizó inicialmente un multiplicador de Vbe compuesto por dos resistencias y un transistor. Sin embargo, resultados experimentales demostraron que este generador de bias fallaba en mantener una tensión constante de bias frente a las grandes variaciones de corriente que egresaban de la etapa de salida. Debido a esto, se utilizó un par de realimentación compensado en vez del transistor, lo cual aumenta el beta total, logrando generar una tensión de bias con una fluctuación alrededor de diez veces menor.
 
@@ -90,7 +90,7 @@ Luego, dado que se encuentran seis caídas de $V_{be}$, lo cual equivale a $4.2 
 3.6 \ V < V_{bias} = V_{be}\cdot \frac{R_a + R_b}{R_b} < 4.6 \ V
 \end{equation} 
 
-\subsubsection{Fuente de corriente}
+\subsection{Fuente de corriente}
 
 Finalmente, se utilizó una fuente de corriente compensada simple en vez de una resistencia para no limitar por corriente a la máxima potencia sin recorte a la salida. Esta fuente de corriente será la que provea de corriente a tanto el generador de Bias como a los transistores pre-driver de salida. Para el valor de la fuente de corriente se decidió utilizar $7 \ mA$ dado que eso brinda suficiente margen entre la corriente de base del transistor pre-driver ($\approx 1 \ mA$) y el generador de bias. Se cedieron alrededor de $6 \ mA$ al generador de bias para no solo dejar una buena corriente de colector en los transistores, sino también dejar una corriente sobre las resistencias para que valga la aproximación de divisor resistivo. Se obtuvo entonces que la resistencia que fija la corriente de la compensada es
 \begin{equation}
@@ -101,7 +101,7 @@ Finalmente para polarizar correctamente los diodos, como se colocaron cuatro tra
 R_{diod} = \frac{0.7 \ V}{20 \ mA} = 3k3 \ \Omega
 \end{equation}
 
-\subsubsection{Resistor sumidero de corriente}
+\subsection{Resistor sumidero de corriente}
 
 Por esta resistencia fluirá la resta de corrientes entre la proporcionada por la fuente de corriente compensada descrita anteriormente y la fuente de corriente JFET, la cual cumple la función de acople entre el VAS y la etapa de salida, y de ajuste de continua en la carga. Se tiene luego que $7 \ mA - 5 \ mA = 2 \ mA$. Luego,
 
