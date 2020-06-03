@@ -62,11 +62,11 @@ También se obtiene el parámetro de la impedancia de salida de la fuente compen
 R_{of} = (R_cc // hie^*)+(1+hfe^* )\cdot rce
 \end{align}
 
-En cuanto a la compensación por corriente se optó por el transistor \href{https://ar.mouser.com/datasheet/2/827/DS_UJ3N065080K3S-1530401.pdf}{UJ3N065080K3S} debido a que puede manejar el rango de tensiones de la salida y puede proveer una corriente suficiente, si bien este era el transistor ideal, el subcircuito encontrado en linea parece no funcionar correctamente por lo que se utilizo el \href{http://www.linearsystems.com/lsdata/datasheets/LSK489_LOW_NOISE,_LOW_CAPACITANCE_MONOLITHIC_DUAL_N-CHANNEL_JFET.pdf}{LSK489B} para la simulación, pero ese transistor sería el utilizado en la realidad. En cuanto a la  elección de la resistencia del Jfet, se consideraron los parámetros $V_p \ , \ I_{dss}$.
+En cuanto a la compensación por corriente se optó por el transistor \href{https://ar.mouser.com/datasheet/2/827/DS_UJ3N065080K3S-1530401.pdf}{UJ3N065080K3S} debido a que puede manejar el rango de tensiones de la salida y puede proveer una corriente suficiente, si bien este era el transistor ideal, el subcircuito encontrado en linea parece no funcionar correctamente por lo que se utilizo el \href{http://www.linearsystems.com/lsdata/datasheets/LSK489_LOW_NOISE,_LOW_CAPACITANCE_MONOLITHIC_DUAL_N-CHANNEL_JFET.pdf}{LSK489B} para la simulación, pero ese transistor sería el utilizado en la realidad. En cuanto a la  elección de la resistencia del Jfet, se consideraron los parámetros $V_p$, $I_{dss}$.
 \begin{align}
 I_D=-\frac{V_{GS}}{R_j}
 \end{align}
-El valor de la corriente de drain que se necesitará será la corriente la cual se fugaría del VAS hacia la etapa de salida al no estar presente el capacitor, la cual es de un valor de $\approx 5 \ mA$.
+El valor de la corriente de drain que se necesitará será la corriente la cual se fugaría del VAS hacia la etapa de salida al no estar presente el capacitor, la cual es de un valor de aproximadamente $5 \ mA$.
 \begin{align}
 I_D= I_{DSS} \cdot \left(1-\frac{V_{GS}}{V_P} \right)^2
 \end{align}
