@@ -1,3 +1,7 @@
+\input{../Informe/Header.tex}
+
+\begin{document}
+
 \subsection{Introducción}
 
 La etapa de entrada de un amplificador cumple con la función de restar a la entrada la señal proveniente de la realimentación, para así obtener la señal deseada de error, a partir de la cual se confecciona la salida del sistema.
@@ -60,30 +64,26 @@ Además de reducir las resistencias existentes en la etapa de entrada para así 
 Se sabe que  existen etapas que acumulan cambios de la fase, siendo estas las altas frecuencias, las cuales tienden a ser más inestables y generar oscilaciones. Es así que se puede llegar a dañar los dispositivos a la salida del sistema por sobrecalentamiento, entre otros motivos. Esto es causado por la distorsión del amplificador y el incremento de la ganancia de lazo abierto. Limitar en banda esta ganancia evita que la señal del realimentador.
 
 \subsection{Calculo de componentes}
-Para poder seleccionar los elementos y parámetros que componen la etapa de entrada, se comenzó recorriendo la malla del par. Fijando las caídas de tensión $V_{CE} = 10 \ V$, se obtiene:
-\begin{equation}
-	15 \ V - \frac{I_O}{2} R_C - 10 \ V - 10 \ V - 0.7 \ V + 15 \ V = 0
-\end{equation}
-
-Ya que se polariza ambos transistores por una fuente de corriente compensada, se obtiene para esa configuración la siguiente ecuación:
+Para poder seleccionar los elementos y parámetros que componen la etapa de entrada, ya que se polariza ambos transistores por una fuente de corriente compensada, se comenzó por dicha fuente, para así obtener la siguiente ecuación:
 \begin{equation}
 	-15 \ V - 2V_{D} + V_{BE} + 15 \ V = I_O R 
 \end{equation}
 
-Además, se coloca un preset en los emisores del par para poder ajustar la corriente que circula, en caso de ser necesario. Dado esto último, la ganancia del par diferencial con el preset viene dada por la expresión:
+Recorriendo la malla del par, se llega a la expresión:
 \begin{equation}
-	\Delta V_D = \frac{h_{fe} R_D}{2 h_{ie} + h_{fe} R_V} = \frac{R_D}{2 \frac{V_T}{I_C} + R_V}
+	15 \ V - I_C R_C - V_{CE} - \frac{R_V}{2} I_C - 2 R I_C + 15 \ V = 0
 \end{equation}
 
-Sabiendo que la resistencia del colector se encuentra en paralelo con una resistencia de $390 \ \Omega$, y mediante el uso de las ecuaciones previamente mencionadas, se obtienen los siguientes valores de interés:
+Además, se coloca un preset en los emisores del par para poder ajustar la corriente que circula, en caso de ser necesario. Dado esto último, la ganancia del par diferencial con el preset viene dada por la expresión:
+\begin{equation}
+	\Delta V_D = \frac{h_{fe} R_D}{2 h_{ie} + h_{fe} R_V} = \frac{R_C}{2 \frac{V_T}{I_C} + R_V}
+\end{equation}
+siendo $I_C = \frac{I_O}{2}$ y $V_T \approx 25 \ mV$.
 
-\begin{table}[H]
-\centering
-\begin{tabular}{cccc}
-\hline
-$\mathbf{I_O}$ & $\mathbf{R}$  & $\mathbf{R_C}$ & $\mathbf{R_E}$ \\	\hline
-$-9.12 \ mA$   & $68 \ \Omega$ & $2 \ k\Omega$  & $1 \ k\Omega$ \\
-\hline
-\end{tabular}
-\caption{Parámetros de la etapa de entrada.}
-\end{table}
+Se selecciona $R_V = 1 \ k\Omega$ ya que este es un valor típico para las resistencias con esta funcionalidad. Se busca que la ganancia de esta etapa sea baja, que no altere mucho la señal (no mayor a $10$ veces) y que los transistores se encuentren bien polarizados. Mediante el uso de las ecuaciones previamente mencionadas, se obtienen los siguientes valores de interés:
+\begin{itemize}
+	\item Para la fuente de corriente: $I_O = -9.41 \ mA$ y $R = 68 \ \Omega$.
+	\item Para la resistencia del colector: $R_C = 2 \ k\Omega$.
+\end{itemize}
+
+\end{document}
