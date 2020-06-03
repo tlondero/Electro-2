@@ -17,26 +17,58 @@ Finalmente fue simulado el rendimiento obteniendo los siguientes valores:
 \begin{align}
 \eta=\frac{1083 / 2 W}{ 2\cdot 18 W + 2 \cdot 690 /2}\approx 74.5 \%
 \end{align}
+
 \subsection{Etapa de ganancia}
-En la etapa de ganancia el transistor que mas disipa potencia en cuanto a la señal en modo incremental es el último transistor de los emisores comunes.\footnote{Los valores de corriente $I_c$ y tensión $V_{ce}$ son los calculados en la etapa de ganancia}
-Para el cálculo de la potencia de este bastará con realizar el cálculo:
+En la etapa de ganancia el transistor que mas disipa potencia en cuanto a la señal en modo incremental es el último transistor de los emisores comunes\footnote{Los valores de corriente $I_c$ y tensión $V_{ce}$ son los calculados en la etapa de ganancia}. Para el cálculo de la potencia de este bastará con realizar el cálculo:
 \begin{align}
-P_{ec4}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 880mW
+P_{ec4}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 880 \ mW
 \end{align}
-En cuanto a las otras tensiones $V_{ce}$ de los transisotres debido a que no trabajan con señales tan grande se aproxima la potencia disipada a la de continua.
+
+En cuanto a las otras tensiones $V_{ce}$ de los transistores debido a que no trabajan con señales tan grande se aproxima la potencia disipada a la de continua.
 \begin{align}
-P_{ec-123}\approx V_{ce-cc} \cdot I_c \approx 620mW
+P_{ec-123}\approx V_{ce-cc} \cdot I_c \approx 620 \ mW
 \end{align}
-En cuanto a las resistencias de colector de los emisores compunes será una potencia de:
+
+Por otro lado, para las resistencias de colector de los emisores comunes será una potencia de:
 \begin{align}
-P_{Rc}= I_c^2 \cdot R_c= 0.55 W
+P_{Rc}= I_c^2 \cdot R_c= 0.55 \ W
 \end{align}
- Para la carga a activa bastará con realizar el producto de la tension de juntura por la corriente.
+
+Para la carga a activa bastará con realizar el producto de la tension de juntura por la corriente.
 \begin{align}
-P_{CS}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 1W
+P_{CS}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 1 \ W
 \end{align}
 
 \subsection{Etapa de entrada}
-Se calcula la potencia disipada por la etapa de entrada. Para los transistores del par diferencial, sabiendo $I_C$ y $V_{CE}$ (y despreciando la corriente de base) se obtiene aproximadamente unos $30 \ mW$, para cada uno, mientras que para el transistor de la fuente de corriente unos $106.23 \ mW$. Para el conjunto de las resistencias $R_V$ ($R_{107} + R_108$), $R_{105}$ y $R_{106}$, se obtiene una potencia de $111.57 \ mW$. Para $R_{30}$ se calculan $6.02 \ mW$, mientras que para $R_{31}$, $143.50 \ mW$. Finalmente, para los diodos $D_{19}$ y $D_{20}$, conjuntamente se calcula una potencia de $7.02 \ mW$. Luego, sumando todas las potencias disipadas, se obtiene total de $404.34 \ mW$. 
+Se calcula la potencia disipada por la etapa de entrada. Para los transistores del par diferencial, sabiendo $I_C$ y $V_{CE}$ (y despreciando la corriente de base) se obtiene aproximadamente: 
+\begin{equation} 
+	P_{Q65} = P_{Q66} \approx V_{CE} I_C \approx 30 \ mW
+\end{equation}
+para cada uno, mientras que para el transistor de la fuente de corriente
+\begin{equation} 
+	P_{Q9} \approx V_{CE} I_C \approx 106.23 \ mW
+\end{equation}
+
+Para el conjunto de las resistencias $R_V$ ($R_{107} + R_108$), $R_{105}$ y $R_{106}$, se obtiene una potencia de
+\begin{equation} 
+	P_{R105} + P_{R106} + P_{RV} \approx  I_C^2 \left(R_{105} + R_{106} + R_V \right) \approx 111.57 \ mW
+\end{equation}
+
+Para la resistencia $R_{30}$, se calculó 
+\begin{equation} 
+	P_{R30} \approx  I_O^2 R_{30} \approx 6.02 \ mW
+\end{equation}
+mientras que para $R_{31}$
+\begin{equation} 
+	P_{R31} \approx  \frac{\left( 30 \ V - 1.7 \ V \right)^2}{R_{31}} \approx 143.50 \ mW
+\end{equation}
+
+Luego, para los diodos $D_{19}$ y $D_{20}$, conjuntamente se calcula una potencia de
+\begin{equation} 
+	P_{D1} + P_{D2} \approx  \left( 1.7 \ V \right) \frac{30 \ V - 1.7 \ V}{R_{31}} \approx 7.02 \ mW
+\end{equation}
+ 
+Finalmente, sumando todas las potencias disipadas, se obtiene total de $404.34 \ mW$.  
 %Este valor se contrasta contra los $433.08 \ mW$ obtenidos de la simulación. Es entendible la diferencias
+
 %\end{document}
