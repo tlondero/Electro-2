@@ -1,4 +1,78 @@
-\subsection{Introducción}
+\subsection{Análisis Temporal}
+Se obtuvo la salida del circuito teniendo a la entrada una señal senoidal de frecuencia 1KHz y de amplitud $0.25 \ \hat{V}$ y otra simulación con la misma entrada pero sumado también ruido blanco con distribución uniforme de amplitud $25 \ m\hat{V}$.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{ImagenesSimulaciones/VRL.png}
+		\includegraphics[width=0.8\textwidth]{ImagenesSimulaciones/VRLNoise.png}
+	\caption{Tensión sobre la carga con y sin ruido.}
+	\label{fig:VRLN}
+\end{figure}
+
+\subsection{Análisis en Frecuencia}
+Se obtuvo el Bode del sistema como se observa a continuación:
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{ImagenesSimulaciones/BODE.png}
+	\caption{Bode del sistema.}
+	\label{fig:bode}
+\end{figure}
+
+Donde se puede apreciar una caida de 3dB respecto a la banda pasante tanto en $20 \ Hz$ como en $20 \ kHz$.
+
+\subsection{Análisis de Impedancias}
+Se simuló la impedancia tanto de entrada como de salida.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{ImagenesSimulaciones/Zin.png}
+	\caption{Impedancia de entrada del sistema.}
+	\label{fig:zin}
+\end{figure}
+Se puede notar que la impedancia de entrada en la banda audible es de $50 \ k\Omega$
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{ImagenesSimulaciones/Zout.png}
+	\caption{Impedancia de salida del sistema.}
+	\label{fig:zout}
+\end{figure}
+La impedancia de salida es un valor cercano del orden de las decenas de $m\Omega$, idealmente sería de $8 \ \Omega$ para que haya máxima transferencia de Potencia.
+Como también se midió la THD en la simulación obteniendo un valor de $0.400742\%$ cuando se disipa la máxima potencia.
+
+\subsection{Efectos de la resistencia del Jfet}
+Dado a que la resistencia del Jfet gobierna la corriente provista por el, variaciones en ella provocan un desvalance tanto en la tensión de salida, agregando un nivel de continua, como la potencia sobre los transistores de salida.
+
+A continuación se muestra una simulación en la cual se puede apreciar el cambio de la tensión de salida provocado por la variación de dicha resistencia.
+ \begin{figure}[H]
+\centering
+	\includegraphics[width=0.7\textwidth]{ImagenesSimulaciones/jfetvar1.png}
+	\caption{Variación de la tensión de salida en función de la resistencia del Jfet.}
+	\label{fig:mcvl}
+\end{figure}
+
+El desvalance en la tensión de salida de cada etapa puede llegar a no ser un problema debido a la configuración de puente H. Teniendo la carga conectada diferencialmente, y al estar en contrafase ambas ramas del circuito, se cancelaría la continua sobre la carga, pero este nivel de continua que carga cada rama resulta un problema debido a que si la potencia disipada por los transistores esta desbalanceada, afecta seriamente al rendimiento.
+ \begin{figure}[H]
+\centering
+	\includegraphics[width=0.7\textwidth]{ImagenesSimulaciones/DesvalanceP.png}
+	\caption{Variación de la potencia de los transistores de salida en función de la resistencia del Jfet.}
+	\label{fig:mcPl}
+\end{figure} 
+
+\subsection{Simulación del rendimiento}
+El rendimiento esta definido como:
+\begin{align}
+\eta = \frac{P_{RL}}{P_{vcc}+P_{vee}}
+\end{align}
+
+Para la simulación del rendimiento se utilizaron las siguientes directivas del LTSpice:
+
+\begin{itemize}
+\item .meas Pout AVG V(Fourier_R,Fourier_L)*I(R172)
+\item .meas Pin AVG -((V(+60V)*I(V2))-(V(-60V)*I(V3)))
+\item .meas Rend PARAM Pout/Pin
+\end{itemize}
+
+Finalmente, se obtuvo un rendimiento del $0.6977\%$, aproximadamente $70\%$.
+
+\subsection{Análisis de Potencia}
 Se realizaron simulaciones en LTSpice del circuito propuesto, así también se comprobó que los resultados teóricos concuerdan con las simulaciones, ademas se tuvo especial cuidado a la hora de evaluar que transistores y resistores usar en las etapas tal que no haya problemas de potencia, aquí se muestran las tensiones y potencias relevantes del circuito en cuanto a la elección crítica de componentes.
 
 Comenzando por los emisores comunes la potencia se encuentra cerca del máximo y la tensión $V_{ce}$ en un rango seguro.
@@ -74,57 +148,3 @@ Finalmente se muestra la simulación de potencia sobre la carga.
 	\label{fig:porl}
 \end{figure}
 Aquí se pueden apreciar varias cosas. En primer lugar, con una tensión de entrada de $0.5  \ \hat{V}$ se obtiene la mayor potencia, la cual corresponde a aproximadamente $1500 \ W$, también debe notarse que la potencia entregada por la fuente es aproximadamente $0 \ W$ cuando la potencia sobre la carga también lo es.
-
-Luego se obtuvo la salida del circuito teniendo a la entrada una señal senoidal de frecuencia 1KHz y de amplitud $0.25 \ \hat{V}$ y otra simulación con la misma entrada pero sumado también ruido blanco con distribución uniforme de amplitud $25 \ m\hat{V}$.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{ImagenesSimulaciones/VRL.png}
-		\includegraphics[width=0.8\textwidth]{ImagenesSimulaciones/VRLNoise.png}
-	\caption{Tensión sobre la carga con y sin ruido.}
-	\label{fig:VRLN}
-\end{figure}
-Finalmente se obtuvo el Bode del sistema como se observa a continuación:
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\textwidth]{ImagenesSimulaciones/BODE.png}
-	\caption{Bode del sistema.}
-	\label{fig:bode}
-\end{figure}
-
-Donde se puede apreciar una caida de 3dB respecto a la banda pasante tanto en $20 \ Hz$ como en $20 \ kHz$.
-
-También se simuló la impedancia tanto de entrada como de salida.
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\textwidth]{ImagenesSimulaciones/Zin.png}
-	\caption{Impedancia de entrada del sistema.}
-	\label{fig:zin}
-\end{figure}
-Se puede notar que la impedancia de entrada en la banda audible es de $50 \ k\Omega$
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\textwidth]{ImagenesSimulaciones/Zout.png}
-	\caption{Impedancia de salida del sistema.}
-	\label{fig:zout}
-\end{figure}
-La impedancia de salida es un valor cercano del orden de las decenas de $m\Omega$, idealmente sería de $8 \ \Omega$ para que haya máxima transferencia de Potencia.
-Como también se midió la THD en la simulación obteniendo un valor de $0.400742\%$ cuando se disipa la máxima potencia.
-
-\subsection{Efectos de la resistencia del Jfet}
-Dado a que la resistencia del Jfet gobierna la corriente provista por el, variaciones en ella provocan un desvalance tanto en la tensión de salida, agregando un nivel de continua, como la potencia sobre los transistores de salida.
-
-A continuación se muestra una simulación en la cual se puede apreciar el cambio de la tensión de salida provocado por la variación de dicha resistencia.
- \begin{figure}[H]
-\centering
-	\includegraphics[width=0.7\textwidth]{ImagenesSimulaciones/jfetvar1.png}
-	\caption{Variación de la tensión de salida en función de la resistencia del Jfet.}
-	\label{fig:mcvl}
-\end{figure}
-
-El desvalance en la tensión de salida de cada etapa puede llegar a no ser un problema debido a la configuración de puente H. Teniendo la carga conectada diferencialmente, y al estar en contrafase ambas ramas del circuito, se cancelaría la continua sobre la carga, pero este nivel de continua que carga cada rama resulta un problema debido a que si la potencia disipada por los transistores esta desbalanceada, afecta seriamente al rendimiento.
- \begin{figure}[H]
-\centering
-	\includegraphics[width=0.7\textwidth]{ImagenesSimulaciones/DesvalanceP.png}
-	\caption{Variación de la potencia de los transistores de salida en función de la resistencia del Jfet.}
-	\label{fig:mcPl}
-\end{figure} 

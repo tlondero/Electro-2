@@ -4,41 +4,6 @@
 
 %\subsection{Introducción}
 
-\subsection{Simulación de  rendimiento}
-El rendimiento esta definido como:
-\begin{align}
-\eta = \frac{P_{RL}}{P_{vcc}+P_{vee}}
-\end{align}
-Teniendo en cuenta que la potencia para las señales senoidales se toma la potencia eficaz, siendo esta:
-\begin{align}
-P_{R}=V_{R-RMS}\cdot I_{R-RMS} =\frac{\hat{V_{R}}}{\sqrt{2}} \cdot \frac{\hat{I_{R}}}{\sqrt{2}}
-\end{align}
-Finalmente fue simulado el rendimiento obteniendo los siguientes valores:
-\begin{align}
-\eta=\frac{1083 / 2 W}{ 2\cdot 18 W + 2 \cdot 690 /2}\approx 74.5 \%
-\end{align}
-
-\subsection{Etapa de ganancia}
-En la etapa de ganancia el transistor que mas disipa potencia en cuanto a la señal en modo incremental es el último transistor de los emisores comunes\footnote{Los valores de corriente $I_c$ y tensión $V_{ce}$ son los calculados en la etapa de ganancia}. Para el cálculo de la potencia de este bastará con realizar el cálculo:
-\begin{align}
-P_{ec4}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 880 \ mW
-\end{align}
-
-En cuanto a las otras tensiones $V_{ce}$ de los transistores debido a que no trabajan con señales tan grande se aproxima la potencia disipada a la de continua.
-\begin{align}
-P_{ec-123}\approx V_{ce-cc} \cdot I_c \approx 620 \ mW
-\end{align}
-
-Por otro lado, para las resistencias de colector de los emisores comunes será una potencia de:
-\begin{align}
-P_{Rc}= I_c^2 \cdot R_c= 0.55 \ W
-\end{align}
-
-Para la carga a activa bastará con realizar el producto de la tension de juntura por la corriente.
-\begin{align}
-P_{CS}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 1 \ W
-\end{align}
-
 \subsection{Etapa de entrada}
 Se calcula la potencia disipada por la etapa de entrada. Para los transistores del par diferencial, sabiendo $I_C$ y $V_{CE}$ (y despreciando la corriente de base) se obtiene aproximadamente: 
 \begin{equation} 
@@ -67,8 +32,30 @@ Luego, para los diodos $D_{19}$ y $D_{20}$, conjuntamente se calcula una potenci
 \begin{equation} 
 	P_{D1} + P_{D2} \approx  \left( 1.7 \ V \right) \frac{30 \ V - 1.7 \ V}{R_{31}} \approx 7.02 \ mW
 \end{equation}
+
+\subsection{Etapa de ganancia}
+En la etapa de ganancia el transistor que mas disipa potencia en cuanto a la señal en modo incremental es el último transistor de los emisores comunes\footnote{Los valores de corriente $I_c$ y tensión $V_{ce}$ son los calculados en la etapa de ganancia}. Para el cálculo de la potencia de este bastará con realizar el cálculo:
+\begin{align}
+P_{ec4}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 880 \ mW
+\end{align}
+
+En cuanto a las otras tensiones $V_{ce}$ de los transistores debido a que no trabajan con señales tan grande se aproxima la potencia disipada a la de continua.
+\begin{align}
+P_{ec-123}\approx V_{ce-cc} \cdot I_c \approx 620 \ mW
+\end{align}
+
+Por otro lado, para las resistencias de colector de los emisores comunes será una potencia de:
+\begin{align}
+P_{Rc}= I_c^2 \cdot R_c= 0.55 \ W
+\end{align}
+
+Para la carga a activa bastará con realizar el producto de la tension de juntura por la corriente.
+\begin{align}
+P_{CS}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 1 \ W
+\end{align}
  
-Finalmente, sumando todas las potencias disipadas, se obtiene total de $404.34 \ mW$.  
 %Este valor se contrasta contra los $433.08 \ mW$ obtenidos de la simulación. Es entendible la diferencias
+
+\subsection{Etapa de salida}
 
 %\end{document}
