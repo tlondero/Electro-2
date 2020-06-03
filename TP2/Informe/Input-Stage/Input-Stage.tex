@@ -62,27 +62,27 @@ Se sabe que  existen etapas que acumulan cambios de la fase, siendo estas las al
 \subsection{Calculo de componentes}
 Para poder seleccionar los elementos y parámetros que componen la etapa de entrada, ya que se polariza ambos transistores por una fuente de corriente compensada, se comenzó por dicha fuente, para así obtener la siguiente ecuación:
 \begin{equation}
-	-15 \ V - 2V_{D} + V_{BE} + 15 \ V = I_O R 
+	-15 \ V - 2V_{D} + V_{BE} + 15 \ V = I_O R_{30} 
 \end{equation}
 
 Recorriendo la malla de entrada:
 \begin{equation}
-	- V_{BE} - \frac{R_V}{2} I_C - R I_O - V_{CE2} + 15 \ V = 0
+	- V_{BE} - \frac{R_V}{2} I_C - R_{30} I_O - V_{CEQ9} + 15 \ V = 0
 \end{equation}
 
 Recorriendo la malla del par, se llega a la expresión:
 \begin{equation}
-	15 \ V - R_C I_C - V_{CE1} - \frac{R_V}{2} I_C - R I_O - V_{CE2} + 15 \ V = 0
+	15 \ V - R_{105} I_C - V_{CEQ65} - \frac{R_V}{2} I_C - R_{30} I_O - V_{CEQ9} + 15 \ V = 0
 \end{equation}
 
 Además, se coloca un preset en los emisores del par para poder ajustar la corriente que circula, en caso de ser necesario. Dado esto último, la ganancia del par diferencial con el preset viene dada por la expresión:
 \begin{equation}
-	\Delta V_D = \frac{h_{fe} R_D}{2 h_{ie} + h_{fe} R_V} = \frac{R_C}{2 \frac{V_T}{I_C} + R_V}
+	\Delta V_D = \frac{h_{fe} R_D}{2 h_{ie} + h_{fe} R_V} = \frac{R_{105}}{2 \frac{V_T}{I_C} + R_V}
 \end{equation}
-siendo $I_C = \frac{I_O}{2}$ y $V_T \approx 25 \ mV$.
+siendo $I_C = \frac{I_O}{2}$, $V_T \approx 25 \ mV$ y $R_V = R_{107} + R_{108} = 2 R_{107} $.
 
 Se selecciona $R_V = 1 \ k\Omega$ ya que este es un valor típico para las resistencias con esta funcionalidad. Se busca que la ganancia de esta etapa sea baja, que no altere mucho la señal (no mayor a $10$ veces) y que los transistores se encuentren bien polarizados. Mediante el uso de las ecuaciones previamente mencionadas, se obtienen los siguientes valores de interés:
 \begin{itemize}
-	\item Para la fuente de corriente: $I_O = -9.41 \ mA$ y $R = 68 \ \Omega$.
-	\item Para la resistencia del colector: $R_C = 2 \ k\Omega$.
+	\item Para la fuente de corriente: $I_O = -9.41 \ mA$ y $R_{30} = 68 \ \Omega$.
+	\item Para la resistencia del colector: $R_{105} = 2 \ k\Omega$.
 \end{itemize}
