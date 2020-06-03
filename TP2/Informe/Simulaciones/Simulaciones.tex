@@ -65,9 +65,9 @@ El rendimiento esta definido como:
 Para la simulación del rendimiento se utilizaron las siguientes directivas del LTSpice:
 
 \begin{itemize}
-\item .meas Pout AVG V(Fourier_R,Fourier_L)*I(R172)
-\item .meas Pin AVG -((V(+60V)*I(V2))-(V(-60V)*I(V3)))
-\item .meas Rend PARAM Pout/Pin
+\item $.meas Pout AVG V(Fourier_R,Fourier_L)*I(R172)$
+\item $.meas Pin AVG -((V(+60V)*I(V2))-(V(-60V)*I(V3)))$
+\item $.meas Rend PARAM Pout/Pin$
 \end{itemize}
 
 Finalmente, se obtuvo un rendimiento del $0.6977\%$, aproximadamente $70\%$.
