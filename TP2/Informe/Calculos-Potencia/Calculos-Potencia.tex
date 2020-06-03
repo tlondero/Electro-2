@@ -1,5 +1,5 @@
 %\input{../Informe/Header.tex}
-%
+%%
 %\begin{document}
 
 %\subsection{Introducción}
@@ -23,12 +23,12 @@ En la etapa de ganancia el transistor que mas disipa potencia en cuanto a la se�
 \begin{align}
 P_{ec4}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 880 \ mW
 \end{align}
-
+Dado a la potencia RMS que disipa y la tensión que debe manejar se eligió un TIP41C, el cual puede manejar este trabajo sin disipador.
 En cuanto a las otras tensiones $V_{ce}$ de los transistores debido a que no trabajan con señales tan grande se aproxima la potencia disipada a la de continua.
 \begin{align}
 P_{ec-123}\approx V_{ce-cc} \cdot I_c \approx 620 \ mW
 \end{align}
-
+Este transistor todavia se encuentra dentro de la potencia que puede disipar sin disipador.
 Por otro lado, para las resistencias de colector de los emisores comunes será una potencia de:
 \begin{align}
 P_{Rc}= I_c^2 \cdot R_c= 0.55 \ W
@@ -38,7 +38,7 @@ Para la carga a activa bastará con realizar el producto de la tension de juntur
 \begin{align}
 P_{CS}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 1 \ W
 \end{align}
-
+En cuanto a este transistor cabe destacar que tampoco es necesario el uso de un disipador.
 \subsection{Etapa de entrada}
 Se calcula la potencia disipada por la etapa de entrada. Para los transistores del par diferencial, sabiendo $I_C$ y $V_{CE}$ (y despreciando la corriente de base) se obtiene aproximadamente: 
 \begin{equation} 
