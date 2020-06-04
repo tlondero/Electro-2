@@ -57,4 +57,46 @@ P_{CS}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\
 En cuanto a este transistor cabe destacar que tampoco es necesario el uso de un disipador.
 \subsection{Etapa de salida}
 
+Comenzando por la fuente de corriente compensada, se tiene que la potencia que disipa la resistencia que polariza a los diodos es de
+
+\begin{equation}
+3k3 \ \Omega \cdot 20 \ mA = 1.32 \ W
+\end{equation}
+
+Por lo que se deberá utilizar una resistencia de $2 \ W$. Tanto los diodos como la resistencia que fija la corriente del transistor disiparan muy poca potencia, debido a las pequeñas caídas de tensión sobre estos componentes. El transistor deberá disipar una potencia de
+
+\begin{equation}
+I_{c} \cdot (V_{ce_{cc}} + \frac{V_{ce_{ac}}}{\sqrt{2}}) = 7 \ mA \cdot (60V + 37.5V) = 682mW avg
+\end{equation}
+
+Continuando con el generador de bias, si bien la corriente que lo atraviesa es de unos $6 \ mA$, el generador de bias como máximo impone una caída de tensión de $4.6 \ V$, por lo que la potencia disipada será poca.
+
+Luego, por la resistencia conectada entre el generador de bias y el rail negativo de alimentación, que vale de $25 \ k\Omega$, circulan alrededor de $2mA$ por lo que se tiene que
+
+\begin{equation}
+I^2 \cdot R = 100mW
+\end{equation}
+
+Por lo que el resistor puede ser de $250mW$.
+
+Finalmente, pasando a la clase AB, para la cual se decidió utilizar 6 pares de transistores de salida en paralelo luego de analizar las cuentas que se detallarán a continuación pero para $N$ transistores, se tiene que la potencia media para los transistores de salida es
+
+\begin{equation}
+(60 \ V - \frac{53 \ V}{\sqrt{2}} - R_e \cdot \frac{13.5 \ A}{6\cdot \sqrt{2}})\cdot \frac{13.5 \ A}{6\cdot \sqrt{2}} = 17.8W avg
+\end{equation}
+
+para los transistores driver es
+
+\begin{equation}
+(60 \ V - \frac{53 \ V}{\sqrt{2}} - R_e \cdot \frac{13.5 \ A}{ \sqrt{2} \cdot \beta} - 0.7 \ V)\cdot \frac{13.5 \ A}{ \sqrt{2} \cdot \beta} = 1.49 \ W avg
+\end{equation}
+
+y para los transistores pre-driver es
+
+\begin{equation}
+(60 \ V - \frac{53 \ V}{\sqrt{2}} - R_e \cdot \frac{13.5 \ A}{ \sqrt{2} \cdot \beta^2} - 2 \cdot 0.7 \ V)\cdot \frac{13.5 \ A}{ \sqrt{2} \cdot \beta^2} = 0.144 \ W avg
+\end{equation}
+
+Los transistores a utilizar se decidarán luego de contrastar estos valores con los de la simulación, dado que estos transistores serán los componentes que más potencia disiparan en el circuito y se debe de prestar un especial cuidado.
+
 %\end{document}

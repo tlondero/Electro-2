@@ -56,7 +56,37 @@
 \section{Simulaciones}
 	\label{simulaciones}
 	\input{../Simulaciones/Simulaciones.tex}
+	
+\section{Cálculos de Disipador}
+	Dado que los transistores driver y de salida consumen una potencia de $1.41 \ W$ y $13 \ W$ en promedio, se debió realizar el cálculo de disipadores para estos. Para los transistores de salida se decidió utilizar un disipador de extrusión para poner a todos estos en un mismo disipador. Para un disipador con $N$ transistores, se puede considerar, si se deja un margen de espacio entre cada transistor, que estos ven la resistencia térmica del disipador $N$ veces más grande. Luego, se tiene que
+	
+	\begin{equation}
+	\frac{T_j - T_a}{R_{\theta jc} + N \cdot R_{\theta sa}} = 13 \ W
+	\end{equation}
+	
+Considerando una $T_j$ máxima de $170  C$, $30 C$ menos que la máxima según la datasheet de los transistores; una temperatura de ambiente de $45 C$; la $R_{\theta jc}$ de $0.7 \ \frac{ C}{W}$ proporcionada por el fabricante; que se dejará un espacio entre transistores equivalente a un mismo transistor de encapsulado TO-3 de ancho de 1 pulgada; y que se pondrán 12 transistores en un mismo disipador
+	
+	\begin{equation}
+	\frac{170  C - 45  C}{0.7 \frac{ C}{W} + 12 \cdot R_{\theta sa}} = 13 \ W
+	\end{equation}	
+	
+	\begin{equation}
+	R_{\theta sa} = 0.743 \ \frac{ C}{W}
+	\end{equation}
+	
+Por lo que se utilizarán dos disipadores ATS-EXL109 de 24 pulgadas de largo de extrusión junto al ventilador F16EA-03LLC/E de $3 \ V$ de continua para disminuir la resistencia térmica de los disipadores a $0.71 \ \frac{ C}{W}$ lo que deja un buen margen de seguridad si se considera que por lo general la música posee una potencia media menor a una pura senoidal constante, con lo cual se calcularon estos valores.
+Finalmente, para los transistores driver, se tiene que
 
+	\begin{equation}
+	\frac{T_j - T_a}{R_{\theta jc} + N \cdot R_{\theta sa}} = \frac{170  C - 45  C}{ 0.7 \frac{ C}{W} + \cdot R_{\theta sa}} = 1.41 \ W
+	\end{equation}
+	
+		\begin{equation}
+	R_{\theta sa} = 87.95 \ \frac{ C}{W}
+	\end{equation}
+
+Por lo que no necesitará disipador.	
+	
 \section{Conclusiones}
 	\label{simulaciones}
 	\input{../Conclusiones/Conclusiones.tex}
