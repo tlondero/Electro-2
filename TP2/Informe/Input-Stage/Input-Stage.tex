@@ -5,42 +5,42 @@ La etapa de entrada de un amplificador cumple con la función de restar a la ent
 
 \subsection{Distorsión}
 
-La distorsión puede ser provocada o provenir de distintas fuentes. Los amplificadores que se valen del uso de pares diferenciales como entrada se caracterizan por poseer un bajo offset de continua, dado a la cancelación de los voltages de $V_{BE}$. Pero mucho más notorio e importante es que la corriente de mantenimiento no atraviesa la red de realimentación. Finalmente, una ventaja también a destacar es que posee una linealidad superior a las entradas basadas en un solo transistor. Se puede observar la comparación de distorsión entre una etapa diferencial frente a una individual en la Figura (\ref{fig:thd1}).
+La distorsión puede ser provocada o provenir de distintas fuentes. Los amplificadores que se valen del uso de pares diferenciales como entrada se caracterizan por poseer un bajo offset de continua, dado a la cancelación de los voltages de $V_{BE}$. Pero mucho más notorio e importante es que la corriente de mantenimiento no atraviesa la red de realimentación. Finalmente, una ventaja también a destacar es que posee una linealidad superior a las entradas basadas en un solo transistor. %Se puede observar la comparación de distorsión entre una etapa diferencial frente a una individual en la Figura (\ref{fig:thd1}).
 
-Es muy importante reflejar que esta etapa debe la que posee la mínima distorsión, por sobre las demás, ya que las señales que maneja son pequeñas, dándose el aumento de estas en la etapa de amplificación.    
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth]{ImagenesInput-Stage/thd1.PNG}
-	\caption{Comparación de THD en función de la frecuencia.}
-	\label{fig:thd1}
-\end{figure}
+Es importante reflejar que esta etapa debe ser la que posee la mínima distorsión, por sobre las demás, ya que las señales que maneja son pequeñas, dándose el aumento de estas en la etapa de amplificación.    
+%\begin{figure}[H]
+%\centering
+%	\includegraphics[width=0.6\textwidth]{ImagenesInput-Stage/thd1.PNG}
+%	\caption{Comparación de THD en función de la frecuencia.}
+%	\label{fig:thd1}
+%\end{figure}
 
 Si bien, seleccionando adecuadamente las resistencias del circuito se puede balancear el par, quedan pendientes ciertos parámetros. Las corrientes de colectores deben ser lo más similares posibles. Debe existir una precisión del $1\%$ o mejor para poder optimizar la linealidad del la etapa, y de esta forma, reducir la distorsión en altas frecuencias.
-\begin{figure}[H]
-\centering
-	\includegraphics[width=0.6\textwidth]{ImagenesInput-Stage/thd2.PNG}
-	\caption{THD en función de la entrada (en $dBu$, nivel de referencia $0.7746 \ V$) al variar el balance de la corriente del colector . Número de curva y distorsión especificadas en la Tabla (\ref{tab:thd2}).}
-	\label{fig:thd2}
-\end{figure}
-
-\begin{table}[H]
-\centering
-\begin{tabular}{cc}
-\hline
-\textbf{Número de curva} & \textbf{Variación $\mathbf{I_C}$ [\%]} \\ \hline
-1                        & 0                    \\
-2                        & 0.5                  \\
-3                        & 2.2                  \\
-4                        & 3.6                  \\
-5                        & 5.4                  \\
-6                        & 6.9                  \\
-7                        & 8.5                  \\
-8                        & 10             		\\
-\hline
-\end{tabular}
-\caption{Número de curva y distorsión de la Figura (\ref{fig:thd2}).}
-\label{tab:thd2}
-\end{table}
+%\begin{figure}[H]
+%\centering
+%	\includegraphics[width=0.6\textwidth]{ImagenesInput-Stage/thd2.PNG}
+%	\caption{THD en función de la entrada (en $dBu$, nivel de referencia $0.7746 \ V$) al variar el balance de la corriente del colector . Número de curva y distorsión especificadas en la Tabla (\ref{tab:thd2}).}
+%	\label{fig:thd2}
+%\end{figure}
+%
+%\begin{table}[H]
+%\centering
+%\begin{tabular}{cc}
+%\hline
+%\textbf{Número de curva} & \textbf{Variación $\mathbf{I_C}$ [\%]} \\ \hline
+%1                        & 0                    \\
+%2                        & 0.5                  \\
+%3                        & 2.2                  \\
+%4                        & 3.6                  \\
+%5                        & 5.4                  \\
+%6                        & 6.9                  \\
+%7                        & 8.5                  \\
+%8                        & 10             		\\
+%\hline
+%\end{tabular}
+%\caption{Número de curva y distorsión de la Figura (\ref{fig:thd2}).}
+%\label{tab:thd2}
+%\end{table}
 
 Una opción valida (e implementada en este diseño) se basa en el uso de una fuente de corriente compensada para polarizar el par. Además, se emplean resistencias en los emisores para ajustar dicho parámetro. Es importante recordar que dichos elementos no deben ser lo suficientemente grandes como para que afecte el ruido térmico.  
 
