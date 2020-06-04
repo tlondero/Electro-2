@@ -53,12 +53,12 @@ La corriente de mantenimiento a la entrada es uno de los parámetros que define 
 A pesar de ello, existen límites para esta corriente. El aumento de las corrientes de bias, como la caída de tensión a través de las resistencias son algunos ejemplos. El factor más limitante es la potencia disipada a lo largo de esta etapa, ya que no siempre deja margen para incrementar la $I_C$. 
 
 \subsection{Ruido}
-El ruido existente en la etapa de entrada surge de los componentes activos y las resistencias que se presentan en la entrada. Las condiciones de operación de los transistores se encuentran limitadas por los factores de SR y linealidad. Por otro lado, ya que el ruido es una función que dependen de $I_C$, bastan con ajustar dicho parámetro para poder reducir el ruido. 
+El ruido existente en la etapa de entrada surge de los componentes activos y las resistencias que se presentan en la entrada. Las condiciones de operación de los transistores se encuentran limitadas por los factores de SR y linealidad. Por otro lado, ya que el ruido es una función que depende de $I_C$, bastan con ajustar dicho parámetro para poder reducir el ruido. 
 
 Además de reducir las resistencias existentes en la etapa de entrada para así reducir el ruido térmico existente, es posible realizar el mismo efecto haciendo lo mismo con la resistencia observada a la salida del lazo de realimentación negativa. Este último paso es más delicado ya que puede generar grandes cambios en el sistema.
 
-\subsection{Limitación en banda}
-Se sabe que  existen etapas que acumulan cambios de la fase, siendo estas las altas frecuencias, las cuales tienden a ser más inestables y generar oscilaciones. Es así que se puede llegar a dañar los dispositivos a la salida del sistema por sobrecalentamiento, entre otros motivos. Esto es causado por la distorsión del amplificador y el incremento de la ganancia de lazo abierto. Limitar en banda esta ganancia evita que la señal del realimentador.
+%\subsection{Limitación en banda}
+%Se sabe que  existen etapas que acumulan cambios de la fase, siendo estas las altas frecuencias, las cuales tienden a ser más inestables y generar oscilaciones. Es así que se puede llegar a dañar los dispositivos a la salida del sistema por sobrecalentamiento, entre otros motivos. Esto es causado por la distorsión del amplificador y el incremento de la ganancia de lazo abierto. Limitar en banda esta ganancia evita que la señal del realimentador.
 
 \subsection{Calculo de componentes}
 La disposición establecida para la etapa de entrada es la siguiente:
@@ -92,6 +92,6 @@ siendo $I_C = \frac{I_O}{2}$, $V_T \approx 25 \ mV$ y $R_V = R_{107} + R_{108} =
 
 Se selecciona $R_V = 1 \ k\Omega$ ya que este es un valor típico para las resistencias con esta funcionalidad. Se busca que la ganancia de esta etapa sea baja, que no altere mucho la señal (no mayor a $10$ veces) y que los transistores se encuentren bien polarizados. Mediante el uso de las ecuaciones previamente mencionadas, se obtienen los siguientes valores de interés:
 \begin{itemize}
-	\item Para la fuente de corriente: $I_O = -9.41 \ mA$ y $R_{30} = 68 \ \Omega$.
+	\item Para la fuente de corriente: $I_O = 9.41 \ mA$ y $R_{30} = 68 \ \Omega$.
 	\item Para la resistencia del colector: $R_{105} = 2 \ k\Omega$.
 \end{itemize}
