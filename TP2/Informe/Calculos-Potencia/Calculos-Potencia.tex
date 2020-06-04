@@ -37,12 +37,12 @@ Luego, para los diodos $D_{19}$ y $D_{20}$, conjuntamente se calcula una potenci
 \subsection{Etapa de ganancia}
 Para el cálculo de la potencia del transistor con carga activa bastará con realizar el cálculo\footnote{Los valores de corriente $I_c$ y tensión $V_{ce}$ son los calculados en la etapa de ganancia}:
 \begin{align}
-P_{ec4}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 540 \ mW
+P_{ec4}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx 0.92 \ W
 \end{align}
 Dado a la potencia media que disipa y la tensión que debe manejar se eligió un TIP41C, el cual puede manejar este trabajo sin disipador.
 En cuanto a las otras tensiones $V_{ce}$ de los transistores debido a que no trabajan con señales tan grande se aproxima la potencia disipada a la de continua.
 \begin{align}
-P_{ec-123}\approx V_{ce-cc} \cdot I_c \approx 597 \ mW
+P_{ec-123}\approx V_{ce-cc} \cdot I_c \approx 600 \ mW
 \end{align}
 Este transistor todavía se encuentra dentro de la potencia que puede disipar sin disipador.
 Por otro lado, para las resistencias de colector de los emisores comunes será una potencia de:
@@ -52,7 +52,7 @@ P_{Rc}= I_c^2 \cdot R_c \approx 0.55 \ W
 
 Para la carga a activa bastará con realizar el producto de la tension de juntura por la corriente.
 \begin{align}
-P_{CS}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx  632\ mW
+P_{CS}\approx\left[V_{ce-cc} + \frac{\hat{V_{ce-ac}}}{\sqrt{2}}\right]\cdot I_c\approx  1 \ W
 \end{align}
 En cuanto a este transistor cabe destacar que tampoco es necesario el uso de un disipador.
 \subsection{Etapa de salida}
@@ -71,7 +71,7 @@ I_{c} \cdot (V_{ce_{cc}} + \frac{V_{ce_{ac}}}{\sqrt{2}}) = 7 \ mA \cdot (60V + 3
 
 Continuando con el generador de bias, si bien la corriente que lo atraviesa es de unos $6 \ mA$, el generador de bias como máximo impone una caída de tensión de $4.6 \ V$, por lo que la potencia disipada será poca.
 
-Luego, por la resistencia conectada entre el generador de bias y el rail negativo de alimentación, que vale de $25 \ k\Omega$, circulan alrededor de $2mA$ por lo que se tiene que
+Luego, por la resistencia conectada entre el generador de bias y el rail negativo de alimentación, que tiene un valor de $25 \ k\Omega$, circulan alrededor de $2mA$ por lo que se tiene que
 
 \begin{equation}
 I^2 \cdot R = 100mW
