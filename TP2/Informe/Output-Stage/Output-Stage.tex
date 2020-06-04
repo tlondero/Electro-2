@@ -5,7 +5,7 @@ La etapa de salida de un amplificador de audio se encarga de entregar la corrien
 
 Por un lado, se puede utilizar tecnología FET, sin embargo, estos presentan muy pocas ventajas frente a desventajas con otras tecnologías. Una alternativa aún utilizada son las válvulas, que quedan descartadas al no ser relevante en este trabajo. Otra alternativa, mucho más popular, es usar tecnología BJT, la cual será nuestra opción. 
 
-Existen varias clases de etapa de salidas distintas, entre ellas A, con una alta linealidad pero muy baja eficiencia; clase B, la cual soluciona el problema de la eficiencia, al costo de la distorsión por crossover; la clase AB, un compromiso entre ambas; variaciones de la popular clase AB, como la clase G que utiliza 4 rieles de alimentación distintos, y muchas más.
+Existen varias clases de etapas de salida distintas, entre ellas A, con una alta linealidad pero muy baja eficiencia; clase B, la cual soluciona el problema de la eficiencia, al costo de la distorsión por crossover; la clase AB, un compromiso entre ambas; variaciones de la popular clase AB, como la clase G que utiliza 4 rieles de alimentación distintos, y muchas más.
 En el amplificador de audio diseñado se utilizará clase AB al ser una consideración de diseño.
 
 Dentro de la clase AB existen muchas topologías distintas, cada una con sus respectivas ventajas y desventajas. Una de ellas es la topología EF (\textit{emitter-follower}) compuesta por un seguidor por emisor o dos en cascada. En esta última, un transistor funciona como \textit{driver}, generalmente situado en un punto Q muy estable. Este transistor proporciona la corriente de base al siguiente, generalmente un transistor de potencia, por el cual fluye la corriente que se le entrega a la carga. Dentro de esta topología existen tres tipos mostrados en la Figura (\ref{fig:ef}). En el tipo 1 los resistores de emisor se conectan a la salida. Estos resistores colocan al driver en un punto Q estable. El tipo 2 posee la ventaja de ahorrarse un resistor, colocando uno solo entre los emisores de los transistores. Además, los transistores nunca se polarizarán en inversa al pasar de un semiciclo al otro. En el tipo 3, se conectan los resistores a los rieles de alimentación, lo cual puede mejorar el apagado de altas frecuencias.
@@ -42,7 +42,7 @@ Naturalmente surge al analizar estas etapas de salida la idea de colocar tres tr
 \end{figure}
 
 \subsection{Topología Utilizada}
-Debido a la alta potencia que se deberá disipar sobre la carga, que al ser de tan solo $8 \ \Omega$ provoca corrientes muy grandes, se decidió utilizar una topología basadas en triples detallado en la Figura (\ref{fig:triples}). Esto permite, como ya descrito antes, utilizar transistores de media potencia como pre-drivers que tanto permanezcan a una temperatura estable como posean una pequeña excursión en corriente, lo que aumenta la linealidad de la etapa de salida. Luego, el transistor driver y de salida serán de potencia. Se utilizará una configuración con pares de realimentación para aumentar aún más la linealidad.
+Debido a la alta potencia que se deberá disipar sobre la carga, que al ser de tan solo $8 \ \Omega$ provoca corrientes muy grandes, se decidió utilizar una topología basadas en triples. Esto permite, como ya descrito antes, utilizar transistores de media potencia como pre-drivers que tanto permanezcan a una temperatura estable como posean una pequeña excursión en corriente, lo que aumenta la linealidad de la etapa de salida. Luego, el transistor driver y de salida serán de potencia.
 
  %, trim = {0 0 0 20},clip
 \begin{figure}[H]
@@ -80,10 +80,10 @@ Para el generador de bias se utilizó inicialmente un multiplicador de Vbe compu
 La corriente que fluye por las resistencias $R_1$ y $R_2$ está gobernada por tanto la caída de $V_{be}$ como por el valor de $R_2$. Imponiendo una corriente de $2 \ mA$ para estas resistencias, se tiene que
 
 \begin{equation}
-I_R = \frac{0.6 \ V}{2 \ mA} = 300 \ \Omega
+R_2 = \frac{0.6 \ V}{2 \ mA} = 300 \ \Omega
 \end{equation}
 
-Luego, dado que se encuentran seis caídas de $V_{be}$, lo cual equivale a $4.2 \ V$, se decidió para poder ajustar el nivel de corriente de reposo de los transistores de salida, tomar ese valor como central y con un trimmer brindar una excursión bilateral frente este valor central. Si el trimmer se coloca en la posición de menor resistencia, habrá una gran distorsión de crossover, mientras que si se coloca en la posición de mayor resistencia habrá una gran corriente de reposo. Teniendo esto en cuenta, y las recomendaciones del libro de Douglas Self, de utilizar un $V_{bias}$ de $3.9 \ V$ para la configuración Triple EF, se tiene que $R_2 = R_{2-fija} + R_{2-trimmer}$. $R_{2-fija} = 1.5 \ k\Omega$ y $R_{2-trimmer} = 500 \ \Omega$ nominales. Esto hará que
+Luego, dado que se encuentran seis caídas de $V_{be}$, lo cual equivale a $4.2 \ V$, se decidió para poder ajustar el nivel de corriente de reposo de los transistores de salida, tomar ese valor como central y con un trimmer brindar una excursión bilateral frente a este valor central. Si el trimmer se coloca en la posición de menor resistencia, habrá una gran distorsión de crossover, mientras que si se coloca en la posición de mayor resistencia habrá una gran corriente de reposo. Teniendo esto en cuenta, y las recomendaciones del libro de Douglas Self, de utilizar un $V_{bias}$ de $3.9 \ V$ para la configuración Triple EF, se tiene que $R_2 = R_{2-fija} + R_{2-trimmer}$. $R_{2-fija} = 1.5 \ k\Omega$ y $R_{2-trimmer} = 500 \ \Omega$ nominales. Esto hará que
 
 \begin{equation}
 3.6 \ V < V_{bias} = V_{be}\cdot \frac{R_a + R_b}{R_b} < 4.6 \ V

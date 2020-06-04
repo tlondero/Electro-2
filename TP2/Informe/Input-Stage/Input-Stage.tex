@@ -5,7 +5,7 @@ La etapa de entrada de un amplificador cumple con la función de restar a la ent
 
 \subsection{Distorsión}
 
-La distorsión puede ser provocada o provenir de distintas fuentes. Los amplificadores que se valen del uso de pares diferenciales como entrada se caracterizan por poseer un bajo offset de continua, dado a la cancelación de los voltages de $V_{BE}$. Pero mucho más notorio e importante es que la corriente de mantenimiento no atraviesa la red de realimentación. Finalmente, una ventaja también a destacar es que posee una linealidad superior a las entradas basadas en un solo transistor. %Se puede observar la comparación de distorsión entre una etapa diferencial frente a una individual en la Figura (\ref{fig:thd1}).
+La distorsión puede ser provocada o provenir de distintas fuentes. Los amplificadores que se valen del uso de pares diferenciales como entrada se caracterizan por poseer un bajo offset de continua, dado a la cancelación de los voltajes de $V_{BE}$. Pero mucho más notorio e importante es que la corriente de mantenimiento no atraviesa la red de realimentación. Finalmente, una ventaja también a destacar es que posee una linealidad superior a las entradas basadas en un solo transistor. %Se puede observar la comparación de distorsión entre una etapa diferencial frente a una individual en la Figura (\ref{fig:thd1}).
 
 Es importante reflejar que esta etapa debe ser la que posee la mínima distorsión, por sobre las demás, ya que las señales que maneja son pequeñas, dándose el aumento de estas en la etapa de amplificación.    
 %\begin{figure}[H]
@@ -48,7 +48,8 @@ Una opción valida (e implementada en este diseño) se basa en el uso de una fue
 
 La transconductancia aumenta con la corriente de colector. Elevar este último parámetro es posible y relativamente sencillo. Una técnica empleada para poder mejorar la linealidad en altas frecuencias consiste en aumentar la corriente mencionada para luego reducirla a través del lazo de realimentación negativa. Esta no linealidad es atribuida a la resistencia del $R_E$ del emisor.%, la cual no es una resistencia física, sino que una resultante de la expresión de la pendiente de la corriente de colector. 
 
-La corriente de mantenimiento a la entrada es uno de los parámetros que define el máximo slew rate (SR). Otro factor importante que lo limita es el polo dominante proveniente del capacitor de Miller. Este último es solucionado por los requerimientos que se deben cumplir para conseguir la estabilidad. Por otro lado, aumentar la corriente de colector puede aumentar el factor de SR sin afectar la estabilidad, siempre y cuando, la transconductancia se mantenga en el valor deseado. 
+La corriente de mantenimiento a la entrada es uno de los parámetros que define el máximo slew rate (SR). Otro factor que lo limita es el polo dominante proveniente del capacitor de Miller. %Este último es solucionado por los requerimientos que se deben cumplir para conseguir la estabilidad.
+Por otro lado, aumentar la corriente de colector puede aumentar el factor de SR sin afectar la estabilidad, siempre y cuando, la transconductancia se mantenga en el valor deseado. 
 
 A pesar de ello, existen límites para esta corriente. El aumento de las corrientes de bias, como la caída de tensión a través de las resistencias son algunos ejemplos. El factor más limitante es la potencia disipada a lo largo de esta etapa, ya que no siempre deja margen para incrementar la $I_C$. 
 
